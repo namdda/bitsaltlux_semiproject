@@ -1,0 +1,20 @@
+/bin/
+
+# Eclipse
+.classpath
+.project
+.settings/
+/target
+target/*
+**/target/
+**/.settings/
+**/.project
+**/.classpath
+
+# Intellij
+.idea/
+*.iml
+*.iws
+
+# Mac
+.DS_Store
