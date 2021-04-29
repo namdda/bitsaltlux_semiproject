@@ -1,8 +1,89 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+	<bean id="environmentVariablesConfiguration" class="org.jasypt.encryption.pbe.config.EnvironmentStringPBEConfig">
+		<property name="algorithm" value="PBEWithMD5AndDES"/>
+		<property name="passwordEnvName" value="APP_ENCRYPTION_PASSWORD"/>
+	</bean>
+
+	<bean id="configurationEncryptor" class="org.jasypt.encryption.pbe.StandardPBEStringEncryptor">
+		<property name="config" ref="environmentVariablesConfiguration"/>
+		<property name="password" value="jdbcPassWord"/>
+	</bean>
+
+	<bean id="propertyConfig" class="org.jasypt.spring31.properties.EncryptablePropertyPlaceholderConfigurer">
+		<constructor-arg ref="configurationEncryptor"/>
+		<property name="locations">
+			<list>
+				<value>classpath:config/properties/*Config.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="dataSourceProxy" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${jdbc.oracleDriver}"/>
+		<property name="url" value="${jdbc.oracleUrl}" />
+		<property name="username" value="${jdbc.oracleUserName}" />
+		<property name="password" value="${jdbc.oraclePassWord}" />
+	</bean>
+
+	<bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
+		<constructor-arg ref="dataSourceProxy" />
+		<property name="logFormatter">
+			<bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">
+				<property name="loggingType" value="MULTI_LINE" />
+				<property name="sqlPrefix" value="&#10;&#10;                        "/>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory" />
+	</bean>
 	
-	<!-- Root Context: defines shared resources visible to all other web components -->
-		
+	<bean id="dataSourceProxy2" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${mysql.mysqlDriver}"></property>
+		<property name="url" value="${mysql.mysqlUrl}"></property>
+		<property name="username" value="${mysql.mysqlUserName}"></property>
+		<property name="password" value="${mysql.mysqlPassWord}"></property>
+	</bean>
+	<bean id="dataSource2" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
+		<constructor-arg ref="dataSourceProxy2" />
+		<property name="logFormatter">
+			<bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">
+				<property name="loggingType" value="MULTI_LINE" />
+				<property name="sqlPrefix" value="&#10;&#10;                        "/>
+			</bean>
+		</property>
+	</bean>
+	<bean id="sqlSession2" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory2" />
+	</bean>
+	
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:META-INF/mybatis/mybatis-config.xml" />
+		<property name="mapperLocations" value="classpath:/sqlMapper/**/*Mapper.xml" />
+	</bean>
+
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
+		<constructor-arg index="0" ref="sqlSessionFactory"/>
+	</bean>
+
+	<bean id="sqlSessionFactory2" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource2" />
+		<property name="configLocation" value="classpath:META-INF/mybatis/mybatis-config.xml" />
+		<property name="mapperLocations" value="classpath:/sqlMapper/**/*Mapper.xml" />
+	</bean>
+
+	<bean id="sqlSessionTemplate2" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
+		<constructor-arg index="0" ref="sqlSessionFactory2"/>
+	</bean>
 </beans>
