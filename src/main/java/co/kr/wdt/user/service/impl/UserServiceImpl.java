@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import co.kr.wdt.user.dao.UserDao;
 import co.kr.wdt.user.service.UserService;
+import co.kr.wdt.user.vo.UserVo;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -15,6 +16,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public int checkExistid(String inputId) {
 		return userDao.checkExistid(inputId);
+	}
+
+	@Override
+	public void joinProc(UserVo userVo) {
+		userDao.joinProc(userVo);
 	}
 
 }

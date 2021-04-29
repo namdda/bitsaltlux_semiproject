@@ -1,9 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!doctype html>
 <html lang="en">
+
 <head>
 	<title>MEMBER-JOIN | Klorofil - Free Bootstrap Dashboard Template</title>
 	<meta charset="utf-8">
@@ -23,36 +24,7 @@
 	<link rel="apple-touch-icon" sizes="76x76" href="/assets/img/apple-icon.png">
 	<link rel="icon" type="image/png" sizes="96x96" href="/assets/img/favicon.png">
 	
-	<script src="/assets/js/jquery/jquery-3.6.0.js" type="text/javascript"></script>
-<script>
-$(function(){
-	$("#btn-check").click(function(){
-		const inputId = $("#inputId").val();
-		if(inputId == '') return false;
-		$.ajax({
-			url: "/user/existid.do",
-			type : "post",
-			data: {"inputId" : inputId},
-			dataType: 'text',
-			success: function(response){
-				if(response == 'success'){
-					$("#imgCheck").show();
-					$("#imgCheck").attr("disabled","disabled");
-					$("#inputId").attr("readonly","readonly");
-				} else {
-					$("#imgCheck").hide();
-					alert('이미 존재하는 학번입니다. 다른 학번을 사용해 주세요');
-					$("#inputId").val('').focus();
-				}
-			},
-			error: function(xhr, status, e){
-				console.error(status + ":" + e);
-			}
-		});
-	});
-})
-
-</script>
+	
 </head>
 
 <body>
@@ -64,9 +36,6 @@ $(function(){
 				<a href="index.html"><img src="/assets/img/logo-dark.png" alt="Klorofil Logo" class="img-responsive logo"></a>
 			</div>
 			<div class="container-fluid">
-				<div class="navbar-btn">
-					<button type="button" class="btn-toggle-fullwidth"><i class="lnr lnr-arrow-left-circle"></i></button>
-				</div>
 				<form class="navbar-form navbar-left">
 					<div class="input-group">
 						<input type="text" value="" class="form-control" placeholder="Search dashboard...">
@@ -116,49 +85,20 @@ $(function(){
 			<!-- MAIN CONTENT -->
 			<div class="main-content">
 				<div class="container-fluid">
-					<h3 class="page-title">Member join</h3>
+					<h3 class="page-title">Welcome to Dawon Site</h3>
 					<div class="row">
 						<div class="col-md-9">
 							<!-- INPUTS -->
 							<div class="panel">
-								<form method="post" action="/user/joinProc.do">
-									<div class="panel-body">
-										<div style="margin-bottom:10px;height: 40px;">
-											<span style="float:left; margin: 5px 7px 0 0;">이름 : </span> 
-											<input type="text" id="inputName" name="inputName" class="form-control" placeholder="이름" style="width:90%;float:left;" />
-										</div>
-										<div style="margin-bottom:10px;height: 40px;">
-											<span style="float:left; margin: 5px 10px 0 0;">학교: </span> 
-											<input type="text" id="inputSchool" name="inputSchool" class="form-control" placeholder="학교" style="width:90%;float:left;" />
-										</div>
-										<div style="margin-bottom:10px;height: 40px;">
-											<span style="float:left; margin: 5px 10px 0 0;">학번: </span> 
-											<input type="text" id="inputId" name="inputId" class="form-control" placeholder="학번" style="width:70%;float:left;margin-right: 10px;">&nbsp;&nbsp;
-											<input id="btn-check" class="btn btn-default" type="button" value="중복확인" style="float:left;">&nbsp;&nbsp;
-											<img id="imgCheck" style="width:30px; display:none; float:left; margin-left:10px;" src="/assets/img/check.png" />
-										</div>
-										<div style="margin-bottom:10px;height: 40px;">
-											<span style="float:left; margin: 5px 10px 0 0;">전공: </span>
-											<input type="text" id="inputMajor" name="inputMajor" class="form-control" placeholder="전공" style="width:70%;float:left;" />
-										</div>
-										<div style="margin-bottom:10px;height: 40px;">
-											<span style="float:left; margin: 5px 10px 0 0;">비밀번호: </span>
-											<input type="password" class="form-control" id="userPw" name="userPw" value="asecret" style="width:70%;float: left;" />
-										</div>
-										회원 등급:
-										<label class="fancy-radio">
-											<input name="level" value="pro" type="radio">
-											<span><i></i>교수</span>
-										</label>
-										<label class="fancy-radio">
-											<input name="level" value="student" type="radio" checked="checked">
-											<span><i></i>학생</span>
-										</label>
-										
-										<button class="btn btn-success" type="submit">가입하기</button>
-										<button class="btn btn-default" type="button" onclick="history.back();">뒤로 	가기</button>
-									</div>
-								</form>
+								<div id="content">
+			<div id="user" style= "text-align:center;">
+				<p class="jr-success">
+					회원가입을 축하합니다.
+					<br><br>
+					<a href="/login/loginPage.do">로그인하기</a>
+				</p>				
+			</div>
+		</div>
 							</div>
 							<!-- END INPUTS -->
 							
