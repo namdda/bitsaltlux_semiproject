@@ -147,36 +147,36 @@ $(function(){
 						<div class="col-md-9">
 							<!-- INPUTS -->
 							<div class="panel">
-								<form method="post" action="/user/updateProc.do">
+								<form method="post" name="frm" action="/user/updateProc.do">
 									<div class="panel-body">
-										<input type="hidden" id="no" name="no" value="${userVo.no }"> 
+										<input type="hidden" id="no" name="no" value="${resutl.no }"> 
 										<div style="margin-bottom:10px;height: 40px;">
 											<span style="float:left; margin: 5px 7px 0 0;">이름 : </span> 
-											<input type="text" id="inputName" name="inputName" class="form-control" value="${userVo.inputName}" style="width:90%;float:left;" />
+											<input type="text" id="inputName" name="inputName" class="form-control" value="${resutl.inputName}" style="width:90%;float:left;" />
 										</div>
 										<div style="margin-bottom:10px;height: 40px;">
 											<span style="float:left; margin: 5px 10px 0 0;">학교: </span> 
-											<input type="text" id="inputSchool" name="inputSchool" class="form-control" value="${userVo.inputSchool}" style="width:90%;float:left;" />
+											<input type="text" id="inputSchool" name="inputSchool" class="form-control" value="${resutl.inputSchool}" style="width:90%;float:left;" />
 										</div>
 										<div style="margin-bottom:10px;height: 40px;">
 											<span style="float:left; margin: 5px 10px 0 0;">학번: </span> 
-											<input type="text" id="inputId" name="inputId" class="form-control" value="${userVo.inputId}" style="width:70%;float:left;margin-right: 10px;">&nbsp;&nbsp;
+											<input type="text" id="inputId" name="inputId" class="form-control" value="${resutl.inputId}" style="width:70%;float:left;margin-right: 10px;" readonly="true">&nbsp;&nbsp;
 											<input id="btn-check" class="btn btn-default" type="button" value="중복확인" style="float:left;">&nbsp;&nbsp;
 											<img id="imgCheck" style="width:30px; display:none; float:left; margin-left:10px;" src="/assets/img/check.png" />
 										</div>
 										<div style="margin-bottom:10px;height: 40px;">
 											<span style="float:left; margin: 5px 10px 0 0;">전공: </span>
-											<input type="text" id="inputMajor" name="inputMajor" class="form-control" value="${userVo.inputMajor}" style="width:70%;float:left;" />
+											<input type="text" id="inputMajor" name="inputMajor" class="form-control" value="${resutl.inputMajor}" style="width:70%;float:left;" />
 										</div>
 										<div style="margin-bottom:10px;height: 40px;">
 											<span style="float:left; margin: 5px 10px 0 0;">비밀번호: </span>
-											<input type="password" class="form-control" id="userPw" name="userPw" value="${vo.userPw}" style="width:70%;float: left;" />
+											<input type="password" class="form-control" id="userPw" name="userPw" value="${resutl.userPw}" style="width:70%;float: left;" />
 										</div>
 										
 										
-										<button class="btn btn-success" type="submit">가입하기</button>
+										<button class="btn btn-success" type="submit">수정하기</button>
 										<button class="btn btn-default" type="button" onclick="history.back();">뒤로 	가기</button>
-										 <button  id="btn-remove" class="btn btn-danger" type="submit">탈퇴하기</button>
+										 <button  id="btn-remove" class="btn btn-danger" type="button">탈퇴하기</button>
 										
 									</div>
 								</form>
@@ -185,10 +185,10 @@ $(function(){
 							<script>
 								//삭제 버튼 누르면 삭제할 것이냐고 묻고 삭제한다고 하면 주소이동(BoardController의 remove 메소드 호출)
 								$(function(){
-								$('#btn-remove').click(function(){
-									if(confirm("Are u sure?")){
-										self.location.href = "/user/remove?no=${userVo.no}";
-										}
+									$('#btn-remove').click(function(){
+										var obj = document.frm;
+										obj.action = "/user/deleteProc.do";
+										obj.submit();
 									});
 								});
 							</script>

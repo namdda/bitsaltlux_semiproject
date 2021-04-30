@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
@@ -70,60 +71,21 @@ public class UserController {
 	 * */
 	
 	@RequestMapping(value="/userUpdate.do", method=RequestMethod.GET)
-	public String userUpdate(HttpServletRequest request,String inputId) {// @ModelAttribute UserVo userVo
-		/*
-		 * getParameter()는 웹브라우저에서 전송받은 request영역의 값을 읽어오고
-		   getAttribute()의 경우 setAttribute()속성을 통한 설정이 없으면 무조건 null값을 리턴한다.
-		 * */
-		HttpSession session = request.getSession(false);
-		
-		if(session !=null) {
-		System.out.println(session); // 세션은 있고(당연하지만)
-		/*     로그인 중 
-		 * 		session.setAttribute("userId", userVo.getInputId());
-				session.setAttribute("userNm", userVo.getInputName());
-				session.setAttribute("userMajor", userVo.getInputMajor());
-				session.setAttribute("userSchool", userVo.getInputSchool());
-				session.setAttribute("userLevel", userVo.getLevel());
-				session.setAttribute("userPw", userVo.getUserPw());
-				했으니까... 
-		 * */
-		//int str2 = Integer.parseInt(String.valueOf(session.getAttribute("no"))); // 얘는 null 이 나옴
-		int str = Integer.parseInt(String.valueOf(session.getAttribute("userId"))); //성공!!!!!!!!!
-		String str3 = String.valueOf(session.getAttribute("userPw")); //성공!!!!!!!!!
-		
-		//java.lang.ClassCastException: java.lang.Integer cannot be cast to java.lang.String
-		
-		
-		System.out.println(str);
-		//System.out.println(str2);
-		System.out.println(str3);
-		}
-		else {
-			System.out.println("null");
-		}
-		
-		session.getAttribute(inputId); // 이게 null 이다
-	
-		userService.userUpdate(inputId); // 정보 select 하기 
-		
+	public String userUpdate(@RequestParam String inputId, Model model) {
+		model.addAttribute("resutl", userService.userUpdate(inputId));
 		return "user/userUpdate";
 	}
 	
-	/**
-	 *  @RequestMapping("/detail/{boardSerialNo}")
-    public String detail(@PathVariable("boardSerialNo") String boardSerialNo, Model model) throws Exception {
-        BoardVO boardVO = boardService.detail(boardSerialNo);
-        model.addAttribute("vo",boardVO);	
-        return "board/boardDetail";
-    }
-    
-	 * 
-	 */
 	@RequestMapping(value="/updateProc.do", method=RequestMethod.POST)
-	public String updateProc(int no, @ModelAttribute UserVo userVo) {
+	public String updateProc(@ModelAttribute("resutl") UserVo userVo) {
 		userService.updateProc(userVo);
-		return "redirect:/user/userUpdate.do";
+		return "user/userUpdate";
+	}
+	
+	@RequestMapping(value="/deleteProc.do", method=RequestMethod.POST)
+	public String delteProc(@ModelAttribute UserVo userVo) {
+		userService.deleteProc(userVo);
+		return "redirect:/login/loginPage.do";
 	}
 
 }

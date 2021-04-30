@@ -39,6 +39,7 @@
 			, INPUT_SCHOOL
 			, INPUT_ID
 			, INPUT_MAJOR
+			, USER_PW
 			, LEVEL
 			, REG_DATE
 		FROM MEMBER
@@ -47,7 +48,7 @@
 
 	<update id="updateProc" parameterType="co.kr.wdt.user.vo.UserVo">
 		UPDATE MEMBER SET
-			, INPUT_NAME = #{inputName }
+			INPUT_NAME = #{inputName }
 			, INPUT_SCHOOL = #{inputSchool }
 			, INPUT_MAJOR = #{inputMajor }
 			, USER_PW = #{userPw }
