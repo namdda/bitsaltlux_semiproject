@@ -82,7 +82,7 @@
 						<li>
 							<a href="elements.html" class=""><i class="lnr lnr-code"></i>
 								<c:choose>
-									<c:when test="${sesessionScope.userLevel != 'PRO'}">
+									<c:when test="${sessionScope.userLevel != 'PRO'}">
 										<span>수강과목 조회</span>
 									</c:when>
 									<c:otherwise>
@@ -91,7 +91,7 @@
 								</c:choose>
 							</a>
 						</li>
-						<c:if test="${sesessionScope.userLevel == 'PRO'}">
+						<c:if test="${sessionScope.userLevel == 'PRO'}">
 							<li>
 								<a href="#subPages" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>(교수라면 보일 것) 과목</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 								<div id="subPages" class="collapse ">
