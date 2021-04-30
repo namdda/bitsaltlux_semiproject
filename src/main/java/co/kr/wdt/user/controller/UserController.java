@@ -1,5 +1,8 @@
 package co.kr.wdt.user.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -43,8 +46,12 @@ public class UserController {
 	}
 
 	@RequestMapping(value="/userUpdate.do", method=RequestMethod.GET)
-	public String userUpdate() {
-		System.out.println("::>>>>>>>>>>>>>>>>>>>>>>>>>>>>> welcometo 회원정보 조회 및 수정");
+	public String userUpdate(HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		session.getAttribute("userId");
+		session.getAttribute("userNm");
+		session.getAttribute("userMajor");
+		session.getAttribute("userSchool");
 		return "user/userUpdate";
 	}
 
