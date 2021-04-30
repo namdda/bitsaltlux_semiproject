@@ -121,42 +121,36 @@ $(function(){
 						<div class="col-md-9">
 							<!-- INPUTS -->
 							<div class="panel">
-								<form method="post" action="/user/joinProc.do">
+								<form method="post" action="/user/updateProc.do">
 									<div class="panel-body">
 										<div style="margin-bottom:10px;height: 40px;">
 											<span style="float:left; margin: 5px 7px 0 0;">이름 : </span> 
-											<input type="text" id="inputName" name="inputName" class="form-control" placeholder="이름" style="width:90%;float:left;" />
+											<input type="text" id="inputName" name="inputName" class="form-control" placeholder="${sessionScope.inputName}" style="width:90%;float:left;" />
 										</div>
 										<div style="margin-bottom:10px;height: 40px;">
 											<span style="float:left; margin: 5px 10px 0 0;">학교: </span> 
-											<input type="text" id="inputSchool" name="inputSchool" class="form-control" placeholder="학교" style="width:90%;float:left;" />
+											<input type="text" id="inputSchool" name="inputSchool" class="form-control" placeholder="${sessionScope.inputSchool}" style="width:90%;float:left;" />
 										</div>
 										<div style="margin-bottom:10px;height: 40px;">
 											<span style="float:left; margin: 5px 10px 0 0;">학번: </span> 
-											<input type="text" id="inputId" name="inputId" class="form-control" placeholder="학번" style="width:70%;float:left;margin-right: 10px;">&nbsp;&nbsp;
+											<input type="text" id="inputId" name="inputId" class="form-control" placeholder="${sessionScope.inputId}" style="width:70%;float:left;margin-right: 10px;">&nbsp;&nbsp;
 											<input id="btn-check" class="btn btn-default" type="button" value="중복확인" style="float:left;">&nbsp;&nbsp;
 											<img id="imgCheck" style="width:30px; display:none; float:left; margin-left:10px;" src="/assets/img/check.png" />
 										</div>
 										<div style="margin-bottom:10px;height: 40px;">
 											<span style="float:left; margin: 5px 10px 0 0;">전공: </span>
-											<input type="text" id="inputMajor" name="inputMajor" class="form-control" placeholder="전공" style="width:70%;float:left;" />
+											<input type="text" id="inputMajor" name="inputMajor" class="form-control" placeholder="${sessionScope.inputMajor}" style="width:70%;float:left;" />
 										</div>
 										<div style="margin-bottom:10px;height: 40px;">
 											<span style="float:left; margin: 5px 10px 0 0;">비밀번호: </span>
-											<input type="password" class="form-control" id="userPw" name="userPw" value="asecret" style="width:70%;float: left;" />
+											<input type="password" class="form-control" id="userPw" name="userPw" value="${sessionScope.userPw}" style="width:70%;float: left;" />
 										</div>
-										회원 등급:
-										<label class="fancy-radio">
-											<input name="level" value="PRO" type="radio">
-											<span><i></i>교수</span>
-										</label>
-										<label class="fancy-radio">
-											<input name="level" value="STUDENT" type="radio" checked="checked">
-											<span><i></i>학생</span>
-										</label>
+										
 										
 										<button class="btn btn-success" type="submit">가입하기</button>
 										<button class="btn btn-default" type="button" onclick="history.back();">뒤로 	가기</button>
+										 <button  id="btn-remove" class="btn btn-danger" type="submit">탈퇴하기</button>
+										
 									</div>
 								</form>
 							</div>

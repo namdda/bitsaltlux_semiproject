@@ -44,6 +44,7 @@ public class UserController {
 	
 	@RequestMapping(value="/userUpdate.do", method=RequestMethod.GET)
 	public String userUpdate() {
+		System.out.println("::>>>>>>>>>>>>>>>>>>>>>>>>>>>>> welcometo 회원정보 조회 및 수정");
 		return "user/userUpdate";
 	}
 	

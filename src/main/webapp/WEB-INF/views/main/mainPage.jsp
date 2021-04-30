@@ -79,8 +79,9 @@
 				<nav>
 					<ul class="nav">
 						<li><a href="mainPage.do" class="active"><i class="lnr lnr-home"></i> <span>메인페이지</span></a></li>
+						<li><a href="../user/userUpdate.do" class="active"><i class="lnr lnr-pencil"></i> <span>회원 정보</span></a></li>
 						<li>
-							<a href="../user/userUpdate.do" class=""><i class="lnr lnr-code"></i>
+							<a href="../subject/subjectView.do" class=""><i class="lnr lnr-code"></i>
 								<c:choose>
 									<c:when test="${sessionScope.userLevel != 'PRO'}">
 										<span>수강과목 조회</span>
@@ -93,7 +94,7 @@
 						</li>
 						<c:if test="${sessionScope.userLevel == 'PRO'}">
 							<li>
-								<a href="#subPages" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>(교수라면 보일 것) 과목</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+								<a href="#subPages" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span> 과목</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 								<div id="subPages" class="collapse ">
 									<ul class="nav">
 										<li><a href="page-profile.html" class="">과목 등록</a></li>
