@@ -50,7 +50,8 @@
 			, INPUT_NAME = #{inputName }
 			, INPUT_SCHOOL = #{inputSchool }
 			, INPUT_MAJOR = #{inputMajor }
-			, LEVEL = #{level }
+			, USER_PW = #{userPw }
+			, MODIFY_DATE = NOW()
 		WHERE NO = #{no }
 		AND INPUT_ID = #{inputId }
 	</update>
