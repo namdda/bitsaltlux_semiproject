@@ -3,10 +3,10 @@
 
 <mapper namespace="UserMapper">
 	<select id="checkExistid" parameterType="String" resultType="int">
-			SELECT COUNT(INPUT_ID) FROM MEMBER WHERE INPUT_ID = #{value}
+			SELECT COUNT(INPUT_ID) FROM MEMBER WHERE INPUT_ID = #{value }
 	</select>
-	
-	<insert id="joinProc"  parameterType="co.kr.wdt.user.vo.UserVo">
+
+	<insert id="joinProc" parameterType="co.kr.wdt.user.vo.UserVo">
 		INSERT INTO MEMBER (
 			NO
 			, INPUT_NAME
@@ -27,9 +27,35 @@
 			, NOW()
 		)
 		<selectKey keyProperty="no" resultType="int" order="AFTER">
-				<![CDATA[
-				SELECT LAST_INSERT_ID()
-				]]>
+		<![CDATA[
+			SELECT LAST_INSERT_ID()
+		]]>
 		</selectKey>
 	</insert>
+
+	<select id="userUpdate" parameterType="String" resultType="co.kr.wdt.user.vo.UserVo">
+		SELECT NO
+			, INPUT_NAME
+			, INPUT_SCHOOL
+			, INPUT_ID
+			, INPUT_MAJOR
+			, LEVEL
+			, REG_DATE
+		FROM MEMBER
+		WHERE INPUT_ID = #{value }
+	</select>
+
+	<update id="updateProc" parameterType="co.kr.wdt.user.vo.UserVo">
+		UPDATE MEMBER SET
+			, INPUT_NAME = #{inputName }
+			, INPUT_SCHOOL = #{inputSchool }
+			, INPUT_MAJOR = #{inputMajor }
+			, LEVEL = #{level }
+		WHERE NO = #{no }
+		AND INPUT_ID = #{inputId }
+	</update>
+
+	<delete id="deleteProc"  parameterType="co.kr.wdt.user.vo.UserVo">
+		DELETE FROM MEMBER WHERE NO = #{no} AND INPUT_ID = #{inputId }
+	</delete>
 </mapper>

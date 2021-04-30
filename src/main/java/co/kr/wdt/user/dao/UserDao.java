@@ -7,7 +7,7 @@ import co.kr.wdt.user.vo.UserVo;
 
 @Repository
 public class UserDao extends CommonSqlDao2 {
-	
+
 	private static String PREFIX = "UserMapper.";
 
 	public int checkExistid(String inputId) {
@@ -16,6 +16,18 @@ public class UserDao extends CommonSqlDao2 {
 
 	public void joinProc(UserVo userVo) {
 		insert (PREFIX + "joinProc", userVo);
+	}
+
+	public UserVo userUpdate(String inputId) {
+		return (UserVo) selectOne(PREFIX + "userUpdate", inputId);
+	}
+
+	public void updateProc(UserVo userVo) {
+		update(PREFIX + "updateProc", userVo);
+	}
+
+	public void deleteProc(UserVo userVo) {
+		delete(PREFIX + "deleteProc", userVo);
 	}
 
 }

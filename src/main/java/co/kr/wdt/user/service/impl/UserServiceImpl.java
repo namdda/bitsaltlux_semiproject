@@ -9,7 +9,7 @@ import co.kr.wdt.user.vo.UserVo;
 
 @Service
 public class UserServiceImpl implements UserService {
-	
+
 	@Autowired
 	private UserDao userDao;
 
@@ -23,4 +23,18 @@ public class UserServiceImpl implements UserService {
 		userDao.joinProc(userVo);
 	}
 
+	@Override
+	public UserVo userUpdate(String inputId) {
+		return userDao.userUpdate(inputId);
+	}
+
+	@Override
+	public void updateProc(UserVo userVo) {
+		userDao.updateProc(userVo);
+	}
+
+	@Override
+	public void deleteProc(UserVo userVo) {
+		userDao.deleteProc(userVo);
+	}
 }

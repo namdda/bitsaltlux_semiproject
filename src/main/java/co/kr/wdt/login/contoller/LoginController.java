@@ -18,7 +18,7 @@ import co.kr.wdt.user.vo.UserVo;
 @Controller
 @RequestMapping(value="/login")
 public class LoginController {
-	
+
 	@Autowired
 	private LoginService loginService;
 
@@ -27,14 +27,14 @@ public class LoginController {
 		model.addAttribute("param", param);
 		return "login/loginPage";
 	}
-	
+
 	@RequestMapping(value="/logOut.do", method=RequestMethod.GET)
 	public String logOut(HttpServletRequest request) {
 		HttpSession session = request.getSession(true);
 		session.invalidate();
 		return "login/loginPage";
 	}
-	
+
 	@RequestMapping(value="/loginProc.do", method=RequestMethod.POST)
 	public String loginProc(@ModelAttribute LoginVo loginVo, HttpServletRequest request) {
 		String redirectUrl = "redirect:/login/loginPage.do?Status=PWNE";
@@ -50,8 +50,6 @@ public class LoginController {
 				session.setAttribute("userLevel", userVo.getLevel());
 				redirectUrl = "redirect:/main/mainPage.do";
 			}
-		} else {
-			
 		}
 		return redirectUrl;
 	}
