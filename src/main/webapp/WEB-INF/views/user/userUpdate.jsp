@@ -67,15 +67,12 @@ $(function(){
 				<div class="navbar-btn">
 					<button type="button" class="btn-toggle-fullwidth"><i class="lnr lnr-arrow-left-circle"></i></button>
 				</div>
-				<form class="navbar-form navbar-left">
-					<div class="input-group">
-						<input type="text" value="" class="form-control" placeholder="Search dashboard...">
-						<span class="input-group-btn"><button type="button" class="btn btn-primary">Go</button></span>
-					</div>
-				</form>
+
+
 				<div id="navbar-menu">
 					<ul class="nav navbar-nav navbar-right">
 						<li class="dropdown">
+
 							<ul class="dropdown-menu notifications">
 								<li><a href="#" class="notification-item"><span class="dot bg-warning"></span>System space is almost full</a></li>
 								<li><a href="#" class="notification-item"><span class="dot bg-danger"></span>You have 9 unfinished tasks</a></li>
@@ -85,17 +82,11 @@ $(function(){
 								<li><a href="#" class="more">See all notifications</a></li>
 							</ul>
 						</li>
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="lnr lnr-question-circle"></i> <span>Help</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
-							<ul class="dropdown-menu">
-								<li><a href="#">Basic Use</a></li>
-								<li><a href="#">Working With Data</a></li>
-								<li><a href="#">Security</a></li>
-								<li><a href="#">Troubleshooting</a></li>
-							</ul>
+						<li>
+							<a href="/login/logOut.do" class="dropdown-toggle"><span>logout</span></a>
 						</li>
 						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="/assets/img/user.png" class="img-circle" alt="Avatar"> <span>Samuel</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="/assets/img/user.png" class="img-circle" alt="Avatar"> <span>${sessionScope.userNm }</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
 							<ul class="dropdown-menu">
 								<li><a href="#"><i class="lnr lnr-user"></i> <span>My Profile</span></a></li>
 								<li><a href="#"><i class="lnr lnr-envelope"></i> <span>Message</span></a></li>
@@ -111,12 +102,47 @@ $(function(){
 			</div>
 		</nav>
 		<!-- END NAVBAR -->
+		<!-- LEFT SIDEBAR -->
+		<div id="sidebar-nav" class="sidebar">
+			<div class="sidebar-scroll">
+				<nav>
+					<ul class="nav">
+						<li><a href="mainPage.do" class="active"><i class="lnr lnr-home"></i> <span>메인페이지</span></a></li>
+						<li><a href="../user/userUpdate.do" class="active"><i class="lnr lnr-pencil"></i> <span>회원 정보</span></a></li>
+						<li>
+							<a href="../subject/subjectView.do" class=""><i class="lnr lnr-code"></i>
+								<c:choose>
+									<c:when test="${sessionScope.userLevel != 'PRO'}">
+										<span>수강과목 조회</span>
+									</c:when>
+									<c:otherwise>
+										<span>내 과목 조회</span>
+									</c:otherwise>
+								</c:choose>
+							</a>
+						</li>
+						<c:if test="${sessionScope.userLevel == 'PRO'}">
+							<li>
+								<a href="#subPages" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span> 과목</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+								<div id="subPages" class="collapse ">
+									<ul class="nav">
+										<li><a href="page-profile.html" class="">과목 등록</a></li>
+										<li><a href="page-login.html" class="">과목 수정</a></li>
+									</ul>
+								</div>
+							</li>
+						</c:if>
+					</ul>
+				</nav>
+			</div>
+		</div>
+		<!-- END LEFT SIDEBAR -->
 		<!-- MAIN -->
 		<div class="main">
 			<!-- MAIN CONTENT -->
 			<div class="main-content">
 				<div class="container-fluid">
-					<h3 class="page-title">Member join</h3>
+					<h3 class="page-title">Member Info View &Update</h3>
 					<div class="row">
 						<div class="col-md-9">
 							<!-- INPUTS -->
@@ -125,21 +151,21 @@ $(function(){
 									<div class="panel-body">
 										<div style="margin-bottom:10px;height: 40px;">
 											<span style="float:left; margin: 5px 7px 0 0;">이름 : </span> 
-											<input type="text" id="inputName" name="inputName" class="form-control" placeholder="${sessionScope.inputName}" style="width:90%;float:left;" />
+											<input type="text" id="inputName" name="inputName" class="form-control" value="${sessionScope.inputName}" style="width:90%;float:left;" />
 										</div>
 										<div style="margin-bottom:10px;height: 40px;">
 											<span style="float:left; margin: 5px 10px 0 0;">학교: </span> 
-											<input type="text" id="inputSchool" name="inputSchool" class="form-control" placeholder="${sessionScope.inputSchool}" style="width:90%;float:left;" />
+											<input type="text" id="inputSchool" name="inputSchool" class="form-control" value="${sessionScope.inputSchool}" style="width:90%;float:left;" />
 										</div>
 										<div style="margin-bottom:10px;height: 40px;">
 											<span style="float:left; margin: 5px 10px 0 0;">학번: </span> 
-											<input type="text" id="inputId" name="inputId" class="form-control" placeholder="${sessionScope.inputId}" style="width:70%;float:left;margin-right: 10px;">&nbsp;&nbsp;
+											<input type="text" id="inputId" name="inputId" class="form-control" value="${sessionScope.inputId}" style="width:70%;float:left;margin-right: 10px;">&nbsp;&nbsp;
 											<input id="btn-check" class="btn btn-default" type="button" value="중복확인" style="float:left;">&nbsp;&nbsp;
 											<img id="imgCheck" style="width:30px; display:none; float:left; margin-left:10px;" src="/assets/img/check.png" />
 										</div>
 										<div style="margin-bottom:10px;height: 40px;">
 											<span style="float:left; margin: 5px 10px 0 0;">전공: </span>
-											<input type="text" id="inputMajor" name="inputMajor" class="form-control" placeholder="${sessionScope.inputMajor}" style="width:70%;float:left;" />
+											<input type="text" id="inputMajor" name="inputMajor" class="form-control" value="${sessionScope.inputMajor}" style="width:70%;float:left;" />
 										</div>
 										<div style="margin-bottom:10px;height: 40px;">
 											<span style="float:left; margin: 5px 10px 0 0;">비밀번호: </span>
@@ -154,6 +180,17 @@ $(function(){
 									</div>
 								</form>
 							</div>
+							
+							<script>
+								//삭제 버튼 누르면 삭제할 것이냐고 묻고 삭제한다고 하면 주소이동(BoardController의 remove 메소드 호출)
+								$(function(){
+								$('#btn-remove').click(function(){
+									if(confirm("Are u sure?")){
+										self.location.href = "/user/remove?no=${userVo.no}";
+										}
+									});
+								});
+							</script>
 							<!-- END INPUTS -->
 							
 						</div>
