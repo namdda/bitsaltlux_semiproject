@@ -32,7 +32,7 @@
 		<!-- NAVBAR -->
 		<nav class="navbar navbar-default navbar-fixed-top">
 			<div class="brand">
-				<a href="index.html"><img src="/assets/img/logo-dark.png" alt="Klorofil Logo" class="img-responsive logo"></a>
+				<a href="mainPage.do"><img src="/assets/img/logo-dark.png" alt="Klorofil Logo" class="img-responsive logo"></a>
 			</div>
 			<div class="container-fluid">
 				<div class="navbar-btn">
@@ -341,10 +341,7 @@
 	<script src="/assets/scripts/klorofil-common.js"></script>
 	<script src="/assets/js/clockTest.js"></script>
 
-	<script type="text/javascript">
-		consol.log(${userVo.inputName});
-		window.alert(${userVo.inputMajor});
-	</script>
+	
 
 </body>
 

@@ -107,7 +107,7 @@ $(function(){
 			<div class="sidebar-scroll">
 				<nav>
 					<ul class="nav">
-						<li><a href="mainPage.do" class="active"><i class="lnr lnr-home"></i> <span>메인페이지</span></a></li>
+						<li><a href="../main/mainPage.do" class="active"><i class="lnr lnr-home"></i> <span>메인페이지</span></a></li>
 						<li><a href="../user/userUpdate.do" class="active"><i class="lnr lnr-pencil"></i> <span>회원 정보</span></a></li>
 						<li>
 							<a href="../subject/subjectView.do" class=""><i class="lnr lnr-code"></i>

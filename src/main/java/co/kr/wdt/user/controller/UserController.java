@@ -44,15 +44,29 @@ public class UserController {
 		userService.joinProc(userVo);
 		return "redirect:/user/joinsuccess.do";
 	}
-
+	
+	
 	@RequestMapping(value="/joinsuccess.do", method=RequestMethod.GET)
 	public String joinsuccess() {
 		return "user/joinsuccess";
 	}
 
+	//페이지를 진입하는 동시에 select 해서 뿌려준다
+	//session은 true false 상관 없다 
+	//자바에서 끌어온다 (뿌려야한다) 
+	
+	//로그인 하면 세션을 만들었다(있다)
+	//세션이 담겼다 (여기서 userId) 가져온다 (jsp에서 꺼내오는게 아니라 자바에서 꺼내오는건다) 
+	
 	@RequestMapping(value="/userUpdate.do", method=RequestMethod.GET)
-	public String userUpdate(@ModelAttribute("uservo") String inputId) {
-		userService.userUpdate(inputId);
+	public String userUpdate(HttpServletRequest request,String inputId) {// @ModelAttribute UserVo userVo
+
+		HttpSession session = request.getSession(true);
+		
+		session.getAttribute(inputId); // 이게 null 이다
+	
+		userService.userUpdate(inputId); // 정보 select 하기 
+		
 		return "user/userUpdate";
 	}
 	
