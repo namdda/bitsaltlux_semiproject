@@ -79,23 +79,18 @@
 				<nav>
 					<ul class="nav">
 						<li><a href="index.jsp" class="active"><i class="lnr lnr-home"></i> <span>메인페이지</span></a></li>
-						<li><a href="elements.html" class=""><i class="lnr lnr-code"></i> <span>Elements</span></a></li>
-						<li><a href="charts.html" class=""><i class="lnr lnr-chart-bars"></i> <span>Charts</span></a></li>
-						<li><a href="panels.html" class=""><i class="lnr lnr-cog"></i> <span>Panels</span></a></li>
-						<li><a href="notifications.html" class=""><i class="lnr lnr-alarm"></i> <span>Notifications</span></a></li>
+						<li><a href="elements.html" class=""><i class="lnr lnr-code"></i> <span>수강과목 조회/내 과목 조회</span></a></li>
+						
 						<li>
-							<a href="#subPages" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>Pages</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+							<a href="#subPages" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>(교수라면 보일 것) 과목</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							<div id="subPages" class="collapse ">
 								<ul class="nav">
-									<li><a href="page-profile.html" class="">Profile</a></li>
-									<li><a href="page-login.html" class="">Login</a></li>
-									<li><a href="page-lockscreen.html" class="">Lockscreen</a></li>
+									<li><a href="page-profile.html" class="">과목 등록</a></li>
+									<li><a href="page-login.html" class="">과목 수정</a></li>
 								</ul>
 							</div>
 						</li>
-						<li><a href="tables.html" class=""><i class="lnr lnr-dice"></i> <span>Tables</span></a></li>
-						<li><a href="typography.html" class=""><i class="lnr lnr-text-format"></i> <span>Typography</span></a></li>
-						<li><a href="icons.html" class=""><i class="lnr lnr-linearicons"></i> <span>Icons</span></a></li>
+					
 					</ul>
 				</nav>
 			</div>
@@ -231,16 +226,18 @@
 									<div class="col-md-3">
 										<select class="form-control">
 											<option value="cheese">교수</option>
-											<option value="tomatoes">Tomatoes</option>
-											<option value="mozarella">Mozzarella</option>
-											<option value="mushrooms">Mushrooms</option>
-											<option value="pepperoni">Pepperoni</option>
-											<option value="onions">Onions</option>
+											<option value="tomatoes">교수1</option>
+											<option value="mozarella">교수2</option>
+											<option value="mushrooms">교수3</option>
+											<option value="pepperoni">교수4</option>
+											<option value="onions">교수5</option>
 										</select>
 									</div>
 									
+									
 									<br/>
 									<br/>
+									<span class="input-group-btn"><button type="button" class="btn btn-primary">Go</button></span>
 									
 									<form id="join-form" name="joinForm" method="post" action="${pageContext.request.contextPath }/user/join">
 										<table class="table table-bordered">

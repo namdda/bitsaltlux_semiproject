@@ -71,7 +71,7 @@ $(function(){
 								</div>
 							</form>
 							<button type="button" id="btn" class="btn btn-primary btn-lg btn-block">LOGIN</button>
-							<button type="button" id="btn2" class="btn btn-primary btn-lg btn-block">JOIN US</button>
+							<button type="button" id="btn2" class="btn btn-primary btn-lg btn-block" style="background-color: green;">JOIN US</button>
 						</div>
 					</div>
 					<div class="right">
