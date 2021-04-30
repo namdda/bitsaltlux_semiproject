@@ -32,7 +32,7 @@
 		<!-- NAVBAR -->
 		<nav class="navbar navbar-default navbar-fixed-top">
 			<div class="brand">
-				<a href="index.html"><img src="/assets/img/logo-dark.png" alt="Klorofil Logo" class="img-responsive logo"></a>
+				<a href="mainPage.do"><img src="/assets/img/logo-dark.png" alt="Klorofil Logo" class="img-responsive logo"></a>
 			</div>
 			<div class="container-fluid">
 				<div class="navbar-btn">
@@ -78,11 +78,12 @@
 			<div class="sidebar-scroll">
 				<nav>
 					<ul class="nav">
-						<li><a href="index.jsp" class="active"><i class="lnr lnr-home"></i> <span>메인페이지</span></a></li>
+						<li><a href="mainPage.do" class="active"><i class="lnr lnr-home"></i> <span>메인페이지</span></a></li>
+						<li><a href="../user/userUpdate.do" class="active"><i class="lnr lnr-pencil"></i> <span>회원 정보</span></a></li>
 						<li>
-							<a href="elements.html" class=""><i class="lnr lnr-code"></i>
+							<a href="../subject/subjectView.do" class=""><i class="lnr lnr-code"></i>
 								<c:choose>
-									<c:when test="${sesessionScope.level != 'PRO'}">
+									<c:when test="${sessionScope.userLevel != 'PRO'}">
 										<span>수강과목 조회</span>
 									</c:when>
 									<c:otherwise>
@@ -91,9 +92,9 @@
 								</c:choose>
 							</a>
 						</li>
-						<c:if test="${sesessionScope.level == 'PRO'}">
+						<c:if test="${sessionScope.userLevel == 'PRO'}">
 							<li>
-								<a href="#subPages" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>(교수라면 보일 것) 과목</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+								<a href="#subPages" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span> 과목</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 								<div id="subPages" class="collapse ">
 									<ul class="nav">
 										<li><a href="page-profile.html" class="">과목 등록</a></li>
@@ -244,11 +245,14 @@
 											<option value="onions">교수5</option>
 										</select>
 									</div>
+									<div class="col-md-3" style="margin-bottom: 10px;'">
+									<span class="input-group-btn"><button type="button" class="btn btn-primary">검색</button></span>
+									</div>
 
-
+									
 									<br/>
 									<br/>
-									<span class="input-group-btn"><button type="button" class="btn btn-primary">Go</button></span>
+									<br/>
 
 									<form id="join-form" name="joinForm" method="post" action="${pageContext.request.contextPath }/user/join">
 										<table class="table table-bordered">
@@ -337,7 +341,7 @@
 	<script src="/assets/scripts/klorofil-common.js"></script>
 	<script src="/assets/js/clockTest.js"></script>
 
-
+	
 
 </body>
 

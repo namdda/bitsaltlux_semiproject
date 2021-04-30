@@ -54,8 +54,7 @@ $(function(){
 				<div class="auth-box ">
 					<div class="left">
 						<div class="content">
-							<div class="header">
-								<a href="index.html">
+							<div class="header">							
 								<div class="logo text-center"><img src="/assets/img/logo-dark.png" alt="Klorofil Logo"></div>
 								<p class="lead">Login to your account</p>
 								</a>

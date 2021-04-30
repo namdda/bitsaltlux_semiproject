@@ -33,7 +33,7 @@
 		<!-- NAVBAR -->
 		<nav class="navbar navbar-default navbar-fixed-top">
 			<div class="brand">
-				<a href="index.html"><img src="/assets/img/logo-dark.png" alt="Klorofil Logo" class="img-responsive logo"></a>
+				<img src="/assets/img/logo-dark.png" alt="Klorofil Logo" class="img-responsive logo">
 			</div>
 			<div class="container-fluid">
 				<form class="navbar-form navbar-left">
@@ -94,7 +94,8 @@
 			<div id="user" style= "text-align:center;">
 				<p class="jr-success">
 					회원가입을 축하합니다.
-					<br><br>
+					<br>
+					<br>
 					<a href="/login/loginPage.do">로그인하기</a>
 				</p>				
 			</div>
