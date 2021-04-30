@@ -245,11 +245,14 @@
 											<option value="onions">교수5</option>
 										</select>
 									</div>
+									<div class="col-md-3" style="margin-bottom: 10px;'">
+									<span class="input-group-btn"><button type="button" class="btn btn-primary">검색</button></span>
+									</div>
 
-
+									
 									<br/>
 									<br/>
-									<span class="input-group-btn"><button type="button" class="btn btn-primary">Go</button></span>
+									<br/>
 
 									<form id="join-form" name="joinForm" method="post" action="${pageContext.request.contextPath }/user/join">
 										<table class="table table-bordered">
@@ -338,7 +341,10 @@
 	<script src="/assets/scripts/klorofil-common.js"></script>
 	<script src="/assets/js/clockTest.js"></script>
 
-
+	<script type="text/javascript">
+		consol.log(${userVo.inputName});
+		window.alert(${userVo.inputMajor});
+	</script>
 
 </body>
 
