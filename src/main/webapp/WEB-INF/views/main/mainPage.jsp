@@ -79,7 +79,8 @@
 				<nav>
 					<ul class="nav">
 						<li><a href="index.jsp" class="active"><i class="lnr lnr-home"></i> <span>메인페이지</span></a></li>
-						<li><a href="elements.html" class=""><i class="lnr lnr-code"></i>
+						<li>
+							<a href="elements.html" class=""><i class="lnr lnr-code"></i>
 								<c:choose>
 									<c:when test="${sesessionScope.level != 'PRO'}">
 										<span>수강과목 조회</span>
