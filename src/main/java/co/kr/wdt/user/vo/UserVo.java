@@ -6,10 +6,10 @@ public class UserVo implements Serializable {
 
 	private static final long serialVersionUID = 4416395267322236377L;
 
-	private int no = 0;
+	private int no;
 	private String inputName;
 	private String inputSchool;
-	private int inputId = 0;
+	private int inputId = 0; //학번
 	private String inputMajor;
 	private String userPw;
 	private String level;

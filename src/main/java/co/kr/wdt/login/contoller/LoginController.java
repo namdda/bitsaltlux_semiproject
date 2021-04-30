@@ -43,11 +43,14 @@ public class LoginController {
 		if(userVo != null) {
 			if(userVo.getUserPw().equals(loginVo.getUserPw())) {
 				HttpSession session = request.getSession();
+				
+				session.setAttribute("userNo", userVo.getNo());
 				session.setAttribute("userId", userVo.getInputId());
 				session.setAttribute("userNm", userVo.getInputName());
 				session.setAttribute("userMajor", userVo.getInputMajor());
 				session.setAttribute("userSchool", userVo.getInputSchool());
 				session.setAttribute("userLevel", userVo.getLevel());
+				session.setAttribute("userPw", userVo.getUserPw());
 				redirectUrl = "redirect:/main/mainPage.do";
 			}
 		}

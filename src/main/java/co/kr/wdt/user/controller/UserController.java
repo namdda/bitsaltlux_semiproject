@@ -1,5 +1,7 @@
 package co.kr.wdt.user.controller;
 
+import java.util.Enumeration;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -58,10 +60,48 @@ public class UserController {
 	//로그인 하면 세션을 만들었다(있다)
 	//세션이 담겼다 (여기서 userId) 가져온다 (jsp에서 꺼내오는게 아니라 자바에서 꺼내오는건다) 
 	
+	/*
+	 * 로그인 하면 세션이 만들어지니..
+	 * 세션을 당긴다<< 
+	 * 당긴 뒤 id를 꺼낸다(userid)
+	 * jsp가 아닌 자바에서 꺼내온다 
+	 * HttpSession session = request.getSession(true); 했다 
+	 * select 하다 
+	 * */
+	
 	@RequestMapping(value="/userUpdate.do", method=RequestMethod.GET)
 	public String userUpdate(HttpServletRequest request,String inputId) {// @ModelAttribute UserVo userVo
-
-		HttpSession session = request.getSession(true);
+		/*
+		 * getParameter()는 웹브라우저에서 전송받은 request영역의 값을 읽어오고
+		   getAttribute()의 경우 setAttribute()속성을 통한 설정이 없으면 무조건 null값을 리턴한다.
+		 * */
+		HttpSession session = request.getSession(false);
+		
+		if(session !=null) {
+		System.out.println(session); // 세션은 있고(당연하지만)
+		/*     로그인 중 
+		 * 		session.setAttribute("userId", userVo.getInputId());
+				session.setAttribute("userNm", userVo.getInputName());
+				session.setAttribute("userMajor", userVo.getInputMajor());
+				session.setAttribute("userSchool", userVo.getInputSchool());
+				session.setAttribute("userLevel", userVo.getLevel());
+				session.setAttribute("userPw", userVo.getUserPw());
+				했으니까... 
+		 * */
+		//int str2 = Integer.parseInt(String.valueOf(session.getAttribute("no"))); // 얘는 null 이 나옴
+		int str = Integer.parseInt(String.valueOf(session.getAttribute("userId"))); //성공!!!!!!!!!
+		String str3 = String.valueOf(session.getAttribute("userPw")); //성공!!!!!!!!!
+		
+		//java.lang.ClassCastException: java.lang.Integer cannot be cast to java.lang.String
+		
+		
+		System.out.println(str);
+		//System.out.println(str2);
+		System.out.println(str3);
+		}
+		else {
+			System.out.println("null");
+		}
 		
 		session.getAttribute(inputId); // 이게 null 이다
 	
