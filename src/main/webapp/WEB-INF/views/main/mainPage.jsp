@@ -18,7 +18,7 @@
 	<!-- MAIN CSS -->
 	<link rel="stylesheet" href="/assets/css/main.css">
 	<!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
-	
+
 	<!-- GOOGLE FONTS -->
 	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
 	<!-- ICONS -->
@@ -38,12 +38,12 @@
 				<div class="navbar-btn">
 					<button type="button" class="btn-toggle-fullwidth"><i class="lnr lnr-arrow-left-circle"></i></button>
 				</div>
-				
-				
+
+
 				<div id="navbar-menu">
 					<ul class="nav navbar-nav navbar-right">
 						<li class="dropdown">
-							
+
 							<ul class="dropdown-menu notifications">
 								<li><a href="#" class="notification-item"><span class="dot bg-warning"></span>System space is almost full</a></li>
 								<li><a href="#" class="notification-item"><span class="dot bg-danger"></span>You have 9 unfinished tasks</a></li>
@@ -79,18 +79,29 @@
 				<nav>
 					<ul class="nav">
 						<li><a href="index.jsp" class="active"><i class="lnr lnr-home"></i> <span>메인페이지</span></a></li>
-						<li><a href="elements.html" class=""><i class="lnr lnr-code"></i> <span>수강과목 조회/내 과목 조회</span></a></li>
-						
 						<li>
-							<a href="#subPages" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>(교수라면 보일 것) 과목</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
-							<div id="subPages" class="collapse ">
-								<ul class="nav">
-									<li><a href="page-profile.html" class="">과목 등록</a></li>
-									<li><a href="page-login.html" class="">과목 수정</a></li>
-								</ul>
-							</div>
+							<a href="elements.html" class=""><i class="lnr lnr-code"></i>
+								<c:choose>
+									<c:when test="${sesessionScope.level != 'PRO'}">
+										<span>수강과목 조회</span>
+									</c:when>
+									<c:otherwise>
+										<span>내 과목 조회</span>
+									</c:otherwise>
+								</c:choose>
+							</a>
 						</li>
-					
+						<c:if test="${sesessionScope.level == 'PRO'}">
+							<li>
+								<a href="#subPages" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>(교수라면 보일 것) 과목</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+								<div id="subPages" class="collapse ">
+									<ul class="nav">
+										<li><a href="page-profile.html" class="">과목 등록</a></li>
+										<li><a href="page-login.html" class="">과목 수정</a></li>
+									</ul>
+								</div>
+							</li>
+						</c:if>
 					</ul>
 				</nav>
 			</div>
@@ -108,8 +119,8 @@
 							<h1 id="clock" style="color:gray;">00:00</h1>
 						</div>
 						<div class="panel-body">
-							
-							
+
+
 							<div class="row">
 								<div class="col-md-9">
 								<table class="table table-bordered">
@@ -131,7 +142,7 @@
 												<td></td>
 												<td></td>
 												<td></td>
-												
+
 											</tr>
 											<tr>
 												<td>2 교시</td>
@@ -193,7 +204,7 @@
 									</table>
 								</div>
 								<br/>
-								
+
 								<div class="col-md-12">
 									<div class="col-md-9">
 									<form class="navbar-form navbar-left">
@@ -233,12 +244,12 @@
 											<option value="onions">교수5</option>
 										</select>
 									</div>
-									
-									
+
+
 									<br/>
 									<br/>
 									<span class="input-group-btn"><button type="button" class="btn btn-primary">Go</button></span>
-									
+
 									<form id="join-form" name="joinForm" method="post" action="${pageContext.request.contextPath }/user/join">
 										<table class="table table-bordered">
 											<thead>
@@ -294,11 +305,11 @@
 												</tr>
 											</tbody>
 										</table>
-									</form>	
+									</form>
 								</div>
-								
-								
-								
+
+
+
 							</div>
 						</div>
 					</div>
@@ -325,9 +336,9 @@
 	<script src="/assets/vendor/chartist/js/chartist.min.js"></script>
 	<script src="/assets/scripts/klorofil-common.js"></script>
 	<script src="/assets/js/clockTest.js"></script>
-	
-	
-	
+
+
+
 </body>
 
 </html>

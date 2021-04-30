@@ -147,11 +147,11 @@ $(function(){
 										</div>
 										회원 등급:
 										<label class="fancy-radio">
-											<input name="level" value="pro" type="radio">
+											<input name="level" value="PRO" type="radio">
 											<span><i></i>교수</span>
 										</label>
 										<label class="fancy-radio">
-											<input name="level" value="student" type="radio" checked="checked">
+											<input name="level" value="STUDENT" type="radio" checked="checked">
 											<span><i></i>학생</span>
 										</label>
 										
