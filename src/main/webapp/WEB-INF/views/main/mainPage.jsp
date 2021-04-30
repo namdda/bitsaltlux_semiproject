@@ -78,9 +78,9 @@
 			<div class="sidebar-scroll">
 				<nav>
 					<ul class="nav">
-						<li><a href="index.jsp" class="active"><i class="lnr lnr-home"></i> <span>메인페이지</span></a></li>
+						<li><a href="mainPage.do" class="active"><i class="lnr lnr-home"></i> <span>메인페이지</span></a></li>
 						<li>
-							<a href="elements.html" class=""><i class="lnr lnr-code"></i>
+							<a href="../user/userUpdate.do" class=""><i class="lnr lnr-code"></i>
 								<c:choose>
 									<c:when test="${sessionScope.userLevel != 'PRO'}">
 										<span>수강과목 조회</span>

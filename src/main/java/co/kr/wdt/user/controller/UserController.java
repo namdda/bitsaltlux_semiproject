@@ -41,4 +41,10 @@ public class UserController {
 	public String joinsuccess() {
 		return "user/joinsuccess";
 	}
+	
+	@RequestMapping(value="/userUpdate.do", method=RequestMethod.GET)
+	public String userUpdate() {
+		return "user/userUpdate";
+	}
+	
 }
