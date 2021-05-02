@@ -2,8 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="EducationMapper">
-	<select id="searchEducationList" parameterType="String" resultType="co.kr.wdt.education.vo.EducationVo">
+	<select id="searchEducationList" parameterType="co.kr.wdt.education.vo.EducationVo" resultType="co.kr.wdt.education.vo.EducationVo">
 		SELECT A.IDX
+				, A.TYPE
 				, A.NAME
 				, A.ALL_TYPE_NAME
 				, CONCAT(A.TIME1, ' ', A.TIME2, ', ', A.TIME3, ' ', A.TIME4) AS TIME
@@ -17,6 +18,7 @@
 				, A.INPUT_ID
 			FROM 
 				(SELECT NAME
+						, S.TYPE
 						, S.ALL_TYPE_NAME
 						, (CASE WHEN S.TIME1 IN('1','2','3','4','5', '6', '7', '8') THEN '월요일'
 										WHEN S.TIME1 IN('9','10','11','12','13', '14', '15', '16') THEN '화요일'
@@ -51,13 +53,72 @@
 						, S.TIME1 AS TIME5
 						, S.TIME2 AS TIME6
 						, S.GRADES
-						, (SELECT INPUT_NAME FROM MEMBER WHERE INPUT_ID = #{value }) AS INPUT_NAME
+						, (SELECT INPUT_NAME FROM MEMBER WHERE INPUT_ID = #{inputId }) AS INPUT_NAME
 						, S.ETC
 						, S.CNT
 						, S.INPUT_ID
 						, S.IDX
 						, S.SUBJECTS
 			 FROM LECTURE S) A
-			WHERE A.INPUT_ID = #{value }
+			WHERE A.INPUT_ID = #{inputId }
+			AND A.TYPE = #{type }
+	</select>
+	
+	<select id="selectEducation" parameterType="co.kr.wdt.education.vo.EducationVo" resultType="co.kr.wdt.education.vo.EducationVo">
+		SELECT SUBJECTS
+				, TIME1
+				, TIME2
+				, GRADES
+				, ALL_TYPE_NAME
+		FROM LECTURE
+		WHERE TIME1 = #{idx1 }
+		AND TIME2 = #{idx2 }
+	</select>
+	
+	<insert id="joinEducation" parameterType="co.kr.wdt.education.vo.EducationVo">
+		INSERT INTO MY_LECTURE(
+			IDX
+			, SUBJECTS
+			, USER_ID
+			, LECTURE_NO1
+			, LECTURE_NO2
+			, GRADES
+			, ALL_TYPE_NAME
+			, STATUS
+		) VALUES (
+			NULL 
+			, #{subjects } 
+			, #{inputId }
+			, #{time1 }
+			, #{time2 }
+			, #{grades }
+			, #{allTypeName }
+			, 'Y'
+		)
+		<selectKey keyProperty="no" resultType="int" order="AFTER">
+			<![CDATA[
+				SELECT LAST_INSERT_ID()
+			]]>
+		</selectKey>
+	</insert>
+	<select id="joinEducationList" parameterType="String" resultType="co.kr.wdt.education.vo.EducationVo">
+		SELECT A.SUBJECTS
+			, A.USER_ID
+			, A.STATUS
+			, A.LECTURE_NO1 AS FIRST_SUBJECT
+			, A.LECTURE_NO2 AS SECOND_SUBJECT
+			, A.GRADES
+			, A.ALL_TYPE_NAME
+			, B.NAME
+		FROM MY_LECTURE A JOIN LECTURE B ON A.SUBJECTS=B.VALUE AND A.LECTURE_NO1=B.TIME1
+		WHERE A.USER_ID = #{value }
+		AND A.STATUS = 'Y'
+	</select>
+	
+	<select id="checkEducation" parameterType="co.kr.wdt.education.vo.EducationVo" resultType="int">
+		SELECT COUNT(IDX) FROM MY_LECTURE
+		WHERE USER_ID = #{inputId }
+		AND LECTURE_NO1 = #{idx1 }
+		AND LECTURE_NO2 = #{idx2 }
 	</select>
 </mapper>

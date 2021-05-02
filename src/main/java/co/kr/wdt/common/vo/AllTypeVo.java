@@ -10,6 +10,7 @@ public class AllTypeVo implements Serializable {
 	private String name;
 	private String type;
 	private String value;
+	private String allTypeName;
 
 	public String getIdx() {
 		return idx;
@@ -43,9 +44,18 @@ public class AllTypeVo implements Serializable {
 		this.value = value;
 	}
 
+	public String getAllTypeName() {
+		return allTypeName;
+	}
+
+	public void setAllTypeName(String allTypeName) {
+		this.allTypeName = allTypeName;
+	}
+
 	@Override
 	public String toString() {
-		return "AllTypeVo [idx=" + idx + ", name=" + name + ", type=" + type + ", value=" + value + "]";
+		return "AllTypeVo [idx=" + idx + ", name=" + name + ", type=" + type + ", value=" + value + ", allTypeName="
+				+ allTypeName + "]";
 	}
 
 }

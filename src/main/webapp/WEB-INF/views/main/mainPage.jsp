@@ -28,6 +28,23 @@
 </head>
 <script>
 $(function(){
+	$.ajax({
+		url: "/education/joinEducationList.do",
+		type : "post",
+		dataType: 'JSON',
+		success: function(data) {
+			for(var i=0; i<data.length; i++) {
+				$(".edu_"+data[i].firstSubject).text(data[i].name);
+				$(".edu_"+data[i].firstSubject).css("backgroundColor","#dff0d8");
+				$(".edu_"+data[i].secondSubject).text(data[i].name);
+				$(".edu_"+data[i].secondSubject).css("backgroundColor","#f2dede");
+			}
+		},
+		error: function(xhr, status, e){
+			console.error(status + ":" + e);
+		}
+	});
+	
 	$("#major").on("change", function(){
 		$("#allType").find('option').remove();
 		$("#professor").find('option').remove();
@@ -45,7 +62,8 @@ $(function(){
 				for(var i = 0; i < data.length; i++) {
 					var objOption = document.createElement("option");
 					objOption.value = data[i].value;
-					objOption.text = data[i].name;
+					objOption.className = data[i].type;
+					objOption.text = data[i].allTypeName;
 					objSel.options.add(objOption);
 				}
 			},
@@ -84,11 +102,12 @@ $(function(){
 		$.ajax({
 			url: "/education/searchEducationList.do",
 			type : "post",
-			data: {"inputId" : $("#professor").val()},
+			data: {"inputId" : $("#professor").val(), "type" : $("#allType option:selected").attr("class")},
 			dataType: 'JSON',
 			success: function(data) {
+				$("#resultList").html("");
 				for(var i=0; i<data.length; i++) {
-					$(".resultList").append("<tr><td>"+data[i].idx+"</td>"
+					$("#resultList").append("<tr><td>"+data[i].idx+"</td>"
 							+"<td>"+data[i].name+"</td>"
 							+"<td>"+data[i].allTypeName+"</td>"
 							+"<td>"+data[i].time+"</td>"
@@ -96,14 +115,10 @@ $(function(){
 							+"<td>"+data[i].inputName+"</td>"
 							+"<td>"+data[i].etc+"</td>"
 							+"<td>"+data[i].cnt+"</td>"
-							+"<td><button type='button' class='btn_"+i+"' onclick='joinEducation(\""+data[i].firstSubject+"\", \""+data[i].secondSubject+"\")'>수강하기</button></td></tr>");
+							+"<td><button type='button' class='btn_"+i+"' onclick='joinEducations(\""+data[i].firstSubject+"\", \""+data[i].secondSubject+"\");'>수강하기</button></td></tr>");
 					if(data[i].cnt == 0) {
 						$(".btn_"+i).hide();
 					}
-					
-					/* console.log(data[i].idx)
-					console.log(data[i].inputId)
-					console.log(data[i].subject) */
 				}
 			},
 			error: function(xhr, status, e){
@@ -112,6 +127,49 @@ $(function(){
 		});
 	});
 });
+
+function joinEducations(idx1, idx2) {
+	if(confirm("수강 신청 하시겠습니까??")) {
+		$.ajax({
+			url: "/education/checkEducation.do",
+			data: {"idx1" : idx1, "idx2" : idx2},
+			type : "post",
+			dataType: 'text',
+			success: function(data) {
+				if(data === "ok") {
+					$.ajax({
+						url: "/education/joinEducation.do",
+						type : "post",
+						data: {"idx1" : idx1, "idx2" : idx2},
+						dataType: 'JSON',
+						success: function(data) {
+							$("#search").trigger("click");
+							$(".edu").text("");
+							$(".edu").css("backgroundColor","#0000");
+							for(var i=0; i<data.length; i++) {
+								$(".edu_"+data[i].firstSubject).text(data[i].name);
+								$(".edu_"+data[i].firstSubject).css("backgroundColor","#dff0d8");
+								$(".edu_"+data[i].secondSubject).text(data[i].name);
+								$(".edu_"+data[i].secondSubject).css("backgroundColor","#f2dede");
+							}
+						},
+						error: function(xhr, status, e){
+							console.error(status + ":" + e);
+						}
+					});
+				} else {
+					alert("시간이 겹칩니다");
+					return false;
+				}
+			},
+			error: function(xhr, status, e){
+				console.error(status + ":" + e);
+			}
+		});
+	} else {
+		return false;
+	}
+}
 </script>
 
 <body>
@@ -209,136 +267,141 @@ $(function(){
 							<h1 id="clock" style="color:gray;">00:00</h1>
 						</div>
 						<div class="panel-body">
-							<div class="row">
-								<div class="col-md-9">
-								<table class="table table-bordered">
-										<thead>
-											<tr>
-												<th>#</th>
-												<th>월</th>
-												<th>화</th>
-												<th>수</th>
-												<th>목</th>
-												<th>금</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td>1 교시</td>
-												<td></td>
-												<td></td>
-												<td></td>
-												<td></td>
-												<td></td>
-											</tr>
-											<tr>
-												<td>2 교시</td>
-												<td></td>
-												<td></td>
-												<td></td>
-												<td></td>
-												<td></td>
-											</tr>
-											<tr>
-												<td>3 교시</td>
-												<td></td>
-												<td></td>
-												<td></td>
-												<td></td>
-												<td></td>
-											</tr>
-											<tr>
-												<td>4 교시</td>
-												<td></td>
-												<td></td>
-												<td></td>
-												<td></td>
-												<td></td>
-											</tr>
-											<tr>
-												<td>5 교시</td>
-												<td></td>
-												<td></td>
-												<td></td>
-												<td></td>
-												<td></td>
-											</tr>
-											<tr>
-												<td>6 교시</td>
-												<td></td>
-												<td></td>
-												<td></td>
-												<td></td>
-												<td></td>
-											</tr>
-											<tr>
-												<td>7 교시</td>
-												<td></td>
-												<td></td>
-												<td></td>
-												<td></td>
-												<td></td>
-											</tr>
-											<tr>
-												<td>8 교시</td>
-												<td></td>
-												<td></td>
-												<td></td>
-												<td></td>
-												<td></td>
-											</tr>
-										</tbody>
-									</table>
-								</div><br>
-								<div class="col-md-12">
-									<div class="col-md-9">
-										<form class="navbar-form navbar-left">
-											<div class="input-group" style="display: none;">
-												<input type="text" class="form-control" placeholder="Search dashboard..." />
-												<span class="input-group-btn"><button type="button" class="btn btn-primary">Go</button></span>
-											</div>
-										</form>
-									</div>
-									<div class="col-md-12"></div>
-									<div class="col-md-3">
-										<select class="form-control" id="major" name="major">
-											<option value="">과목</option>
-											<c:forEach var="rowList" items="${majorList }">
-												<option value="${rowList.value }">${rowList.name }</option>
-											</c:forEach>
-										</select>
-									</div>
-									<div class="col-md-3">
-										<select class="form-control" id="allType" name="allType">
-											<option value="">유형</option>
-										</select>
-									</div>
-									<div class="col-md-3">
-										<select class="form-control" id="professor" name="professor"></select>
-									</div>
-									<div class="col-md-3" style="margin-bottom: 10px;'">
-										<span class="input-group-btn"><button type="button" class="btn btn-primary" id="search">검색</button></span>
-									</div><br><br><br>
-									<form id="join-form" name="joinForm" method="post" action="${pageContext.request.contextPath }/user/join">
+							<c:choose>
+								<c:when test="${sessionScope.userLevel != 'PRO'}">
+									<div class="row">
+										<div class="col-md-9">
 										<table class="table table-bordered">
-											<thead>
-												<tr>
-													<th>#</th>
-													<th>과목 이름</th>
-													<th>유형</th>
-													<th>시간</th>
-													<th>학점</th>
-													<th>담당교수</th>
-													<th>기타사항</th>
-													<th>수강 가능한 인원</th>
-													<th>수강하기</th>
-												</tr>
-											</thead>
-											<tbody class="resultList"></tbody>
-										</table>
-									</form>
-								</div>
-							</div>
+												<thead>
+													<tr>
+														<th>#</th>
+														<th>월</th>
+														<th>화</th>
+														<th>수</th>
+														<th>목</th>
+														<th>금</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>1 교시</td>
+														<td class="edu edu_1"></td>
+														<td class="edu edu_9"></td>
+														<td class="edu edu_17"></td>
+														<td class="edu edu_25"></td>
+														<td class="edu edu_33"></td>
+													</tr>
+													<tr>
+														<td>2 교시</td>
+														<td class="edu edu_2"></td>
+														<td class="edu edu_10"></td>
+														<td class="edu edu_18"></td>
+														<td class="edu edu_26"></td>
+														<td class="edu edu_34"></td>
+													</tr>
+													<tr>
+														<td>3 교시</td>
+														<td class="edu edu_3"></td>
+														<td class="edu edu_11"></td>
+														<td class="edu edu_19"></td>
+														<td class="edu edu_27"></td>
+														<td class="edu edu_35"></td>
+													</tr>
+													<tr>
+														<td>4 교시</td>
+														<td class="edu edu_4"></td>
+														<td class="edu edu_12"></td>
+														<td class="edu edu_20"></td>
+														<td class="edu edu_28"></td>
+														<td class="edu edu_36"></td>
+													</tr>
+													<tr>
+														<td>5 교시</td>
+														<td class="edu edu_5"></td>
+														<td class="edu edu_13"></td>
+														<td class="edu edu_21"></td>
+														<td class="edu edu_29"></td>
+														<td class="edu edu_37"></td>
+													</tr>
+													<tr>
+														<td>6 교시</td>
+														<td class="edu edu_6"></td>
+														<td class="edu edu_14"></td>
+														<td class="edu edu_22"></td>
+														<td class="edu edu_30"></td>
+														<td class="edu edu_38"></td>
+													</tr>
+													<tr>
+														<td>7 교시</td>
+														<td class="edu edu_7"></td>
+														<td class="edu edu_15"></td>
+														<td class="edu edu_23"></td>
+														<td class="edu edu_31"></td>
+														<td class="edu edu_39"></td>
+													</tr>
+													<tr>
+														<td>8 교시</td>
+														<td class="edu edu_8"></td>
+														<td class="edu edu_16"></td>
+														<td class="edu edu_24"></td>
+														<td class="edu edu_32"></td>
+														<td class="edu edu_40"></td>
+													</tr>
+												</tbody>
+											</table>
+										</div><br>
+										<div class="col-md-12">
+											<div class="col-md-9">
+												<form class="navbar-form navbar-left">
+													<div class="input-group" style="display: none;">
+														<input type="text" class="form-control" placeholder="Search dashboard..." />
+														<span class="input-group-btn"><button type="button" class="btn btn-primary">Go</button></span>
+													</div>
+												</form>
+											</div>
+											<div class="col-md-12"></div>
+											<div class="col-md-3">
+												<select class="form-control" id="major" name="major">
+													<option value="">과목</option>
+													<c:forEach var="rowList" items="${majorList }">
+														<option value="${rowList.value }">${rowList.name }</option>
+													</c:forEach>
+												</select>
+											</div>
+											<div class="col-md-3">
+												<select class="form-control" id="allType" name="allType">
+													<option value="">유형</option>
+												</select>
+											</div>
+											<div class="col-md-3">
+												<select class="form-control" id="professor" name="professor"></select>
+											</div>
+											<div class="col-md-3" style="margin-bottom: 10px;'">
+												<span class="input-group-btn"><button type="button" class="btn btn-primary" id="search">검색</button></span>
+											</div><br><br><br>
+											<table class="table table-bordered">
+												<thead>
+													<tr>
+														<th>#</th>
+														<th>과목 이름</th>
+														<th>유형</th>
+														<th>시간</th>
+														<th>학점</th>
+														<th>담당교수</th>
+														<th>기타사항</th>
+														<th>수강 가능한 인원</th>
+														<th>수강하기</th>
+													</tr>
+												</thead>
+												<tbody class="resultList" id="resultList"></tbody>
+											</table>
+										</div>
+									</div>
+								</c:when>
+								<c:otherwise>
+									<h1>교수 메인페이지입니다</h1>
+								</c:otherwise>
+							</c:choose>
 						</div>
 					</div>
 					<!-- END OVERVIEW -->

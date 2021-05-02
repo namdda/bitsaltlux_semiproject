@@ -11,16 +11,17 @@
 		FROM MAJOR
 	</select>
 	
-	<select id="allTypeList" resultType="co.kr.wdt.common.vo.AllTypeVo">
+	<select id="allTypeList" parameterType="String" resultType="co.kr.wdt.common.vo.AllTypeVo">
 		SELECT IDX
 				, NAME
 				, TYPE
 				, VALUE
-		FROM ALL_TYPE
-		WHERE TYPE = #{value }
+				, ALL_TYPE_NAME
+		FROM LECTURE
+		WHERE VALUE = #{value }
 	</select>
 	
-	<select id="professorList" resultType="co.kr.wdt.common.vo.ProfessorVo">
+	<select id="professorList" parameterType="String" resultType="co.kr.wdt.common.vo.ProfessorVo">
 		SELECT INPUT_NAME
 				, INPUT_ID
 		FROM MEMBER

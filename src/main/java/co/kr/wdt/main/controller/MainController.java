@@ -29,13 +29,16 @@ public class MainController {
 		List<MajorVo> majorVo = mainService.selectMajorList();
 		String redirectUrl = "main/mainPage";
 		HttpSession session = request.getSession(false);
+		if(session == null) {
+			redirectUrl ="redirect:/login/loginPage.do?Status=SESSIONOUT";
+		}
 		if(session != null) {
 			if(session.getAttribute("userId") == null) {
 				redirectUrl ="redirect:/login/loginPage.do?Status=SESSIONOUT";
 			}
-		}
-		if("PRO".equals(session.getAttribute("level"))) {
-			redirectUrl = "main/proMainPage";
+			if("PRO".equals(session.getAttribute("level"))) {
+				redirectUrl = "main/proMainPage";
+			}
 		}
 		model.addAttribute("majorList", majorVo);
 		return redirectUrl;
