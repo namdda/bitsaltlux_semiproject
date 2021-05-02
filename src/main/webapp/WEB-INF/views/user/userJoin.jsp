@@ -39,6 +39,7 @@ $(function(){
 					$("#imgCheck").show();
 					$("#imgCheck").attr("disabled","disabled");
 					$("#inputId").attr("readonly","readonly");
+					$("#checked").val("Y");
 				} else {
 					$("#imgCheck").hide();
 					alert('이미 존재하는 학번입니다. 다른 학번을 사용해 주세요');
@@ -49,6 +50,20 @@ $(function(){
 				console.error(status + ":" + e);
 			}
 		});
+	});
+	
+	$("#btn").on("click", function(){
+		if($("#checked").val() !== "Y") {
+			alert("중복 확인을 하셔야됩니다.");
+			return false;
+		}
+		if($("#inputName").val() === "") {
+			alert("이름을 입력하세요");
+			$("#inputName").focus
+			return false;
+		}
+		var obj = document.frm;
+		obj.submit();
 	});
 })
 
@@ -80,7 +95,7 @@ $(function(){
 						<div class="col-md-9">
 							<!-- INPUTS -->
 							<div class="panel">
-								<form method="post" action="/user/joinProc.do">
+								<form method="post" name="frm" action="/user/joinProc.do">
 									<div class="panel-body">
 										<div style="margin-bottom:10px;height: 40px;">
 											<span style="float:left; margin: 5px 7px 0 0;">이름 : </span> 
@@ -123,9 +138,9 @@ $(function(){
 											<input name="level" value="STUDENT" type="radio" checked="checked">
 											<span><i></i>학생</span>
 										</label>
-										
-										<button class="btn btn-success" type="submit">가입하기</button>
+										<button class="btn btn-success" type="button" id="btn">가입하기</button>
 										<button class="btn btn-default" type="button" onclick="history.back();">뒤로 	가기</button>
+										<input type="hidden" name="checked" id="checked" />
 									</div>
 								</form>
 							</div>

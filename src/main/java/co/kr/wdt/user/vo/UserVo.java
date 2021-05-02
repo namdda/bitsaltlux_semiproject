@@ -9,10 +9,11 @@ public class UserVo implements Serializable {
 	private int no;
 	private String inputName;
 	private String inputSchool;
-	private int inputId = 0; //학번
+	private int inputId = 0; // 학번
 	private String inputMajor;
 	private String userPw;
 	private String level;
+	private String subjects;
 
 	public int getNo() {
 		return no;
@@ -70,10 +71,19 @@ public class UserVo implements Serializable {
 		this.level = level;
 	}
 
+	public String getSubjects() {
+		return subjects;
+	}
+
+	public void setSubjects(String subjects) {
+		this.subjects = subjects;
+	}
+
 	@Override
 	public String toString() {
 		return "UserVo [no=" + no + ", inputName=" + inputName + ", inputSchool=" + inputSchool + ", inputId=" + inputId
-				+ ", inputMajor=" + inputMajor + ", userPw=" + userPw + ", level=" + level + "]";
+				+ ", inputMajor=" + inputMajor + ", userPw=" + userPw + ", level=" + level + ", subjects=" + subjects
+				+ "]";
 	}
 
 }

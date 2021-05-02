@@ -5,7 +5,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.xmlbeans.impl.xb.xsdschema.All;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,6 +33,9 @@ public class MainController {
 			if(session.getAttribute("userId") == null) {
 				redirectUrl ="redirect:/login/loginPage.do?Status=SESSIONOUT";
 			}
+		}
+		if("PRO".equals(session.getAttribute("level"))) {
+			redirectUrl = "main/proMainPage";
 		}
 		model.addAttribute("majorList", majorVo);
 		return redirectUrl;

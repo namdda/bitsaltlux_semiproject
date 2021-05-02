@@ -43,6 +43,24 @@ $(function(){
 	$("#btn2").on("click", function(){
 		location.href="/user/userJoin.do";
 	});
+	$('#inputId').on("keydown", function(e){
+		if(e.keyCode == 13){
+			if($('#userPw').val().trim() == ''){
+				$('#userPw').focus();
+			} else {
+				$("#btn").trigger("click");
+			}
+		}
+	});
+	$('#userPw').on("keydown", function(e){
+		if(e.keyCode == 13){
+			if($('#inputId').val().trim() == ''){
+				$('#inputId').focus();
+			} else {
+				$("#btn").trigger("click");
+			}
+		}
+	});
 });
 </script>
 

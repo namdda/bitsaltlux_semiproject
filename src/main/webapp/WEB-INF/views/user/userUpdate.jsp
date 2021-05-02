@@ -86,13 +86,8 @@ $(function(){
 							<a href="/login/logOut.do" class="dropdown-toggle"><span>logout</span></a>
 						</li>
 						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="/assets/img/user.png" class="img-circle" alt="Avatar"> <span>${sessionScope.userNm }</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
-							<ul class="dropdown-menu">
-								<li><a href="#"><i class="lnr lnr-user"></i> <span>My Profile</span></a></li>
-								<li><a href="#"><i class="lnr lnr-envelope"></i> <span>Message</span></a></li>
-								<li><a href="#"><i class="lnr lnr-cog"></i> <span>Settings</span></a></li>
-								<li><a href="#"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>
-							</ul>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="/assets/img/user.png" class="img-circle" alt="Avatar" style="display: none;"> <span>${sessionScope.userNm }</span></a>
+							
 						</li>
 						<!-- <li>
 							<a class="update-pro" href="https://www.themeineed.com/downloads/klorofil-pro-bootstrap-admin-dashboard-template/?utm_source=klorofil&utm_medium=template&utm_campaign=KlorofilPro" title="Upgrade to Pro" target="_blank"><i class="fa fa-rocket"></i> <span>UPGRADE TO PRO</span></a>
@@ -161,13 +156,41 @@ $(function(){
 										<div style="margin-bottom:10px;height: 40px;">
 											<span style="float:left; margin: 5px 10px 0 0;">학번: </span> 
 											<input type="text" id="inputId" name="inputId" class="form-control" value="${resutl.inputId}" style="width:70%;float:left;margin-right: 10px;" readonly="true">&nbsp;&nbsp;
-											<input id="btn-check" class="btn btn-default" type="button" value="중복확인" style="float:left;">&nbsp;&nbsp;
 											<img id="imgCheck" style="width:30px; display:none; float:left; margin-left:10px;" src="/assets/img/check.png" />
 										</div>
-										<div style="margin-bottom:10px;height: 40px;">
-											<span style="float:left; margin: 5px 10px 0 0;">전공: </span>
-											<input type="text" id="inputMajor" name="inputMajor" class="form-control" value="${resutl.inputMajor}" style="width:70%;float:left;" />
-										</div>
+										
+										<c:if test="${resutl.level == 'STUDENT'}">
+											<div style="margin-bottom:10px;height: 40px;">
+												<span style="float:left; margin: 5px 10px 0 0;">전공: </span>
+												<select class="form-control" name="inputMajor" style="margin-bottom:10px;width:70%;margin-right: 10px;">
+													<option value="">과목</option>
+													<option value="kor" <c:if test="${resutl.inputMajor == 'kor'}">selected="selected"</c:if>>국어</option>
+													<option value="eng" <c:if test="${resutl.inputMajor == 'eng'}">selected="selected"</c:if>>영어</option>
+													<option value="mat" <c:if test="${resutl.inputMajor == 'mat'}">selected="selected"</c:if>>수학</option>
+													<option value="sci" <c:if test="${resutl.inputMajor == 'sci'}">selected="selected"</c:if>>과학</option>
+													<option value="spt" <c:if test="${resutl.inputMajor == 'spt'}">selected="selected"</c:if>>체육</option>
+													<option value="art" <c:if test="${resutl.inputMajor == 'art'}">selected="selected"</c:if>>미술</option>
+													<option value="com" <c:if test="${resutl.inputMajor == 'com'}">selected="selected"</c:if>>컴퓨터</option>
+													<option value="etc" <c:if test="${resutl.inputMajor == 'etc'}">selected="selected"</c:if>>기타</option>
+												</select>
+											</div>
+										</c:if>
+										<c:if test="${resutl.level == 'PRO'}">
+											<div style=" margin-bottom:10px;height: 40px;">
+												<span style="float:left; margin: 5px 10px 0 0;">전공: </span>
+												<select class="form-control" name="subjects" style="margin-bottom:10px;width:70%;margin-right: 10px;">
+													<option value="">과목</option>
+													<option value="kor" <c:if test="${resutl.subjects == 'kor'}">selected="selected"</c:if>>국어</option>
+													<option value="eng" <c:if test="${resutl.subjects == 'eng'}">selected="selected"</c:if>>영어</option>
+													<option value="mat" <c:if test="${resutl.subjects == 'mat'}">selected="selected"</c:if>>수학</option>
+													<option value="sci" <c:if test="${resutl.subjects == 'sci'}">selected="selected"</c:if>>과학</option>
+													<option value="spt" <c:if test="${resutl.subjects == 'spt'}">selected="selected"</c:if>>체육</option>
+													<option value="art" <c:if test="${resutl.subjects == 'art'}">selected="selected"</c:if>>미술</option>
+													<option value="com" <c:if test="${resutl.subjects == 'com'}">selected="selected"</c:if>>컴퓨터</option>
+													<option value="etc" <c:if test="${resutl.subjects == 'etc'}">selected="selected"</c:if>>기타</option>
+												</select>
+											</div>
+										</c:if>
 										<div style="margin-bottom:10px;height: 40px;">
 											<span style="float:left; margin: 5px 10px 0 0;">비밀번호: </span>
 											<input type="password" class="form-control" id="userPw" name="userPw" value="${resutl.userPw}" style="width:70%;float: left;" />
@@ -176,8 +199,8 @@ $(function(){
 										
 										<button class="btn btn-success" type="submit">수정하기</button>
 										<button class="btn btn-default" type="button" onclick="history.back();">뒤로 	가기</button>
-										 <button  id="btn-remove" class="btn btn-danger" type="button">탈퇴하기</button>
-										
+										<button  id="btn-remove" class="btn btn-danger" type="button">탈퇴하기</button>
+										<input type="hidden" name="level" value="${resutl.level }"/>
 									</div>
 								</form>
 							</div>

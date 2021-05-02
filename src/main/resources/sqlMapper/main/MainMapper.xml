@@ -22,9 +22,9 @@
 	
 	<select id="professorList" resultType="co.kr.wdt.common.vo.ProfessorVo">
 		SELECT INPUT_NAME
-				, SUBJECTS
+				, INPUT_ID
 		FROM MEMBER
-		WHERE INPUT_MAJOR = #{value }
+		WHERE SUBJECTS = #{value }
 		AND LEVEL ='PRO'
 	</select>
 	

@@ -16,6 +16,9 @@
 			, USER_PW
 			, LEVEL
 			, REG_DATE
+			<if test="level == 'PRO'">
+				, SUBJECTS
+			</if>
 		) VALUES (
 			  null
 			, #{inputName }
@@ -25,6 +28,9 @@
 			, #{userPw }
 			, #{level }
 			, NOW()
+			<if test="level == 'PRO'">
+				, #{inputMajor }
+			</if>
 		)
 		<selectKey keyProperty="no" resultType="int" order="AFTER">
 		<![CDATA[
@@ -42,6 +48,7 @@
 			, USER_PW
 			, LEVEL
 			, REG_DATE
+			, SUBJECTS
 		FROM MEMBER
 		WHERE INPUT_ID = #{value }
 	</select>
@@ -52,6 +59,7 @@
 			, INPUT_SCHOOL = #{inputSchool }
 			, INPUT_MAJOR = #{inputMajor }
 			, USER_PW = #{userPw }
+			, SUBJECTS = #{subjects }
 			, MODIFY_DATE = NOW()
 		WHERE NO = #{no }
 		AND INPUT_ID = #{inputId }

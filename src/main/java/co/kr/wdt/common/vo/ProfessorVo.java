@@ -8,6 +8,7 @@ public class ProfessorVo implements Serializable {
 
 	private String inputName;
 	private String subjects;
+	private String inputId;
 
 	public String getInputName() {
 		return inputName;
@@ -25,9 +26,16 @@ public class ProfessorVo implements Serializable {
 		this.subjects = subjects;
 	}
 
-	@Override
-	public String toString() {
-		return "ProfessorVo [inputName=" + inputName + ", subjects=" + subjects + "]";
+	public String getInputId() {
+		return inputId;
 	}
 
+	public void setInputId(String inputId) {
+		this.inputId = inputId;
+	}
+
+	@Override
+	public String toString() {
+		return "ProfessorVo [inputName=" + inputName + ", subjects=" + subjects + ", inputId=" + inputId + "]";
+	}
 }

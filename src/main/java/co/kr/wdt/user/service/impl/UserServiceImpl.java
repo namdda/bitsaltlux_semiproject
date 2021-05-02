@@ -20,6 +20,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void joinProc(UserVo userVo) {
+//		if("STUDENT".equals(userVo.getLevel())) userDao.joinProc(userVo);
+//		else userDao.joinProc(userVo);
 		userDao.joinProc(userVo);
 	}
 
