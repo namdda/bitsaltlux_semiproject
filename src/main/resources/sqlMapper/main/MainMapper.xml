@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="MainMapper">
+
+	<select id="selectMajorList" resultType="co.kr.wdt.common.vo.MajorVo">
+		SELECT IDX
+				, NAME
+				, TYPE
+				, VALUE
+		FROM MAJOR
+	</select>
+	
+	<select id="allTypeList" resultType="co.kr.wdt.common.vo.AllTypeVo">
+		SELECT IDX
+				, NAME
+				, TYPE
+				, VALUE
+		FROM ALL_TYPE
+		WHERE TYPE = #{value }
+	</select>
+	
+	<select id="professorList" resultType="co.kr.wdt.common.vo.ProfessorVo">
+		SELECT INPUT_NAME
+				, SUBJECTS
+		FROM MEMBER
+		WHERE INPUT_MAJOR = #{value }
+		AND LEVEL ='PRO'
+	</select>
+	
+</mapper>

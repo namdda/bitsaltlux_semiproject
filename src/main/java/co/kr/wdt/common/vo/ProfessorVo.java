@@ -1,0 +1,33 @@
+package co.kr.wdt.common.vo;
+
+import java.io.Serializable;
+
+public class ProfessorVo implements Serializable {
+
+	private static final long serialVersionUID = 2376645969133044634L;
+
+	private String inputName;
+	private String subjects;
+
+	public String getInputName() {
+		return inputName;
+	}
+
+	public void setInputName(String inputName) {
+		this.inputName = inputName;
+	}
+
+	public String getSubjects() {
+		return subjects;
+	}
+
+	public void setSubjects(String subjects) {
+		this.subjects = subjects;
+	}
+
+	@Override
+	public String toString() {
+		return "ProfessorVo [inputName=" + inputName + ", subjects=" + subjects + "]";
+	}
+
+}

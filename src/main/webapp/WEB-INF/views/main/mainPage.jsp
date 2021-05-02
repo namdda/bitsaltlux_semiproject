@@ -24,7 +24,63 @@
 	<!-- ICONS -->
 	<link rel="apple-touch-icon" sizes="76x76" href="/assets/img/apple-icon.png">
 	<link rel="icon" type="image/png" sizes="96x96" href="/assets/img/favicon.png">
+	<script src="/assets/vendor/jquery/jquery.min.js"></script>
 </head>
+<script>
+$(function(){
+	$("#major").on("change", function(){
+		$("#allType").find('option').remove();
+		$("#professor").find('option').remove();
+		$("#allType").append("<option value=''>유형</option>");
+		$.ajax({
+			url: "/main/allTypeList.do",
+			type : "post",
+			data: {"value" : $("#major").val()},
+			dataType: 'JSON',
+			success: function(data) {
+				var objSel = $("#allType")[0];
+				for(var x = objSel.length-1; 1 <= x; x--) {
+					objSel.options[x] = null;
+				}
+				for(var i = 0; i < data.length; i++) {
+					var objOption = document.createElement("option");
+					objOption.value = data[i].value;
+					objOption.text = data[i].name;
+					objSel.options.add(objOption);
+				}
+			},
+			error: function(xhr, status, e){
+				console.error(status + ":" + e);
+			}
+		});
+	});
+	
+	$("#allType").on("change", function(){
+		$("#professor").find('option').remove();
+		$.ajax({
+			url: "/main/professorList.do",
+			type : "post",
+			data: {"value" : $("#allType").val()},
+			dataType: 'JSON',
+			success: function(data) {
+				var objSel = $("#professor")[0];
+				for(var x = objSel.length-1; 1 <= x; x--) {
+					objSel.options[x] = null;
+				}
+				for(var i = 0; i < data.length; i++) {
+					var objOption = document.createElement("option");
+					objOption.value = data[i].subjects;
+					objOption.text = data[i].inputName;
+					objSel.options.add(objOption);
+				}
+			},
+			error: function(xhr, status, e){
+				console.error(status + ":" + e);
+			}
+		});
+	});
+});
+</script>
 
 <body>
 	<!-- WRAPPER -->
@@ -43,7 +99,6 @@
 				<div id="navbar-menu">
 					<ul class="nav navbar-nav navbar-right">
 						<li class="dropdown">
-
 							<ul class="dropdown-menu notifications">
 								<li><a href="#" class="notification-item"><span class="dot bg-warning"></span>System space is almost full</a></li>
 								<li><a href="#" class="notification-item"><span class="dot bg-danger"></span>You have 9 unfinished tasks</a></li>
@@ -81,12 +136,14 @@
 						<li><a href="mainPage.do" class="active"><i class="lnr lnr-home"></i> <span>메인페이지</span></a></li>
 						<li><a href="../user/userUpdate.do?inputId=${sessionScope.userId }" class="active"><i class="lnr lnr-pencil"></i> <span>회원 정보</span></a></li>
 						<li>
-							<a href="../subject/subjectView.do" class=""><i class="lnr lnr-code"></i>
+							<!--  <a href="../subject/subjectView.do?inputId=${sessionScope.userId }" class=""><i class="lnr lnr-code"></i> -->
 								<c:choose>
 									<c:when test="${sessionScope.userLevel != 'PRO'}">
+									<a href="../subject/StudentsubjectView.do?inputId=${sessionScope.userId }" class=""><i class="lnr lnr-code"></i>
 										<span>수강과목 조회</span>
 									</c:when>
 									<c:otherwise>
+										<a href="../subject/ProsubjectView.do?inputId=${sessionScope.userId }" class=""><i class="lnr lnr-code"></i>
 										<span>내 과목 조회</span>
 									</c:otherwise>
 								</c:choose>
@@ -97,7 +154,7 @@
 								<a href="#subPages" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span> 과목</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 								<div id="subPages" class="collapse ">
 									<ul class="nav">
-										<li><a href="page-profile.html" class="">과목 등록</a></li>
+										<li><a href="../subject/subjectView.do" class="">과목 등록</a></li>
 										<li><a href="page-login.html" class="">과목 수정</a></li>
 									</ul>
 								</div>
@@ -216,34 +273,26 @@
 									</form>
 									</div>
 									<div class="col-md-12"></div>
+									
 									<div class="col-md-3">
-									<select class="form-control">
-											<option value="subjecttype">유형</option>
-											<option value="tomatoes">전공필수</option>
-											<option value="mozarella">전공선택</option>
-											<option value="mushrooms">교양필수</option>
-											<option value="pepperoni">교양선택</option>
+										<form>
+											<select class="form-control" id="major" name="major">
+												<option value="">과목</option>
+												<c:forEach var="rowList" items="${majorList }">
+													<option value="${rowList.value }">${rowList.name }</option>
+												</c:forEach>
+											</select>
+										</form>
+									</div>
+									
+									<div class="col-md-3">
+										<select class="form-control" id="allType" name="allType">
+											<option value="">유형</option>
 										</select>
 									</div>
+									
 									<div class="col-md-3">
-										<select class="form-control">
-											<option value="cheese">과목</option>
-											<option value="tomatoes">국어</option>
-											<option value="mozarella">영어</option>
-											<option value="mushrooms">수학</option>
-											<option value="pepperoni">과학</option>
-											<option value="onions">예체능</option>
-										</select>
-									</div>
-									<div class="col-md-3">
-										<select class="form-control">
-											<option value="cheese">교수</option>
-											<option value="tomatoes">교수1</option>
-											<option value="mozarella">교수2</option>
-											<option value="mushrooms">교수3</option>
-											<option value="pepperoni">교수4</option>
-											<option value="onions">교수5</option>
-										</select>
+										<select class="form-control" id="professor" name="professor"></select>
 									</div>
 									<div class="col-md-3" style="margin-bottom: 10px;'">
 									<span class="input-group-btn"><button type="button" class="btn btn-primary">검색</button></span>

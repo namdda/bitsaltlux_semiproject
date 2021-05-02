@@ -137,9 +137,19 @@ $(function(){
 											<input id="btn-check" class="btn btn-default" type="button" value="중복확인" style="float:left;">&nbsp;&nbsp;
 											<img id="imgCheck" style="width:30px; display:none; float:left; margin-left:10px;" src="/assets/img/check.png" />
 										</div>
-										<div style="margin-bottom:10px;height: 40px;">
+										<div style="margin-bottom:10px;height: 40px; width:70%;float:left;margin-right: 10px;">
 											<span style="float:left; margin: 5px 10px 0 0;">전공: </span>
-											<input type="text" id="inputMajor" name="inputMajor" class="form-control" placeholder="전공" style="width:70%;float:left;" />
+											<select class="form-control" name="inputMajor">
+												<option value="">과목</option>
+												<option value="kor">국어</option>
+												<option value="eng">영어</option>
+												<option value="mat">수학</option>
+												<option value="sci">과학</option>
+												<option value="spt">체육</option>
+												<option value="art">미술</option>
+												<option value="com">컴퓨터</option>
+												<option value="etc">기타</option>
+											</select>
 										</div>
 										<div style="margin-bottom:10px;height: 40px;">
 											<span style="float:left; margin: 5px 10px 0 0;">비밀번호: </span>

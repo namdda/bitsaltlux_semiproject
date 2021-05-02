@@ -60,4 +60,5 @@
 	<delete id="deleteProc"  parameterType="co.kr.wdt.user.vo.UserVo">
 		DELETE FROM MEMBER WHERE NO = #{no} AND INPUT_ID = #{inputId }
 	</delete>
+	
 </mapper>
