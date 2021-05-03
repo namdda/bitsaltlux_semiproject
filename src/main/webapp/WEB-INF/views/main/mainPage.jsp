@@ -152,6 +152,7 @@ function joinEducations(idx1, idx2) {
 								$(".edu_"+data[i].secondSubject).text(data[i].name);
 								$(".edu_"+data[i].secondSubject).css("backgroundColor","#f2dede");
 							}
+							alert("정상 신청되셨습니다.");
 						},
 						error: function(xhr, status, e){
 							console.error(status + ":" + e);

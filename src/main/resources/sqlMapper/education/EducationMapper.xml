@@ -14,9 +14,9 @@
 				, A.GRADES
 				, A.INPUT_NAME
 				, IFNULL(A.ETC, " ") AS ETC
-				, CONCAT(A.CNT - (SELECT COUNT(IDX) FROM MY_LECTURE WHERE LECTURE_NO1 = A.TIME5 AND SUBJECTS = A.SUBJECTS)) AS CNT
+				, CONCAT(A.CNT - (SELECT COUNT(IDX) FROM MY_LECTURE WHERE LECTURE_NO1=A.TIME5 AND SUBJECTS=A.SUBJECTS AND SUBJECTS=A.SUBJECTS AND STATUS='Y')) AS CNT
 				, A.INPUT_ID
-			FROM 
+			FROM
 				(SELECT NAME
 						, S.TYPE
 						, S.ALL_TYPE_NAME
@@ -63,7 +63,7 @@
 			WHERE A.INPUT_ID = #{inputId }
 			AND A.TYPE = #{type }
 	</select>
-	
+
 	<select id="selectEducation" parameterType="co.kr.wdt.education.vo.EducationVo" resultType="co.kr.wdt.education.vo.EducationVo">
 		SELECT SUBJECTS
 				, TIME1
@@ -74,7 +74,7 @@
 		WHERE TIME1 = #{idx1 }
 		AND TIME2 = #{idx2 }
 	</select>
-	
+
 	<insert id="joinEducation" parameterType="co.kr.wdt.education.vo.EducationVo">
 		INSERT INTO MY_LECTURE(
 			IDX
@@ -86,8 +86,8 @@
 			, ALL_TYPE_NAME
 			, STATUS
 		) VALUES (
-			NULL 
-			, #{subjects } 
+			NULL
+			, #{subjects }
 			, #{inputId }
 			, #{time1 }
 			, #{time2 }
@@ -114,11 +114,11 @@
 		WHERE A.USER_ID = #{value }
 		AND A.STATUS = 'Y'
 	</select>
-	
+
 	<select id="checkEducation" parameterType="co.kr.wdt.education.vo.EducationVo" resultType="int">
 		SELECT COUNT(IDX) FROM MY_LECTURE
 		WHERE USER_ID = #{inputId }
-		AND LECTURE_NO1 = #{idx1 }
-		AND LECTURE_NO2 = #{idx2 }
+		AND LECTURE_NO1 = #{idx1 } OR LECTURE_NO2 = #{idx2 }
+		AND STATUS = 'Y'
 	</select>
 </mapper>
