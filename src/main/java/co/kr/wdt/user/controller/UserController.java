@@ -39,30 +39,27 @@ public class UserController {
 		userService.joinProc(userVo);
 		return "redirect:/user/joinsuccess.do";
 	}
-	
-	
+
 	@RequestMapping(value="/joinsuccess.do", method=RequestMethod.GET)
 	public String joinsuccess() {
 		return "user/joinsuccess";
 	}
 
-	
 	@RequestMapping(value="/userUpdate.do", method=RequestMethod.GET)
 	public String userUpdate(@RequestParam String inputId, Model model) {
 		model.addAttribute("resutl", userService.userUpdate(inputId));
 		return "user/userUpdate";
 	}
-	
+
 	@RequestMapping(value="/updateProc.do", method=RequestMethod.POST)
 	public String updateProc(@ModelAttribute("resutl") UserVo userVo) {
 		userService.updateProc(userVo);
 		return "user/userUpdate";
 	}
-	
+
 	@RequestMapping(value="/deleteProc.do", method=RequestMethod.POST)
 	public String delteProc(@ModelAttribute UserVo userVo) {
 		userService.deleteProc(userVo);
 		return "redirect:/login/loginPage.do";
 	}
-
 }

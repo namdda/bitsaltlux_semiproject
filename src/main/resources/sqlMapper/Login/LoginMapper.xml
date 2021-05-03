@@ -3,13 +3,13 @@
 
 <mapper namespace="LoginMapper">
 	<select id="loginProc" parameterType="String" resultType="co.kr.wdt.user.vo.UserVo">
-			SELECT INPUT_NAME
-				, INPUT_SCHOOL
-				, INPUT_ID
-				, INPUT_MAJOR
-				, USER_PW
-				, LEVEL
-				, REG_DATE
-			FROM MEMBER WHERE INPUT_ID = #{value }
+		SELECT INPUT_NAME
+			, INPUT_SCHOOL
+			, INPUT_ID
+			, INPUT_MAJOR
+			, USER_PW
+			, LEVEL
+			, REG_DATE
+		FROM MEMBER WHERE INPUT_ID = #{value }
 	</select>
 </mapper>

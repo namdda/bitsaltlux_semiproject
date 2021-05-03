@@ -27,27 +27,6 @@
 		</property>
 	</bean>
 
-	<!-- <bean id="dataSourceProxy" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="${jdbc.oracleDriver}"/>
-		<property name="url" value="${jdbc.oracleUrl}" />
-		<property name="username" value="${jdbc.oracleUserName}" />
-		<property name="password" value="${jdbc.oraclePassWord}" />
-	</bean>
-	
-	<bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
-		<constructor-arg ref="dataSourceProxy" />
-		<property name="logFormatter">
-			<bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">
-				<property name="loggingType" value="MULTI_LINE" />
-				<property name="sqlPrefix" value="&#10;&#10;                        "/>
-			</bean>
-		</property>
-	</bean>
-	
-	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
-		<constructor-arg ref="sqlSessionFactory" />
-	</bean> -->
-	
 	<bean id="dataSourceProxy2" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="${mysql.mysqlDriver}"></property>
 		<property name="url" value="${mysql.mysqlUrl}"></property>
@@ -66,16 +45,6 @@
 	<bean id="sqlSession2" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg ref="sqlSessionFactory2" />
 	</bean>
-	
-	<!-- <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-		<property name="configLocation" value="classpath:META-INF/mybatis/mybatis-config.xml" />
-		<property name="mapperLocations" value="classpath:/sqlMapper/**/*Mapper.xml" />
-	</bean> -->
-
-	<!-- <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
-		<constructor-arg index="0" ref="sqlSessionFactory"/>
-	</bean> -->
 
 	<bean id="sqlSessionFactory2" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource2" />

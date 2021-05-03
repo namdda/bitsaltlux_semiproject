@@ -12,6 +12,7 @@ public class LoginServiceImpl implements LoginService {
 
 	@Autowired
 	private LoginDao loginDao;
+
 	@Override
 	public UserVo loginProc(String inputId) {
 		return loginDao.loginProc(inputId);

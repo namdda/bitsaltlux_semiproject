@@ -22,7 +22,7 @@
 	<!-- ICONS -->
 	<link rel="apple-touch-icon" sizes="76x76" href="/assets/img/apple-icon.png">
 	<link rel="icon" type="image/png" sizes="96x96" href="/assets/img/favicon.png">
-	
+
 	<script src="/assets/js/jquery/jquery-3.6.0.js" type="text/javascript"></script>
 <script>
 $(function(){
@@ -51,7 +51,7 @@ $(function(){
 			}
 		});
 	});
-	
+
 	$("#btn").on("click", function(){
 		if($("#checked").val() !== "Y") {
 			alert("중복 확인을 하셔야됩니다.");
@@ -76,13 +76,9 @@ $(function(){
 		<!-- NAVBAR -->
 		<nav class="navbar navbar-default navbar-fixed-top">
 			<div class="brand">
-				<a href="../login/loginPage.do"><img src="/assets/img/logo-dark.png" alt="Klorofil Logo" class="img-responsive logo"></a>
+				<a href="../login/loginPage.do"><img src="/assets/img/logo-dark.png" alt="Klorofil Logo" class="img-responsive logo" /></a>
 			</div>
-			<div class="container-fluid">
-				
-				
-				
-			</div>
+			<div class="container-fluid"></div>
 		</nav>
 		<!-- END NAVBAR -->
 		<!-- MAIN -->
@@ -98,15 +94,15 @@ $(function(){
 								<form method="post" name="frm" action="/user/joinProc.do">
 									<div class="panel-body">
 										<div style="margin-bottom:10px;height: 40px;">
-											<span style="float:left; margin: 5px 7px 0 0;">이름 : </span> 
+											<span style="float:left; margin: 5px 7px 0 0;">이름 : </span>
 											<input type="text" id="inputName" name="inputName" class="form-control" placeholder="이름" style="width:90%;float:left;" />
 										</div>
 										<div style="margin-bottom:10px;height: 40px;">
-											<span style="float:left; margin: 5px 10px 0 0;">학교: </span> 
+											<span style="float:left; margin: 5px 10px 0 0;">학교: </span>
 											<input type="text" id="inputSchool" name="inputSchool" class="form-control" placeholder="학교" style="width:90%;float:left;" />
 										</div>
 										<div style="margin-bottom:10px;height: 40px;">
-											<span style="float:left; margin: 5px 10px 0 0;">학번: </span> 
+											<span style="float:left; margin: 5px 10px 0 0;">학번: </span>
 											<input type="text" id="inputId" name="inputId" class="form-control" placeholder="학번" style="width:70%;float:left;margin-right: 10px;">&nbsp;&nbsp;
 											<input id="btn-check" class="btn btn-default" type="button" value="중복확인" style="float:left;">&nbsp;&nbsp;
 											<img id="imgCheck" style="width:30px; display:none; float:left; margin-left:10px;" src="/assets/img/check.png" />
@@ -145,7 +141,7 @@ $(function(){
 								</form>
 							</div>
 							<!-- END INPUTS -->
-							
+
 						</div>
 					</div>
 				</div>
@@ -156,8 +152,7 @@ $(function(){
 		<div class="clearfix"></div>
 		<footer>
 			<div class="container-fluid">
-				<p class="copyright">Shared by <i class="fa fa-love"></i><a href="https://bootstrapthemes.co">BootstrapThemes</a>
-</p>
+				<p class="copyright">Shared by <i class="fa fa-love"></i><a href="https://bootstrapthemes.co">BootstrapThemes</a></p>
 			</div>
 		</footer>
 	</div>

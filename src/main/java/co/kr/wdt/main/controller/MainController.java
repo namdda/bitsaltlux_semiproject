@@ -20,10 +20,10 @@ import co.kr.wdt.main.service.MainSevice;
 @Controller
 @RequestMapping(value="/main")
 public class MainController {
-	
+
 	@Autowired
 	private MainSevice mainService;
-	
+
 	@RequestMapping(value="/mainPage.do", method={RequestMethod.GET, RequestMethod.POST})
 	public String mainPage(HttpServletRequest request, Model model) {
 		List<MajorVo> majorVo = mainService.selectMajorList();
@@ -31,27 +31,22 @@ public class MainController {
 		HttpSession session = request.getSession(false);
 		if(session == null) {
 			redirectUrl ="redirect:/login/loginPage.do?Status=SESSIONOUT";
-		}
-		if(session != null) {
-			if(session.getAttribute("userId") == null) {
-				redirectUrl ="redirect:/login/loginPage.do?Status=SESSIONOUT";
-			}
-			if("PRO".equals(session.getAttribute("level"))) {
-				redirectUrl = "main/proMainPage";
-			}
+		} else {
+			if(session.getAttribute("userId") == null) redirectUrl ="redirect:/login/loginPage.do?Status=SESSIONOUT";
+			// if("PRO".equals(session.getAttribute("level"))) redirectUrl = "main/proMainPage";
 		}
 		model.addAttribute("majorList", majorVo);
 		return redirectUrl;
 	}
-	
-	@RequestMapping(value="allTypeList.do", method=RequestMethod.POST)
+
+	@RequestMapping(value="/allTypeList.do", method=RequestMethod.POST)
 	@ResponseBody
 	public List<AllTypeVo> allTypeList(String value) {
 		List<AllTypeVo> allTypeVo = mainService.allTypeList(value);
 		return allTypeVo;
 	}
-	
-	@RequestMapping(value="professorList.do", method=RequestMethod.POST)
+
+	@RequestMapping(value="/professorList.do", method=RequestMethod.POST)
 	@ResponseBody
 	public List<ProfessorVo> professorList(String value) {
 		List<ProfessorVo> professorVo = mainService.professorList(value);

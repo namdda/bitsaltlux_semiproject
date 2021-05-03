@@ -56,10 +56,10 @@ $(function(){
 			dataType: 'JSON',
 			success: function(data) {
 				var objSel = $("#allType")[0];
-				for(var x = objSel.length-1; 1 <= x; x--) {
+				for(var x=objSel.length-1; 1<=x; x--) {
 					objSel.options[x] = null;
 				}
-				for(var i = 0; i < data.length; i++) {
+				for(var i=0; i<data.length; i++) {
 					var objOption = document.createElement("option");
 					objOption.value = data[i].value;
 					objOption.className = data[i].type;
@@ -82,10 +82,10 @@ $(function(){
 			dataType: 'JSON',
 			success: function(data) {
 				var objSel = $("#professor")[0];
-				for(var x = objSel.length-1; 1 <= x; x--) {
+				for(var x=objSel.length-1; 1<=x; x--) {
 					objSel.options[x] = null;
 				}
-				for(var i = 0; i < data.length; i++) {
+				for(var i=0; i<data.length; i++) {
 					var objOption = document.createElement("option");
 					objOption.value = data[i].inputId;
 					objOption.text = data[i].inputName;
@@ -271,7 +271,7 @@ function joinEducations(idx1, idx2) {
 								<c:when test="${sessionScope.userLevel != 'PRO'}">
 									<div class="row">
 										<div class="col-md-9">
-										<table class="table table-bordered">
+											<table class="table table-bordered">
 												<thead>
 													<tr>
 														<th>#</th>

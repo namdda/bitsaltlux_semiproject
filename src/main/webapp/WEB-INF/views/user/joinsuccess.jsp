@@ -23,8 +23,8 @@
 	<!-- ICONS -->
 	<link rel="apple-touch-icon" sizes="76x76" href="/assets/img/apple-icon.png">
 	<link rel="icon" type="image/png" sizes="96x96" href="/assets/img/favicon.png">
-	
-	
+
+
 </head>
 
 <body>
@@ -91,18 +91,17 @@
 							<!-- INPUTS -->
 							<div class="panel">
 								<div id="content">
-			<div id="user" style= "text-align:center;">
-				<p class="jr-success">
-					회원가입을 축하합니다.
-					<br>
-					<br>
-					<a href="/login/loginPage.do">로그인하기</a>
-				</p>				
-			</div>
-		</div>
+									<div id="user" style= "text-align:center;">
+										<p class="jr-success">
+											회원가입을 축하합니다.
+											<br>
+											<br>
+											<a href="/login/loginPage.do">로그인하기</a>
+										</p>
+									</div>
+								</div>
 							</div>
 							<!-- END INPUTS -->
-							
 						</div>
 					</div>
 				</div>
@@ -113,8 +112,7 @@
 		<div class="clearfix"></div>
 		<footer>
 			<div class="container-fluid">
-				<p class="copyright">Shared by <i class="fa fa-love"></i><a href="https://bootstrapthemes.co">BootstrapThemes</a>
-</p>
+				<p class="copyright">Shared by <i class="fa fa-love"></i><a href="https://bootstrapthemes.co">BootstrapThemes</a></p>
 			</div>
 		</footer>
 	</div>

@@ -22,7 +22,7 @@
 	<!-- ICONS -->
 	<link rel="apple-touch-icon" sizes="76x76" href="/assets/img/apple-icon.png">
 	<link rel="icon" type="image/png" sizes="96x96" href="/assets/img/favicon.png">
-	
+
 	<script src="/assets/js/jquery/jquery-3.6.0.js" type="text/javascript"></script>
 <script>
 $(function(){
@@ -60,18 +60,15 @@ $(function(){
 		<!-- NAVBAR -->
 		<nav class="navbar navbar-default navbar-fixed-top">
 			<div class="brand">
-				<a href="../main/mainPage.do"><img src="/assets/img/logo-dark.png" alt="Klorofil Logo" class="img-responsive logo"></a>
+				<a href="../main/mainPage.do"><img src="/assets/img/logo-dark.png" alt="Klorofil Logo" class="img-responsive logo" /></a>
 			</div>
 			<div class="container-fluid">
 				<div class="navbar-btn">
 					<button type="button" class="btn-toggle-fullwidth"><i class="lnr lnr-arrow-left-circle"></i></button>
 				</div>
-
-
 				<div id="navbar-menu">
 					<ul class="nav navbar-nav navbar-right">
 						<li class="dropdown">
-
 							<ul class="dropdown-menu notifications">
 								<li><a href="#" class="notification-item"><span class="dot bg-warning"></span>System space is almost full</a></li>
 								<li><a href="#" class="notification-item"><span class="dot bg-danger"></span>You have 9 unfinished tasks</a></li>
@@ -86,7 +83,6 @@ $(function(){
 						</li>
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="/assets/img/user.png" class="img-circle" alt="Avatar" style="display: none;"> <span>${sessionScope.userNm }</span></a>
-							
 						</li>
 						<!-- <li>
 							<a class="update-pro" href="https://www.themeineed.com/downloads/klorofil-pro-bootstrap-admin-dashboard-template/?utm_source=klorofil&utm_medium=template&utm_campaign=KlorofilPro" title="Upgrade to Pro" target="_blank"><i class="fa fa-rocket"></i> <span>UPGRADE TO PRO</span></a>
@@ -143,21 +139,21 @@ $(function(){
 							<div class="panel">
 								<form method="post" name="frm" action="/user/updateProc.do">
 									<div class="panel-body">
-										<input type="hidden" id="no" name="no" value="${resutl.no }"> 
+										<input type="hidden" id="no" name="no" value="${resutl.no }">
 										<div style="margin-bottom:10px;height: 40px;">
-											<span style="float:left; margin: 5px 7px 0 0;">이름 : </span> 
+											<span style="float:left; margin: 5px 7px 0 0;">이름 : </span>
 											<input type="text" id="inputName" name="inputName" class="form-control" value="${resutl.inputName}" style="width:90%;float:left;" />
 										</div>
 										<div style="margin-bottom:10px;height: 40px;">
-											<span style="float:left; margin: 5px 10px 0 0;">학교: </span> 
+											<span style="float:left; margin: 5px 10px 0 0;">학교: </span>
 											<input type="text" id="inputSchool" name="inputSchool" class="form-control" value="${resutl.inputSchool}" style="width:90%;float:left;" />
 										</div>
 										<div style="margin-bottom:10px;height: 40px;">
-											<span style="float:left; margin: 5px 10px 0 0;">학번: </span> 
-											<input type="text" id="inputId" name="inputId" class="form-control" value="${resutl.inputId}" style="width:70%;float:left;margin-right: 10px;" readonly="true">&nbsp;&nbsp;
+											<span style="float:left; margin: 5px 10px 0 0;">학번: </span>
+											<input type="text" id="inputId" name="inputId" class="form-control" value="${resutl.inputId}" style="width:70%;float:left;margin-right: 10px;" readonly="true" />&nbsp;&nbsp;
 											<img id="imgCheck" style="width:30px; display:none; float:left; margin-left:10px;" src="/assets/img/check.png" />
 										</div>
-										
+
 										<c:if test="${resutl.level == 'STUDENT'}">
 											<div style="margin-bottom:10px;height: 40px;">
 												<span style="float:left; margin: 5px 10px 0 0;">전공: </span>
@@ -194,16 +190,13 @@ $(function(){
 											<span style="float:left; margin: 5px 10px 0 0;">비밀번호: </span>
 											<input type="password" class="form-control" id="userPw" name="userPw" value="${resutl.userPw}" style="width:70%;float: left;" />
 										</div>
-										
-										
 										<button class="btn btn-success" type="submit">수정하기</button>
 										<button class="btn btn-default" type="button" onclick="history.back();">뒤로 	가기</button>
 										<button  id="btn-remove" class="btn btn-danger" type="button">탈퇴하기</button>
-										<input type="hidden" name="level" value="${resutl.level }"/>
+										<input type="hidden" name="level" value="${resutl.level }" />
 									</div>
 								</form>
 							</div>
-							
 							<script>
 								//삭제 버튼 누르면 삭제할 것이냐고 묻고 삭제한다고 하면 주소이동(BoardController의 remove 메소드 호출)
 								$(function(){
@@ -215,7 +208,7 @@ $(function(){
 								});
 							</script>
 							<!-- END INPUTS -->
-							
+
 						</div>
 					</div>
 				</div>
@@ -226,8 +219,7 @@ $(function(){
 		<div class="clearfix"></div>
 		<footer>
 			<div class="container-fluid">
-				<p class="copyright">Shared by <i class="fa fa-love"></i><a href="https://bootstrapthemes.co">BootstrapThemes</a>
-</p>
+				<p class="copyright">Shared by <i class="fa fa-love"></i><a href="https://bootstrapthemes.co">BootstrapThemes</a></p>
 			</div>
 		</footer>
 	</div>

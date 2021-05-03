@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="MainMapper">
-
 	<select id="selectMajorList" resultType="co.kr.wdt.common.vo.MajorVo">
 		SELECT IDX
 				, NAME
@@ -10,7 +9,7 @@
 				, VALUE
 		FROM MAJOR
 	</select>
-	
+
 	<select id="allTypeList" parameterType="String" resultType="co.kr.wdt.common.vo.AllTypeVo">
 		SELECT IDX
 				, NAME
@@ -20,7 +19,7 @@
 		FROM LECTURE
 		WHERE VALUE = #{value }
 	</select>
-	
+
 	<select id="professorList" parameterType="String" resultType="co.kr.wdt.common.vo.ProfessorVo">
 		SELECT INPUT_NAME
 				, INPUT_ID
@@ -28,5 +27,4 @@
 		WHERE SUBJECTS = #{value }
 		AND LEVEL ='PRO'
 	</select>
-	
 </mapper>

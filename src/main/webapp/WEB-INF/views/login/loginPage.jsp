@@ -34,15 +34,18 @@ $(function(){
 		alert("세션이 만료되었습니다. 다시 로그인 하여주십시요.");
 		top.location="/login/loginPage.do";
 	}
+
 	$("#btn").on("click", function(){
 		var obj = document.frm;
 		obj.action = "/login/loginProc.do";
 		obj.method = "post";
 		obj.submit();
 	});
+
 	$("#btn2").on("click", function(){
 		location.href="/user/userJoin.do";
 	});
+
 	$('#inputId').on("keydown", function(e){
 		if(e.keyCode == 13){
 			if($('#userPw').val().trim() == ''){
@@ -72,8 +75,8 @@ $(function(){
 				<div class="auth-box ">
 					<div class="left">
 						<div class="content">
-							<div class="header">							
-								<div class="logo text-center"><img src="/assets/img/logo-dark.png" alt="Klorofil Logo"></div>
+							<div class="header">
+								<div class="logo text-center"><img src="/assets/img/logo-dark.png" alt="Klorofil Logo" /></div>
 								<p class="lead">Login to your account</p>
 								</a>
 							</div>
@@ -105,5 +108,4 @@ $(function(){
 	</div>
 	<!-- END WRAPPER -->
 </body>
-
 </html>
