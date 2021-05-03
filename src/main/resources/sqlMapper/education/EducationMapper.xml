@@ -118,7 +118,7 @@
 	<select id="checkEducation" parameterType="co.kr.wdt.education.vo.EducationVo" resultType="int">
 		SELECT COUNT(IDX) FROM MY_LECTURE
 		WHERE USER_ID = #{inputId }
-		AND LECTURE_NO1 = #{idx1 } OR LECTURE_NO2 = #{idx2 }
+		AND LECTURE_NO1 IN (#{idx1 }, #{idx2 }) OR LECTURE_NO2 IN (#{idx1 }, #{idx2 })
 		AND STATUS = 'Y'
 	</select>
 </mapper>
