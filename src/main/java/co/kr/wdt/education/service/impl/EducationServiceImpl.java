@@ -5,7 +5,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.http.HttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +14,7 @@ import co.kr.wdt.education.vo.EducationVo;
 
 @Service
 public class EducationServiceImpl implements EducationService {
-	
+
 	@Autowired
 	private EducationDao educationDao;
 
@@ -43,7 +42,7 @@ public class EducationServiceImpl implements EducationService {
 		HttpSession session = req.getSession(true);
 		return educationDao.joinEducationList(Integer.toString((int) session.getAttribute("userId")));
 	}
-	
+
 	@Override
 	public int checkEducation(String idx1, String idx2, HttpServletRequest req) {
 		HttpSession session = req.getSession(true);

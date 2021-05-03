@@ -1,4 +1,4 @@
-package co.kr.wdt.education;
+package co.kr.wdt.education.controller;
 
 import java.util.List;
 
