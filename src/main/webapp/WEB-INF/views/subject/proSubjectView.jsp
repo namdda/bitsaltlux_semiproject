@@ -63,19 +63,9 @@ $(function(){
 				<div class="navbar-btn">
 					<button type="button" class="btn-toggle-fullwidth"><i class="lnr lnr-arrow-left-circle"></i></button>
 				</div>
-				<form class="navbar-form navbar-left">
-					<div class="input-group">
-						<input type="text" value="" class="form-control" placeholder="Search dashboard...">
-						<span class="input-group-btn"><button type="button" class="btn btn-primary">Go</button></span>
-					</div>
-				</form>
-				<div class="navbar-btn navbar-btn-right">
-					<a class="btn btn-success update-pro" href="https://www.themeineed.com/downloads/klorofil-pro-bootstrap-admin-dashboard-template/?utm_source=klorofil&utm_medium=template&utm_campaign=KlorofilPro" title="Upgrade to Pro" target="_blank"><i class="fa fa-rocket"></i> <span>UPGRADE TO PRO</span></a>
-				</div>
 				<div id="navbar-menu">
 					<ul class="nav navbar-nav navbar-right">
 						<li class="dropdown">
-							
 							<ul class="dropdown-menu notifications">
 								<li><a href="#" class="notification-item"><span class="dot bg-warning"></span>System space is almost full</a></li>
 								<li><a href="#" class="notification-item"><span class="dot bg-danger"></span>You have 9 unfinished tasks</a></li>
@@ -85,17 +75,11 @@ $(function(){
 								<li><a href="#" class="more">See all notifications</a></li>
 							</ul>
 						</li>
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="lnr lnr-question-circle"></i> <span>Help</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
-							<ul class="dropdown-menu">
-								<li><a href="#">Basic Use</a></li>
-								<li><a href="#">Working With Data</a></li>
-								<li><a href="#">Security</a></li>
-								<li><a href="#">Troubleshooting</a></li>
-							</ul>
+						<li>
+							<a href="/login/logOut.do" class="dropdown-toggle"><span>logout</span></a>
 						</li>
 						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="/assets/img/user.png" class="img-circle" alt="Avatar"> <span>Samuel</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="/assets/img/user.png" class="img-circle" alt="Avatar" style="display: none;"/><span>${sessionScope.userNm }</span></a>
 							<ul class="dropdown-menu">
 								<li><a href="#"><i class="lnr lnr-user"></i> <span>My Profile</span></a></li>
 								<li><a href="#"><i class="lnr lnr-envelope"></i> <span>Message</span></a></li>
@@ -116,24 +100,35 @@ $(function(){
 			<div class="sidebar-scroll">
 				<nav>
 					<ul class="nav">
-						<li><a href="index.html" class=""><i class="lnr lnr-home"></i> <span>메인 페이지로 가기</span></a></li>
-						<li><a href="elements.html" class="active"><i class="lnr lnr-code"></i> <span>Elements</span></a></li>
-						<li><a href="charts.html" class=""><i class="lnr lnr-chart-bars"></i> <span>Charts</span></a></li>
-						<li><a href="panels.html" class=""><i class="lnr lnr-cog"></i> <span>Panels</span></a></li>
-						<li><a href="notifications.html" class=""><i class="lnr lnr-alarm"></i> <span>Notifications</span></a></li>
+						<li><a href="/main/mainPage.do" class="active"><i class="lnr lnr-home"></i> <span>메인페이지</span></a></li>
+						<li><a href="/user/userUpdate.do?inputId=${sessionScope.userId }" class="active"><i class="lnr lnr-pencil"></i><span>회원 정보</span></a></li>
 						<li>
-							<a href="#subPages" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>Pages</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
-							<div id="subPages" class="collapse ">
-								<ul class="nav">
-									<li><a href="page-profile.html" class="">Profile</a></li>
-									<li><a href="page-login.html" class="">Login</a></li>
-									<li><a href="page-lockscreen.html" class="">Lockscreen</a></li>
-								</ul>
-							</div>
+							<!--  <a href="/subject/subjectView.do?inputId=${sessionScope.userId }" class=""><i class="lnr lnr-code"></i> -->
+							<c:choose>
+								<c:when test="${sessionScope.userLevel != 'PRO'}">
+									<a href="/subject/studentSubjectView.do?inputId=${sessionScope.userId }" class=""><i class="lnr lnr-code"></i>
+										<span>수강과목 조회</span>
+									</a>
+								</c:when>
+								<c:otherwise>
+									<a href="/subject/proSubjectView.do?inputId=${sessionScope.userId }" class=""><i class="lnr lnr-code"></i>
+										<span>내 과목 조회</span>
+									</a>
+								</c:otherwise>
+							</c:choose>
+							<!-- </a> -->
 						</li>
-						<li><a href="tables.html" class=""><i class="lnr lnr-dice"></i> <span>Tables</span></a></li>
-						<li><a href="typography.html" class=""><i class="lnr lnr-text-format"></i> <span>Typography</span></a></li>
-						<li><a href="icons.html" class=""><i class="lnr lnr-linearicons"></i> <span>Icons</span></a></li>
+						<c:if test="${sessionScope.userLevel == 'PRO'}">
+							<li>
+								<a href="#subPages" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i><span> 과목</span><i class="icon-submenu lnr lnr-chevron-left"></i></a>
+								<div id="subPages" class="collapse">
+									<ul class="nav">
+										<li><a href="/subject/subjectView.do">과목 등록</a></li>
+										<li><a href="page-login.html">과목 수정</a></li>
+									</ul>
+								</div>
+							</li>
+						</c:if>
 					</ul>
 				</nav>
 			</div>
@@ -144,81 +139,39 @@ $(function(){
 			<!-- MAIN CONTENT -->
 			<div class="main-content">
 				<div class="container-fluid">
-					<h3 class="page-title">Member join</h3>
+					<h3 class="page-title">PROFESSOR LECTURE LIST</h3>
 					<div class="row">
 						<div class="col-md-12">
 							<!-- INPUTS -->
 							<div class="panel">
-								<form id="join-form" name="joinForm" method="post" action="${pageContext.request.contextPath }/user/join">
-										<table class="table table-bordered">
-											<thead>
-												<tr>
-													<th>#</th>
-													<th>과목 번호</th>
-													<th>과목 이름</th>
-													<th>유형</th>
-													<th>시간</th>
-													<th>학점</th>
-													<th>담당교수</th>
-													<th>기타사항</th>
-													<th>정원</th>
-													<th>수강하기</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<td>1</td>
-													<td>CP123456</td>
-													<td>컴퓨터 사람 살려</td>
-													<td>전필</td>
-													<td>목요일 1,2 교시</td>
-													<td>3점</td>
-													<td>컴퓨터</td>
-													<td>없음</td>
-													<td>1</td>
-													<td><button type="submit">삭제하기</button></td>
-												</tr>
-												<tr>
-													<td>1</td>
-													<td>CP123456</td>
-													<td>컴퓨터 사람 살려</td>
-													<td>전필</td>
-													<td>목요일 1,2 교시</td>
-													<td>3점</td>
-													<td>컴퓨터</td>
-													<td>없음</td>
-													<td>1</td>
-													<td><button type="submit">삭제하기</button></td>
-												</tr>
-												<tr>
-													<td>1</td>
-													<td>CP123456</td>
-													<td>컴퓨터 사람 살려</td>
-													<td>전필</td>
-													<td>목요일 1,2 교시</td>
-													<td>3점</td>
-													<td>컴퓨터</td>
-													<td>없음</td>
-													<td>1</td>
-													<td><button type="submit">삭제하기</button></td>
-												</tr>
-											</tbody>
-										</table>
-									</form>
+								<table class="table table-bordered">
+									<thead>
+										<tr>
+											<th>#</th>
+											<th>과목 이름</th>
+											<th>유형</th>
+											<th>시간</th>
+											<th>학점</th>
+											<th>기타사항</th>
+											<th>정원</th>
+										</tr>
+									</thead>
+									<tbody>
+										<c:forEach var="rowList" items="${subjectList }">
+											<tr>
+												<td>${rowList.rowidx }</td>
+												<td>${rowList.name }</td>
+												<td>${rowList.allTypeName }</td>
+												<td>${rowList.time }</td>
+												<td>${rowList.grades }</td>
+												<td>${rowList.etc }</td>
+												<td>${rowList.cnt }</td>
+											</tr>
+										</c:forEach>
+									</tbody>
+								</table>
 							</div>
-							<script>
-								//삭제 버튼 누르면 삭제할 것이냐고 묻고 삭제한다고 하면 주소이동(BoardController의 remove 메소드 호출)
-								$(function(){
-								$('#btn-remove').click(function(){
-									if(confirm("Are u sure?")){
-										self.location.href = "/user/remove?no=${userVo.no}";
-										}
-									});
-								});
-							</script>
 							<!-- END INPUTS -->
-							
-							
 						</div>
 					</div>
 				</div>
@@ -234,7 +187,5 @@ $(function(){
 		</footer>
 	</div>
 	<!-- END WRAPPER -->
-	
 </body>
-
 </html>

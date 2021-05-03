@@ -32,10 +32,7 @@ public class SubjectController {
 	}
 	
 	
-	//문제점 1. 아니, 강의 취소하면.... 강의 듣던 학생들은 어칼꺼임 (끔찍) -> 취소하지 못한다 강사님은 영원히 강의 해야 한다  
-	//문제점 2. 시간 입력은 어떻게? 10, 29 이렇게? 위에 안내도 쓰지 뭐 -> html 안내표 쓰기  
-	// 문제점 3. 다 좋은데 교수님 시간이 겹치면 어카지(교수님이 분신술 써야 하는 케이스) -> 이건 좀 큰일남 
-	//아 생각할게 많다.... 
+	//교수 목록 보기 
 	@RequestMapping(value="/proSubjectView.do", method={RequestMethod.GET,RequestMethod.POST})
 	String proSubjectView(@RequestParam(value="inputId", required=false) String inputId, @RequestParam(value="idx", required=false) String idx, Model model) {
 		List<SubjectVo> subjectVo = subjectService.proSubjectView(inputId);
