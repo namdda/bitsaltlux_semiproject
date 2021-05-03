@@ -11,8 +11,9 @@ import co.kr.wdt.common.vo.ProfessorVo;
 
 @Repository
 public class MainDao extends CommonSqlDao2 {
+
 	private static String PREFIX = "MainMapper.";
-	
+
 	public List<MajorVo> selectMajorList() {
 		return selectList(PREFIX + "selectMajorList");
 	}

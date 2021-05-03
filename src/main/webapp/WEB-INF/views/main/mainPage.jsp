@@ -44,7 +44,7 @@ $(function(){
 			console.error(status + ":" + e);
 		}
 	});
-	
+
 	$("#major").on("change", function(){
 		$("#allType").find('option').remove();
 		$("#professor").find('option').remove();
@@ -72,7 +72,7 @@ $(function(){
 			}
 		});
 	});
-	
+
 	$("#allType").on("change", function(){
 		$("#professor").find('option').remove();
 		$.ajax({
@@ -97,7 +97,7 @@ $(function(){
 			}
 		});
 	});
-	
+
 	$("#search").on("click", function(){
 		$.ajax({
 			url: "/education/searchEducationList.do",
@@ -221,13 +221,13 @@ function joinEducations(idx1, idx2) {
 			<div class="sidebar-scroll">
 				<nav>
 					<ul class="nav">
-						<li><a href="mainPage.do" class="active"><i class="lnr lnr-home"></i> <span>메인페이지</span></a></li>
+						<li><a href="/main/mainPage.do" class="active"><i class="lnr lnr-home"></i> <span>메인페이지</span></a></li>
 						<li><a href="/user/userUpdate.do?inputId=${sessionScope.userId }" class="active"><i class="lnr lnr-pencil"></i><span>회원 정보</span></a></li>
 						<li>
-							<!--  <a href="../subject/subjectView.do?inputId=${sessionScope.userId }" class=""><i class="lnr lnr-code"></i> -->
+							<!--  <a href="/subject/subjectView.do?inputId=${sessionScope.userId }" class=""><i class="lnr lnr-code"></i> -->
 							<c:choose>
 								<c:when test="${sessionScope.userLevel != 'PRO'}">
-									<a href="/subject/StudentsubjectView.do?inputId=${sessionScope.userId }" class=""><i class="lnr lnr-code"></i>
+									<a href="/subject/studentSubjectView.do?inputId=${sessionScope.userId }" class=""><i class="lnr lnr-code"></i>
 										<span>수강과목 조회</span>
 									</a>
 								</c:when>
@@ -241,7 +241,7 @@ function joinEducations(idx1, idx2) {
 						</li>
 						<c:if test="${sessionScope.userLevel == 'PRO'}">
 							<li>
-								<a href="#subPages" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i><span> 과목</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+								<a href="#subPages" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i><span> 과목</span><i class="icon-submenu lnr lnr-chevron-left"></i></a>
 								<div id="subPages" class="collapse">
 									<ul class="nav">
 										<li><a href="/subject/subjectView.do">과목 등록</a></li>

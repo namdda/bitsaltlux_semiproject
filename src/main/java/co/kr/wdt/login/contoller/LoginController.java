@@ -43,7 +43,6 @@ public class LoginController {
 		if(userVo != null) {
 			if(userVo.getUserPw().equals(loginVo.getUserPw())) {
 				HttpSession session = request.getSession();
-				
 				session.setAttribute("userNo", userVo.getNo());
 				session.setAttribute("userId", userVo.getInputId());
 				session.setAttribute("userNm", userVo.getInputName());
