@@ -15,7 +15,7 @@ public class SubjectController {
 	@Autowired
 	private SubjectService subjectService;
 	
-	@RequestMapping(value="proSubjectView.do", method= {RequestMethod.GET,RequestMethod.POST})
+	@RequestMapping(value="/proSubjectView.do", method= {RequestMethod.GET,RequestMethod.POST})
 	String proSubjectView() {
 		return "subject/proSubjectView";
 	}
