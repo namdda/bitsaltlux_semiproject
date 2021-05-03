@@ -188,21 +188,21 @@ function printClock() {
 		amKorPm = '<span style="color:#15acf7;">'+amKorPm+'</span>'
 		currentHours = addZeros(currentHours-12, 2);
 	}
-	
-	if(currentSeconds >= 10) {							// 50초 이상일 때 색을 변환해 준다.
-		currentSeconds = '<span style="color:#33bfce;">'+currentSeconds+'</span>';
-	}
-	if(currentSeconds >= 20) {							// 50초 이상일 때 색을 변환해 준다.
-		currentSeconds = '<span style="color:#81ea98;">'+currentSeconds+'</span>';
-	}
-	if(currentSeconds >= 30) {							// 50초 이상일 때 색을 변환해 준다.
-		currentSeconds = '<span style="color:#c1b525;">'+currentSeconds+'</span>';
+
+	if(currentSeconds >= 50) {							// 50초 이상일 때 색을 변환해 준다.
+		currentSeconds = '<span style="color:#de1951;">'+currentSeconds+'</span>';
 	}
 	if(currentSeconds >= 40) {							// 50초 이상일 때 색을 변환해 준다.
 		currentSeconds = '<span style="color:#43c1bb;">'+currentSeconds+'</span>';
 	}
-	if(currentSeconds >= 50) {							// 50초 이상일 때 색을 변환해 준다.
-		currentSeconds = '<span style="color:#de1951;">'+currentSeconds+'</span>';
+	if(currentSeconds >= 30) {							// 50초 이상일 때 색을 변환해 준다.
+		currentSeconds = '<span style="color:#c1b525;">'+currentSeconds+'</span>';
+	}
+	if(currentSeconds >= 20) {							// 50초 이상일 때 색을 변환해 준다.
+		currentSeconds = '<span style="color:#81ea98;">'+currentSeconds+'</span>';
+	}
+	if(currentSeconds >= 10) {							// 50초 이상일 때 색을 변환해 준다.
+		currentSeconds = '<span style="color:#33bfce;">'+currentSeconds+'</span>';
 	}
 
 	clock.innerHTML = currentYears + "년    " + currentMonth + "월   " + currentDay + "일 &nbsp;&nbsp;"+ amKorPm + "&nbsp" + currentHours + ":"
@@ -470,6 +470,6 @@ function addZeros(num, digit) { // 자릿수 맞춰주기
 	</div>
 	<!-- END WRAPPER -->
 	<!-- <script src="/assets/js/clockTest.js"></script> -->
-	
+
 </body>
 </html>
