@@ -20,4 +20,8 @@ public class SubjectDao extends CommonSqlDao2 {
 		update(PREFIX + "studentSubjectDel", subjectVo);
 	}
 
+	public List<SubjectVo> proSubjectView(String inputId) {
+		return selectList(PREFIX + "proSubjectView", inputId);
+	}
+
 }

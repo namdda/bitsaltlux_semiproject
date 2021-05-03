@@ -40,7 +40,7 @@
 										WHEN S.TIME2 IN('17','18','19','20','21', '22', '23', '24') THEN '수요일'
 										WHEN S.TIME2 IN('25','26','27','28','29', '30', '31', '32') THEN '목요일'
 										WHEN S.TIME2 IN('33','34','35','36','37', '38', '39', '40') THEN '금요일'
-										ELSE '2교시 '
+										ELSE '다음 교시'
 							END) AS TIME3
 						, (CASE WHEN S.TIME2 IN('1','9','17','25','33') THEN '1교시'
 										WHEN S.TIME2 IN('2','10','18','26','34') THEN '2교시'
@@ -120,7 +120,7 @@
 	<select id="checkEducation" parameterType="co.kr.wdt.education.vo.EducationVo" resultType="int">
 		SELECT COUNT(IDX) FROM MY_LECTURE
 		WHERE USER_ID = #{inputId }
-		AND LECTURE_NO1 IN (#{idx1 }, #{idx2 }) OR LECTURE_NO2 IN (#{idx1 }, #{idx2 })
+		AND (LECTURE_NO1 IN (#{idx1 }, #{idx2 }) OR LECTURE_NO2 IN (#{idx1 }, #{idx2 }))
 		AND STATUS = 'Y'
 	</select>
 </mapper>

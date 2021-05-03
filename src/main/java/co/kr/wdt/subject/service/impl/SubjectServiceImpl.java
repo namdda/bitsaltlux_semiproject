@@ -34,4 +34,10 @@ public class SubjectServiceImpl implements SubjectService {
 		subjectDao.studentSubjectDel(subjectVo);
 	}
 
+	@Override
+	public List<SubjectVo> proSubjectView(String inputId) {
+		
+		return subjectDao.proSubjectView(inputId);
+	}
+
 }

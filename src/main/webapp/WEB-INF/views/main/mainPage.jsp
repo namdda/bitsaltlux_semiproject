@@ -6,28 +6,19 @@
 <html lang="ko">
 
 <head>
-	<title>Dashboard | Klorofil - Free Bootstrap Dashboard Template</title>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-	<!-- VENDOR CSS -->
-	<link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" href="/assets/vendor/font-awesome/css/font-awesome.min.css">
-	<link rel="stylesheet" href="/assets/vendor/linearicons/style.css">
-	<link rel="stylesheet" href="/assets/vendor/chartist/css/chartist-custom.css">
-	<!-- MAIN CSS -->
-	<link rel="stylesheet" href="/assets/css/main.css">
-	<!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
-
-	<!-- GOOGLE FONTS -->
-	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
-	<!-- ICONS -->
-	<link rel="apple-touch-icon" sizes="76x76" href="/assets/img/apple-icon.png">
-	<link rel="icon" type="image/png" sizes="96x96" href="/assets/img/favicon.png">
-	<script src="/assets/vendor/jquery/jquery.min.js"></script>
+	<%@ include file="/WEB-INF/include/header.jsp"%>
+<style>
+.mainClock {
+	height: 30px;
+	margin-top: 30px;
+	font-size : 25px;
+	float: right;
+}
+</style>
 </head>
 <script>
 $(function(){
+printClock();
 	$.ajax({
 		url: "/education/joinEducationList.do",
 		type : "post",
@@ -171,6 +162,64 @@ function joinEducations(idx1, idx2) {
 		return false;
 	}
 }
+
+
+//현재 시간 보여주기
+function printClock() {
+	var clock = document.getElementById("clocks");				// 출력할 div id 선택
+	var currentDate = new Date();								// 현재시간
+	//var calendar = currentDate.getFullYear() + "-" + (currentDate.getMonth()+1) + "-" + currentDate.getDate() // 현재 날짜
+	var amPm = 'AM';											// 초기값 AM
+	var amKorPm = '오전';											// 초기값 오전
+	amKorPm = '<span style="color:#f109f3;">'+amKorPm+'</span>'
+
+	var currentYears = addZeros(currentDate.getFullYear(), 2);
+	var currentMonth = currentDate.getMonth()+1;
+	var currentDay = currentDate.getDate();
+	var currentHangul = currentDate.getDay();
+	var currentHours = addZeros(currentDate.getHours(), 2);
+	var currentMinute = addZeros(currentDate.getMinutes(), 2);
+	var currentSeconds =  addZeros(currentDate.getSeconds(), 2);
+	var week = new Array('일', '월', '화', '수', '목', '금', '토');
+
+	if(currentHours >= 12) { 							// 시간이 12보다 클 때 PM으로 세팅, 12를 빼줌
+		amPm = 'PM';
+		amKorPm = '오후';
+		amKorPm = '<span style="color:#15acf7;">'+amKorPm+'</span>'
+		currentHours = addZeros(currentHours-12, 2);
+	}
+	
+	if(currentSeconds >= 10) {							// 50초 이상일 때 색을 변환해 준다.
+		currentSeconds = '<span style="color:#33bfce;">'+currentSeconds+'</span>';
+	}
+	if(currentSeconds >= 20) {							// 50초 이상일 때 색을 변환해 준다.
+		currentSeconds = '<span style="color:#81ea98;">'+currentSeconds+'</span>';
+	}
+	if(currentSeconds >= 30) {							// 50초 이상일 때 색을 변환해 준다.
+		currentSeconds = '<span style="color:#c1b525;">'+currentSeconds+'</span>';
+	}
+	if(currentSeconds >= 40) {							// 50초 이상일 때 색을 변환해 준다.
+		currentSeconds = '<span style="color:#43c1bb;">'+currentSeconds+'</span>';
+	}
+	if(currentSeconds >= 50) {							// 50초 이상일 때 색을 변환해 준다.
+		currentSeconds = '<span style="color:#de1951;">'+currentSeconds+'</span>';
+	}
+
+	clock.innerHTML = currentYears + "년    " + currentMonth + "월   " + currentDay + "일 &nbsp;&nbsp;"+ amKorPm + "&nbsp" + currentHours + ":"
+					  + currentMinute + ":" +currentSeconds + " <span style='font-size:20px;'>" + amPm +"&nbsp;"+ week[currentHangul] + "요일   " +"</span>"; //날짜를 출력해 줌
+	setTimeout("printClock()",1000);					// 1초마다 printClock() 함수 호출
+}
+
+function addZeros(num, digit) { // 자릿수 맞춰주기
+	var zero = '';
+	num = num.toString();
+	if (num.length < digit) {
+		for (i=0; i<digit-num.length; i++) {
+			zero += '0';
+		}
+	}
+	return zero + num;
+}
 </script>
 
 <body>
@@ -179,7 +228,7 @@ function joinEducations(idx1, idx2) {
 		<!-- NAVBAR -->
 		<nav class="navbar navbar-default navbar-fixed-top">
 			<div class="brand">
-				<a href="../main/mainPage.do"><img src="/assets/img/logo-dark.png" alt="Klorofil Logo" class="img-responsive logo" /></a>
+				<a href="/main/mainPage.do"><img src="/assets/img/logo-dark.png" alt="Klorofil Logo" class="img-responsive logo" /></a>
 			</div>
 			<div class="container-fluid">
 				<div class="navbar-btn">
@@ -233,7 +282,7 @@ function joinEducations(idx1, idx2) {
 									</a>
 								</c:when>
 								<c:otherwise>
-									<a href="/subject/ProsubjectView.do?inputId=${sessionScope.userId }" class=""><i class="lnr lnr-code"></i>
+									<a href="/subject/proSubjectView.do?inputId=${sessionScope.userId }" class=""><i class="lnr lnr-code"></i>
 										<span>내 과목 조회</span>
 									</a>
 								</c:otherwise>
@@ -265,7 +314,8 @@ function joinEducations(idx1, idx2) {
 					<div class="panel panel-headline">
 						<div class="panel-heading">
 							<h3 class="panel-title">리얼 타임 시계</h3>
-							<h1 id="clock" style="color:gray;">00:00</h1>
+							<span class="clock" id="clocks"></span>
+							<!-- <h1 id="clock" style="color:gray;">00:00</h1> -->
 						</div>
 						<div class="panel-body">
 							<c:choose>
@@ -419,13 +469,7 @@ function joinEducations(idx1, idx2) {
 		</footer>
 	</div>
 	<!-- END WRAPPER -->
-	<!-- Javascript -->
-	<script src="/assets/vendor/jquery/jquery.min.js"></script>
-	<script src="/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
-	<script src="/assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-	<script src="/assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
-	<script src="/assets/vendor/chartist/js/chartist.min.js"></script>
-	<script src="/assets/scripts/klorofil-common.js"></script>
-	<script src="/assets/js/clockTest.js"></script>
+	<!-- <script src="/assets/js/clockTest.js"></script> -->
+	
 </body>
 </html>

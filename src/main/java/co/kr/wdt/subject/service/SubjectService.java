@@ -12,4 +12,6 @@ public interface SubjectService {
 
 	public void studentSubjectDel(String inputId, String idx);
 
+	List<SubjectVo> proSubjectView(String inputId);
+
 }
