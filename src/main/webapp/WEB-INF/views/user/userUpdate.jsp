@@ -137,61 +137,61 @@ $(function(){
 							<div class="panel">
 								<form method="post" name="frm" action="/user/updateProc.do">
 									<div class="panel-body">
-										<input type="hidden" id="no" name="no" value="${resutl.no }">
+										<input type="hidden" id="no" name="no" value="${result.no }">
 										<div style="margin-bottom:10px;height: 40px;">
 											<span style="float:left; margin: 5px 7px 0 0;">이름 : </span>
-											<input type="text" id="inputName" name="inputName" class="form-control" value="${resutl.inputName}" style="width:90%;float:left;" />
+											<input type="text" id="inputName" name="inputName" class="form-control" value="${result.inputName}" style="width:90%;float:left;" />
 										</div>
 										<div style="margin-bottom:10px;height: 40px;">
 											<span style="float:left; margin: 5px 10px 0 0;">학교: </span>
-											<input type="text" id="inputSchool" name="inputSchool" class="form-control" value="${resutl.inputSchool}" style="width:90%;float:left;" />
+											<input type="text" id="inputSchool" name="inputSchool" class="form-control" value="${result.inputSchool}" style="width:90%;float:left;" />
 										</div>
 										<div style="margin-bottom:10px;height: 40px;">
 											<span style="float:left; margin: 5px 10px 0 0;">학번: </span>
-											<input type="text" id="inputId" name="inputId" class="form-control" value="${resutl.inputId}" style="width:70%;float:left;margin-right: 10px;" readonly="true" />&nbsp;&nbsp;
+											<input type="text" id="inputId" name="inputId" class="form-control" value="${result.inputId}" style="width:70%;float:left;margin-right: 10px;" readonly="true" />&nbsp;&nbsp;
 											<img id="imgCheck" style="width:30px; display:none; float:left; margin-left:10px;" src="/assets/img/check.png" />
 										</div>
 
-										<c:if test="${resutl.level == 'STUDENT'}">
+										<c:if test="${result.level == 'STUDENT'}">
 											<div style="margin-bottom:10px;height: 40px;">
 												<span style="float:left; margin: 5px 10px 0 0;">전공: </span>
 												<select class="form-control" name="inputMajor" style="margin-bottom:10px;width:70%;margin-right: 10px;">
 													<option value="">과목</option>
-													<option value="kor" <c:if test="${resutl.inputMajor == 'kor'}">selected="selected"</c:if>>국어</option>
-													<option value="eng" <c:if test="${resutl.inputMajor == 'eng'}">selected="selected"</c:if>>영어</option>
-													<option value="mat" <c:if test="${resutl.inputMajor == 'mat'}">selected="selected"</c:if>>수학</option>
-													<option value="sci" <c:if test="${resutl.inputMajor == 'sci'}">selected="selected"</c:if>>과학</option>
-													<option value="spt" <c:if test="${resutl.inputMajor == 'spt'}">selected="selected"</c:if>>체육</option>
-													<option value="art" <c:if test="${resutl.inputMajor == 'art'}">selected="selected"</c:if>>미술</option>
-													<option value="com" <c:if test="${resutl.inputMajor == 'com'}">selected="selected"</c:if>>컴퓨터</option>
-													<option value="etc" <c:if test="${resutl.inputMajor == 'etc'}">selected="selected"</c:if>>기타</option>
+													<option value="kor" <c:if test="${result.inputMajor == 'kor'}">selected="selected"</c:if>>국어</option>
+													<option value="eng" <c:if test="${result.inputMajor == 'eng'}">selected="selected"</c:if>>영어</option>
+													<option value="mat" <c:if test="${result.inputMajor == 'mat'}">selected="selected"</c:if>>수학</option>
+													<option value="sci" <c:if test="${result.inputMajor == 'sci'}">selected="selected"</c:if>>과학</option>
+													<option value="spt" <c:if test="${result.inputMajor == 'spt'}">selected="selected"</c:if>>체육</option>
+													<option value="art" <c:if test="${result.inputMajor == 'art'}">selected="selected"</c:if>>미술</option>
+													<option value="com" <c:if test="${result.inputMajor == 'com'}">selected="selected"</c:if>>컴퓨터</option>
+													<option value="etc" <c:if test="${result.inputMajor == 'etc'}">selected="selected"</c:if>>기타</option>
 												</select>
 											</div>
 										</c:if>
-										<c:if test="${resutl.level == 'PRO'}">
+										<c:if test="${result.level == 'PRO'}">
 											<div style=" margin-bottom:10px;height: 40px;">
 												<span style="float:left; margin: 5px 10px 0 0;">전공: </span>
 												<select class="form-control" name="subjects" style="margin-bottom:10px;width:70%;margin-right: 10px;">
 													<option value="">과목</option>
-													<option value="kor" <c:if test="${resutl.subjects == 'kor'}">selected="selected"</c:if>>국어</option>
-													<option value="eng" <c:if test="${resutl.subjects == 'eng'}">selected="selected"</c:if>>영어</option>
-													<option value="mat" <c:if test="${resutl.subjects == 'mat'}">selected="selected"</c:if>>수학</option>
-													<option value="sci" <c:if test="${resutl.subjects == 'sci'}">selected="selected"</c:if>>과학</option>
-													<option value="spt" <c:if test="${resutl.subjects == 'spt'}">selected="selected"</c:if>>체육</option>
-													<option value="art" <c:if test="${resutl.subjects == 'art'}">selected="selected"</c:if>>미술</option>
-													<option value="com" <c:if test="${resutl.subjects == 'com'}">selected="selected"</c:if>>컴퓨터</option>
-													<option value="etc" <c:if test="${resutl.subjects == 'etc'}">selected="selected"</c:if>>기타</option>
+													<option value="kor" <c:if test="${result.subjects == 'kor'}">selected="selected"</c:if>>국어</option>
+													<option value="eng" <c:if test="${result.subjects == 'eng'}">selected="selected"</c:if>>영어</option>
+													<option value="mat" <c:if test="${result.subjects == 'mat'}">selected="selected"</c:if>>수학</option>
+													<option value="sci" <c:if test="${result.subjects == 'sci'}">selected="selected"</c:if>>과학</option>
+													<option value="spt" <c:if test="${result.subjects == 'spt'}">selected="selected"</c:if>>체육</option>
+													<option value="art" <c:if test="${result.subjects == 'art'}">selected="selected"</c:if>>미술</option>
+													<option value="com" <c:if test="${result.subjects == 'com'}">selected="selected"</c:if>>컴퓨터</option>
+													<option value="etc" <c:if test="${result.subjects == 'etc'}">selected="selected"</c:if>>기타</option>
 												</select>
 											</div>
 										</c:if>
 										<div style="margin-bottom:10px;height: 40px;">
 											<span style="float:left; margin: 5px 10px 0 0;">비밀번호: </span>
-											<input type="password" class="form-control" id="userPw" name="userPw" value="${resutl.userPw}" style="width:70%;float: left;" />
+											<input type="password" class="form-control" id="userPw" name="userPw" value="${result.userPw}" style="width:70%;float: left;" />
 										</div>
 										<button class="btn btn-success" type="submit">수정하기</button>
 										<button class="btn btn-default" type="button" onclick="history.back();">뒤로 	가기</button>
 										<button  id="btn-remove" class="btn btn-danger" type="button">탈퇴하기</button>
-										<input type="hidden" name="level" value="${resutl.level }" />
+										<input type="hidden" name="level" value="${result.level }" />
 									</div>
 								</form>
 							</div>

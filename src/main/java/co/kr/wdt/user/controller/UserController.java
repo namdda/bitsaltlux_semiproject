@@ -1,5 +1,6 @@
 package co.kr.wdt.user.controller;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,6 +37,8 @@ public class UserController {
 
 	@RequestMapping(value="/joinProc.do", method=RequestMethod.POST)
 	public String joinProc(@ModelAttribute UserVo userVo) {
+		String hashPassword = BCrypt.hashpw(userVo.getUserPw(), BCrypt.gensalt());
+		userVo.setUserPw(hashPassword);		// 암호화 저장
 		userService.joinProc(userVo);
 		return "redirect:/user/joinsuccess.do";
 	}
@@ -47,12 +50,12 @@ public class UserController {
 
 	@RequestMapping(value="/userUpdate.do", method=RequestMethod.GET)
 	public String userUpdate(@RequestParam String inputId, Model model) {
-		model.addAttribute("resutl", userService.userUpdate(inputId));
+		model.addAttribute("result", userService.userUpdate(inputId));
 		return "user/userUpdate";
 	}
 
 	@RequestMapping(value="/updateProc.do", method=RequestMethod.POST)
-	public String updateProc(@ModelAttribute("resutl") UserVo userVo) {
+	public String updateProc(@ModelAttribute("result") UserVo userVo) {
 		userService.updateProc(userVo);
 		return "user/userUpdate";
 	}

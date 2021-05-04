@@ -3,6 +3,7 @@ package co.kr.wdt.login.contoller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,11 +38,12 @@ public class LoginController {
 
 	@RequestMapping(value="/loginProc.do", method=RequestMethod.POST)
 	public String loginProc(@ModelAttribute LoginVo loginVo, HttpServletRequest request) {
+		String password = (request.getParameter("userPw") != null) ? request.getParameter("userPw") : "";
 		String redirectUrl = "redirect:/login/loginPage.do?Status=PWNE";
 		UserVo userVo = new UserVo();
 		userVo = loginService.loginProc(loginVo.getInputId());
 		if(userVo != null) {
-			if(userVo.getUserPw().equals(loginVo.getUserPw())) {
+			if(BCrypt.checkpw(password, loginVo.getUserPw())) {
 				HttpSession session = request.getSession();
 				session.setAttribute("userNo", userVo.getNo());
 				session.setAttribute("userId", userVo.getInputId());
