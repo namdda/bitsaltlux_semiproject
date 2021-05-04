@@ -13,5 +13,8 @@
 		<typeAlias type="java.util.List" alias="paramList" />
 		<typeAlias type="java.util.HashMap" alias="resultMap" />
 		<typeAlias type="java.util.List" alias="resultList" />
+		<typeAlias type="co.kr.wdt.blog.vo.BlogVo" alias="blogvo" />
+		<typeAlias type="co.kr.wdt.post.vo.PostVo" alias="postvo" />
+		
 	</typeAliases>
 </configuration>
