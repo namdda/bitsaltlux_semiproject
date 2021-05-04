@@ -1,20 +1,4 @@
-/bin/
-
-# Eclipse
-.classpath
-.project
-.settings/
-/target
-target/*
 **/target/
-**/.settings/
-**/.project
+**/.settings
 **/.classpath
-
-# Intellij
-.idea/
-*.iml
-*.iws
-
-# Mac
-.DS_Store
+**/.project
