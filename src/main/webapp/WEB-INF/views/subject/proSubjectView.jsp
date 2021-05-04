@@ -7,49 +7,6 @@
 <head>
 	<%@ include file="/WEB-INF/include/header.jsp"%>
 </head>
-<script>
-$(function(){
-	$("#input_id").change(function(){
-		$('#img-check').hide();
-		$('#btn-check').show();
-	});
-	
-	$("#btn-check").click(function(){
-		const email = $("#input-email").val();
-		if(email == ''){
-			return;
-		}
-		$.ajax({
-			url: "/semiproject/api/user/existid?id=" + id,
-			async: true,
-			data: '',
-			dataType: 'json',
-			success: function(response){
-				if(response.result != 'success'){
-					console.error(response.message);
-					return;
-				}
-				
-				if(response.data == true){
-					alert('이미 존재하는 이메일입니다. 다른 이메일을 사용해 주세요');
-					$("#input-email")
-						.val('')
-						.focus();
-					return;
-				}
-				
-				$('#img-check').show();
-				$('#btn-check').hide();
-			},
-			error: function(xhr, status, e){
-				console.error(status + ":" + e);
-			}
-		});
-	});
-})
-
-</script>
-</head>
 
 <body>
 	<!-- WRAPPER -->

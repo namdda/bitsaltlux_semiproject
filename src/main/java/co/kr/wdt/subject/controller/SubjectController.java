@@ -33,10 +33,29 @@ public class SubjectController {
 	
 	
 	//교수 목록 보기 
+	/*
+	 //아무생각 없이 짰던거 
 	@RequestMapping(value="/proSubjectView.do", method={RequestMethod.GET,RequestMethod.POST})
 	String proSubjectView(@RequestParam(value="inputId", required=false) String inputId, @RequestParam(value="idx", required=false) String idx, Model model) {
 		List<SubjectVo> subjectVo = subjectService.proSubjectView(inputId);
 		model.addAttribute("subjectList", subjectVo);
+		return "subject/proSubjectView";
+	}
+	//뭔가 이상한데 싶어서 수정해본거 
+	@RequestMapping(value="/proSubjectView.do", method={RequestMethod.GET,RequestMethod.POST})
+	String proSubjectView(String inputId, String idx, Model model) {
+		List<SubjectVo> subjectVo = subjectService.proSubjectView(inputId);
+		model.addAttribute("subjectList", subjectVo);
+		return "subject/proSubjectView";
+	}
+	
+*/	
+	//생각 잡고 짠거
+	//하나만 받는게 맞으니 이게 맞긴 한거 같다. 
+	@RequestMapping(value="/proSubjectView.do", method={RequestMethod.GET,RequestMethod.POST})
+	String proSubjectView(@RequestParam String inputId, Model model) {
+		//List<SubjectVo> subjectVo = subjectService.proSubjectView(inputId);
+		model.addAttribute("subjectList",subjectService.proSubjectView(inputId));
 		return "subject/proSubjectView";
 	}
 
