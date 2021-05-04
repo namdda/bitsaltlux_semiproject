@@ -128,7 +128,7 @@
 							<div class="card-body">
 								<!-- 수정 화면, 평소에는 안보인다.  -->
 								<form class="modifyTodo"
-									action="${pageContext.request.contextPath}/todo/modify"
+									action="/todo/modify.do"
 									method="post" >
 									<input type="hidden" value="${todovo.userno}" name="userno">
 									<input type="hidden" class="todono" value="${todovo.no}" name="no">
@@ -172,24 +172,25 @@
 					</div>
 					<form class="col-xl-auto col-md-auto mb-4 template" id="addTodo"
 						name="addTodo"
-						action="${pageContext.request.contextPath}/todo/add" method="post">
+						action="/todo/add.do" method="post">
 						<div class="card border-left-primary shadow h-100 py-2">
 							<div class="card-body">
 								<div class="row no-gutters align-items-center">
 									<div class="col mr-2">
-										<input type="hidden" value="${authUser.no}" name="userno">
-										<input type="submit" value="추가"
-											class="btn-lg btn-primary btn-icon-split "> 제목 
-										<input
+										<input type="hidden" value="${sessionScope.userId}" name="userno">
+											제목 
+										<input class="form-control"
 											type="text" id="title" name="title" required minlength="4"
 											maxlength="8" size="10"> 시작일: 
-										<input
+										<input 
 											type="text" value="" class="datestart" name="startdate"
 											required /> 종료일: 
 										<input type="text" value=""
 											class="dateend" name="duedate" required /> 설명 
-										<input
+										<input class="form-control"
 											type="text" id="description" name="description">
+										<input class="form-control" type="submit" value="추가"
+											class="btn-lg btn-primary btn-icon-split "> 
 									</div>
 								</div>
 							</div>
@@ -244,19 +245,11 @@
 				<div class="modal-footer">
 					<button class="btn btn-secondary" type="button"
 						data-dismiss="modal">취소</button>
-					<a class="btn btn-primary" href="${pageContext.request.contextPath}/todo/delete/${todovo.no}">삭제</a>
+					<a class="btn btn-primary" href="/todo/delete.do?no=${todovo.no}">삭제</a>
 				</div>
 			</div>
 		</div>
 	</div>
-
-	<!-- Bootstrap core JavaScript-->
-	<script
-		src="${pageContext.request.contextPath}/assets/vendor/jquery/jquery.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/assets/vendor/jquery/jquery-ui.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 
 	<script>
