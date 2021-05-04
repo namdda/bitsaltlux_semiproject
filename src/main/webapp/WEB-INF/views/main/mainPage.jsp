@@ -289,6 +289,9 @@ function addZeros(num, digit) { // 자릿수 맞춰주기
 									</a>
 								</c:otherwise>
 							</c:choose>
+							<a href="/todo/todoView.do" class=""><i class="lnr lnr-code"></i>
+								<span>TODO</span>
+							</a>
 							<!-- </a> -->
 						</li>
 						<c:if test="${sessionScope.userLevel == 'PRO'}">
