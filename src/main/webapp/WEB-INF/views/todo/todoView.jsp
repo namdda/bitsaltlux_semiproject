@@ -107,9 +107,8 @@
 				<div class="container-fluid">
 
 					<!-- Page Heading -->
-					<h1 class="h3 mb-4 text-gray-800">TODO</h1>
 					<div class="panel-heading">
-						<h3 class="panel-title">TODO</h3>
+						<h2 class="panel-title">TODO</h2>
 					</div>
 					<div class="panel-body">
 						<div class="card-body">
@@ -259,23 +258,6 @@
 	<script
 		src="${pageContext.request.contextPath}/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-	<!-- Core plugin JavaScript-->
-	<script
-		src="${pageContext.request.contextPath}/assets/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-	<!-- Custom scripts for all pages-->
-	<script
-		src="${pageContext.request.contextPath}/assets/js/sb-admin-2.min.js"></script>
-
-	<!-- Page level plugins -->
-	<script
-		src="${pageContext.request.contextPath}/assets/vendor/chart.js/Chart.min.js"></script>
-
-	<!-- Page level custom scripts -->
-	<script
-		src="${pageContext.request.contextPath}/assets/js/demo/chart-area-demo.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/assets/js/demo/chart-pie-demo.js"></script>
 
 	<script>
 		// string to date (yyyy-MM-dd)
