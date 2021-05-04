@@ -43,7 +43,7 @@ public class LoginController {
 		UserVo userVo = new UserVo();
 		userVo = loginService.loginProc(loginVo.getInputId());
 		if(userVo != null) {
-			if(BCrypt.checkpw(password, loginVo.getUserPw())) {
+			if(BCrypt.checkpw(password, userVo.getUserPw())) {
 				HttpSession session = request.getSession();
 				session.setAttribute("userNo", userVo.getNo());
 				session.setAttribute("userId", userVo.getInputId());
