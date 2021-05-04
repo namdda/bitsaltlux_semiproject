@@ -6,7 +6,7 @@
 <html lang="ko">
 
 <head>
-	<%@ include file="/WEB-INF/include/header.jsp"%>
+<%@ include file="/WEB-INF/include/header.jsp"%>
 <style>
 .mainClock {
 	height: 30px;
@@ -19,104 +19,114 @@
 <script>
 $(function(){
 printClock();
+//var trying = new Date();
+//var child = document.getElementById("helpme");
+//if (trying.getHours() ==2)
+//	console.log(child.id);
+//	$("#"+child.id).remove();
+
+//var elements = element.getElementsByClassName('edu edu_15');
+
+	
+$.ajax({
+	url: "/education/joinEducationList.do",
+	type : "post",
+	dataType: 'JSON',
+	success: function(data) {
+		for(var i=0; i<data.length; i++) {
+			$(".edu_"+data[i].firstSubject).text(data[i].name);
+			$(".edu_"+data[i].firstSubject).css("backgroundColor","#dff0d8");
+			$(".edu_"+data[i].secondSubject).text(data[i].name);
+			$(".edu_"+data[i].secondSubject).css("backgroundColor","#f2dede");
+		}
+	},
+	error: function(xhr, status, e){
+		console.error(status + ":" + e);
+	}
+});
+
+$("#major").on("change", function(){
+	$("#allType").find('option').remove();
+	$("#professor").find('option').remove();
+	$("#allType").append("<option value=''>유형</option>");
 	$.ajax({
-		url: "/education/joinEducationList.do",
+		url: "/main/allTypeList.do",
 		type : "post",
+		data: {"value" : $("#major").val()},
 		dataType: 'JSON',
 		success: function(data) {
+			var objSel = $("#allType")[0];
+			for(var x=objSel.length-1; 1<=x; x--) {
+				objSel.options[x] = null;
+			}
 			for(var i=0; i<data.length; i++) {
-				$(".edu_"+data[i].firstSubject).text(data[i].name);
-				$(".edu_"+data[i].firstSubject).css("backgroundColor","#dff0d8");
-				$(".edu_"+data[i].secondSubject).text(data[i].name);
-				$(".edu_"+data[i].secondSubject).css("backgroundColor","#f2dede");
+				var objOption = document.createElement("option");
+				objOption.value = data[i].value;
+				objOption.className = data[i].type;
+				objOption.text = data[i].allTypeName;
+				objSel.options.add(objOption);
 			}
 		},
 		error: function(xhr, status, e){
 			console.error(status + ":" + e);
 		}
 	});
+});
 
-	$("#major").on("change", function(){
-		$("#allType").find('option').remove();
-		$("#professor").find('option').remove();
-		$("#allType").append("<option value=''>유형</option>");
-		$.ajax({
-			url: "/main/allTypeList.do",
-			type : "post",
-			data: {"value" : $("#major").val()},
-			dataType: 'JSON',
-			success: function(data) {
-				var objSel = $("#allType")[0];
-				for(var x=objSel.length-1; 1<=x; x--) {
-					objSel.options[x] = null;
-				}
-				for(var i=0; i<data.length; i++) {
-					var objOption = document.createElement("option");
-					objOption.value = data[i].value;
-					objOption.className = data[i].type;
-					objOption.text = data[i].allTypeName;
-					objSel.options.add(objOption);
-				}
-			},
-			error: function(xhr, status, e){
-				console.error(status + ":" + e);
+$("#allType").on("change", function(){
+	$("#professor").find('option').remove();
+	$.ajax({
+		url: "/main/professorList.do",
+		type : "post",
+		data: {"value" : $("#allType").val()},
+		dataType: 'JSON',
+		success: function(data) {
+			var objSel = $("#professor")[0];
+			for(var x=objSel.length-1; 1<=x; x--) {
+				objSel.options[x] = null;
 			}
-		});
+			for(var i=0; i<data.length; i++) {
+				var objOption = document.createElement("option");
+				objOption.value = data[i].inputId;
+				objOption.text = data[i].inputName;
+				objSel.options.add(objOption);
+			}
+		},
+		error: function(xhr, status, e){
+			console.error(status + ":" + e);
+		}
 	});
+});
 
-	$("#allType").on("change", function(){
-		$("#professor").find('option').remove();
-		$.ajax({
-			url: "/main/professorList.do",
-			type : "post",
-			data: {"value" : $("#allType").val()},
-			dataType: 'JSON',
-			success: function(data) {
-				var objSel = $("#professor")[0];
-				for(var x=objSel.length-1; 1<=x; x--) {
-					objSel.options[x] = null;
+$("#search").on("click", function(){
+	$.ajax({
+		url: "/education/searchEducationList.do",
+		type : "post",
+		data: {"inputId" : $("#professor").val(), "type" : $("#allType option:selected").attr("class")},
+		dataType: 'JSON',
+		success: function(data) {
+			$("#resultList").html("");
+			for(var i=0; i<data.length; i++) {
+				$("#resultList").append("<tr><td>"+data[i].idx+"</td>"
+						+"<td>"+data[i].name+"</td>"
+						+"<td>"+data[i].allTypeName+"</td>"
+						+"<td>"+data[i].time+"</td>"
+						+"<td>"+data[i].grades+"</td>"
+						+"<td>"+data[i].inputName+"</td>"
+						+"<td>"+data[i].etc+"</td>"
+						+"<td>"+data[i].cnt+"</td>"
+						+"<td><button type='button' class='btn_"+i+"' onclick='joinEducations(\""+data[i].firstSubject+"\", \""+data[i].secondSubject+"\");'>수강하기</button></td></tr>");
+				if(data[i].cnt == 0) {
+					$(".btn_"+i).hide();
 				}
-				for(var i=0; i<data.length; i++) {
-					var objOption = document.createElement("option");
-					objOption.value = data[i].inputId;
-					objOption.text = data[i].inputName;
-					objSel.options.add(objOption);
-				}
-			},
-			error: function(xhr, status, e){
-				console.error(status + ":" + e);
 			}
-		});
+		},
+		error: function(xhr, status, e){
+			console.error(status + ":" + e);
+		}
 	});
-
-	$("#search").on("click", function(){
-		$.ajax({
-			url: "/education/searchEducationList.do",
-			type : "post",
-			data: {"inputId" : $("#professor").val(), "type" : $("#allType option:selected").attr("class")},
-			dataType: 'JSON',
-			success: function(data) {
-				$("#resultList").html("");
-				for(var i=0; i<data.length; i++) {
-					$("#resultList").append("<tr><td>"+data[i].idx+"</td>"
-							+"<td>"+data[i].name+"</td>"
-							+"<td>"+data[i].allTypeName+"</td>"
-							+"<td>"+data[i].time+"</td>"
-							+"<td>"+data[i].grades+"</td>"
-							+"<td>"+data[i].inputName+"</td>"
-							+"<td>"+data[i].etc+"</td>"
-							+"<td>"+data[i].cnt+"</td>"
-							+"<td><button type='button' class='btn_"+i+"' onclick='joinEducations(\""+data[i].firstSubject+"\", \""+data[i].secondSubject+"\");'>수강하기</button></td></tr>");
-					if(data[i].cnt == 0) {
-						$(".btn_"+i).hide();
-					}
-				}
-			},
-			error: function(xhr, status, e){
-				console.error(status + ":" + e);
-			}
-		});
-	});
+}
+);
 });
 
 function joinEducations(idx1, idx2) {
@@ -237,14 +247,6 @@ function addZeros(num, digit) { // 자릿수 맞춰주기
 				<div id="navbar-menu">
 					<ul class="nav navbar-nav navbar-right">
 						<li class="dropdown">
-							<ul class="dropdown-menu notifications">
-								<li><a href="#" class="notification-item"><span class="dot bg-warning"></span>System space is almost full</a></li>
-								<li><a href="#" class="notification-item"><span class="dot bg-danger"></span>You have 9 unfinished tasks</a></li>
-								<li><a href="#" class="notification-item"><span class="dot bg-success"></span>Monthly report is available</a></li>
-								<li><a href="#" class="notification-item"><span class="dot bg-warning"></span>Weekly meeting in 1 hour</a></li>
-								<li><a href="#" class="notification-item"><span class="dot bg-success"></span>Your request has been approved</a></li>
-								<li><a href="#" class="more">See all notifications</a></li>
-							</ul>
 						</li>
 						<li>
 							<a href="/login/logOut.do" class="dropdown-toggle"><span>logout</span></a>
@@ -322,7 +324,7 @@ function addZeros(num, digit) { // 자릿수 맞춰주기
 								<c:when test="${sessionScope.userLevel != 'PRO'}">
 									<div class="row">
 										<div class="col-md-9">
-											<table class="table table-bordered">
+											<table class="table table-bordered" id="helpme">
 												<thead>
 													<tr>
 														<th>#</th>
