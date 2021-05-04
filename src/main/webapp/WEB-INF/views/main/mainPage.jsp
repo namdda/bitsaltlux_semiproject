@@ -248,16 +248,12 @@ function addZeros(num, digit) { // 자릿수 맞춰주기
 					<ul class="nav navbar-nav navbar-right">
 						<li class="dropdown">
 						</li>
-						<li>
-							<a href="/login/logOut.do" class="dropdown-toggle"><span>logout</span></a>
-						</li>
+						
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="/assets/img/user.png" class="img-circle" alt="Avatar" style="display: none;"/><span>${sessionScope.userNm }</span></a>
 							<ul class="dropdown-menu">
-								<li><a href="#"><i class="lnr lnr-user"></i> <span>My Profile</span></a></li>
-								<li><a href="#"><i class="lnr lnr-envelope"></i> <span>Message</span></a></li>
-								<li><a href="#"><i class="lnr lnr-cog"></i> <span>Settings</span></a></li>
-								<li><a href="#"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>
+								<li><a href="/user/userUpdate.do?inputId=${sessionScope.userId }" class="active"><i class="lnr lnr-user"></i> <span>회원 정보</span></a></li>
+								<li><a href="/login/logOut.do"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>
 							</ul>
 						</li>
 						<!-- <li>
@@ -274,7 +270,7 @@ function addZeros(num, digit) { // 자릿수 맞춰주기
 				<nav>
 					<ul class="nav">
 						<li><a href="/main/mainPage.do" class="active"><i class="lnr lnr-home"></i> <span>메인페이지</span></a></li>
-						<li><a href="/user/userUpdate.do?inputId=${sessionScope.userId }" class="active"><i class="lnr lnr-pencil"></i><span>회원 정보</span></a></li>
+						<!--  <li><a href="/user/userUpdate.do?inputId=${sessionScope.userId }" class="active"><i class="lnr lnr-pencil"></i><span>회원 정보</span></a></li> -->
 						<li>
 							<!--  <a href="/subject/subjectView.do?inputId=${sessionScope.userId }" class=""><i class="lnr lnr-code"></i> -->
 							<c:choose>

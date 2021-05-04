@@ -51,25 +51,13 @@ function studentSubjectDel(idx, inputId) {
 				<div id="navbar-menu">
 					<ul class="nav navbar-nav navbar-right">
 						<li class="dropdown">
-							<ul class="dropdown-menu notifications">
-								<li><a href="#" class="notification-item"><span class="dot bg-warning"></span>System space is almost full</a></li>
-								<li><a href="#" class="notification-item"><span class="dot bg-danger"></span>You have 9 unfinished tasks</a></li>
-								<li><a href="#" class="notification-item"><span class="dot bg-success"></span>Monthly report is available</a></li>
-								<li><a href="#" class="notification-item"><span class="dot bg-warning"></span>Weekly meeting in 1 hour</a></li>
-								<li><a href="#" class="notification-item"><span class="dot bg-success"></span>Your request has been approved</a></li>
-								<li><a href="#" class="more">See all notifications</a></li>
-							</ul>
 						</li>
-						<li>
-							<a href="/login/logOut.do" class="dropdown-toggle"><span>logout</span></a>
-						</li>
+						
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="/assets/img/user.png" class="img-circle" alt="Avatar" style="display: none;"/><span>${sessionScope.userNm }</span></a>
 							<ul class="dropdown-menu">
-								<li><a href="#"><i class="lnr lnr-user"></i> <span>My Profile</span></a></li>
-								<li><a href="#"><i class="lnr lnr-envelope"></i> <span>Message</span></a></li>
-								<li><a href="#"><i class="lnr lnr-cog"></i> <span>Settings</span></a></li>
-								<li><a href="#"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>
+								<li><a href="/user/userUpdate.do?inputId=${sessionScope.userId }" class="active"><i class="lnr lnr-user"></i> <span>회원 정보</span></a></li>
+								<li><a href="/login/logOut.do"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>
 							</ul>
 						</li>
 						<!-- <li>
@@ -86,7 +74,7 @@ function studentSubjectDel(idx, inputId) {
 				<nav>
 					<ul class="nav">
 						<li><a href="/main/mainPage.do" class="active"><i class="lnr lnr-home"></i> <span>메인페이지</span></a></li>
-						<li><a href="/user/userUpdate.do?inputId=${sessionScope.userId }" class="active"><i class="lnr lnr-pencil"></i><span>회원 정보</span></a></li>
+						<!--  <li><a href="/user/userUpdate.do?inputId=${sessionScope.userId }" class="active"><i class="lnr lnr-pencil"></i><span>회원 정보</span></a></li> -->
 						<li>
 							<!--  <a href="/subject/subjectView.do?inputId=${sessionScope.userId }" class=""><i class="lnr lnr-code"></i> -->
 							<c:choose>
@@ -96,7 +84,7 @@ function studentSubjectDel(idx, inputId) {
 									</a>
 								</c:when>
 								<c:otherwise>
-									<a href="/subject/studentSubjectView.do?inputId=${sessionScope.userId}" class=""><i class="lnr lnr-code"></i>
+									<a href="/subject/proSubjectView.do?inputId=${sessionScope.userId }" class=""><i class="lnr lnr-code"></i>
 										<span>내 과목 조회</span>
 									</a>
 								</c:otherwise>
@@ -104,7 +92,7 @@ function studentSubjectDel(idx, inputId) {
 							<!-- </a> -->
 						</li>
 						<c:if test="${sessionScope.userLevel == 'PRO'}">
-							<li>
+							<li style="display: none;">
 								<a href="#subPages" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i><span> 과목</span><i class="icon-submenu lnr lnr-chevron-left"></i></a>
 								<div id="subPages" class="collapse">
 									<ul class="nav">
