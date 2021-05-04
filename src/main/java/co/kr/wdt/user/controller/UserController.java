@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import co.kr.wdt.user.service.UserService;
 import co.kr.wdt.user.vo.UserVo;
@@ -36,10 +37,10 @@ public class UserController {
 	}
 
 	@RequestMapping(value="/joinProc.do", method=RequestMethod.POST)
-	public String joinProc(@ModelAttribute UserVo userVo) {
+	public String joinProc(@ModelAttribute UserVo userVo, MultipartHttpServletRequest request) {
 		String hashPassword = BCrypt.hashpw(userVo.getUserPw(), BCrypt.gensalt());
 		userVo.setUserPw(hashPassword);		// 암호화 저장
-		userService.joinProc(userVo);
+		userService.joinProc(userVo, request);
 		return "redirect:/user/joinsuccess.do";
 	}
 

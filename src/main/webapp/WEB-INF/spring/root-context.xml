@@ -55,4 +55,14 @@
 	<bean id="sqlSessionTemplate2" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
 		<constructor-arg index="0" ref="sqlSessionFactory2"/>
 	</bean>
+	
+	<bean id="filterMultipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="-1" />
+		<property name="maxInMemorySize" value="2140000000" />
+		<property name="defaultEncoding" value="UTF-8"/>
+	</bean>
+
+	<bean id="uploadPath" class="java.lang.String">
+		<constructor-arg value="C:/upload" />
+	</bean>
 </beans>

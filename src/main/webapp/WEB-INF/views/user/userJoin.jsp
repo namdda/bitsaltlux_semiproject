@@ -62,6 +62,11 @@ $(function(){
 			$("#inputName").focus
 			return false;
 		}
+		if($("input[name=file]").val() == null || $("input[name=file]").val() == ''|| $("input[name=file]").val() == 'undefined') {
+			alert("파일을 선택해주세요");
+			$("input[name=file]").focus();
+			return false;
+		}
 		var obj = document.frm;
 		obj.submit();
 	});
@@ -91,7 +96,7 @@ $(function(){
 						<div class="col-md-9">
 							<!-- INPUTS -->
 							<div class="panel">
-								<form method="post" name="frm" action="/user/joinProc.do">
+								<form method="post" name="frm" action="/user/joinProc.do" enctype="multipart/form-data">
 									<div class="panel-body">
 										<div style="margin-bottom:10px;height: 40px;">
 											<span style="float:left; margin: 5px 7px 0 0;">이름 : </span>
@@ -125,6 +130,8 @@ $(function(){
 											<span style="float:left; margin: 5px 10px 0 0;">비밀번호: </span>
 											<input type="password" class="form-control" id="userPw" name="userPw" value="asecret" style="width:70%;float: left;" />
 										</div>
+										<input type="file" name="file" /><br>
+										<input id="fileUpload" type="button" value="업로드" />
 										회원 등급:
 										<label class="fancy-radio">
 											<input name="level" value="PRO" type="radio">
