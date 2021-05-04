@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="AchievementMapper">
+	<insert id="insert" parameterType="int">
+	<![CDATA[
+	insert achievement(todo_no, success_date)
+	select #{todono}, CURDATE()
+	from dual  
+	where not exists(
+	select * from achievement where date(success_date) = CURDATE() and todo_no = #{todono});
+	]]>
+	</insert>
+
+	<update id="update" parameterType="achievementvo">
+	<![CDATA[
+	update achievement 
+	set is_success=#{issuccess} 
+	where todo_no = #{todono} and date(success_date) = CURDATE() 
+	]]>
+	</update>
+	
+	<delete id="delete" parameterType="int" >
+	<![CDATA[
+	 update achievement set deleted = 1 where todo_no = #{todono}
+	]]>
+	</delete>
+	
+	<select id="select" parameterType='int' resultType="achievementvo">
+	<![CDATA[
+	select * from achievement where todo_no = #{todono} and date(success_date) = CURDATE()
+	]]>
+	</select>
+	
+	<!-- not used -->
+	<select id="selectall" parameterType='int' resultType="achievementvo">
+	<![CDATA[
+	select no, user_no as userNo, category, title, date_format(start_date,'%Y-%m-%d') startdate, date_format(due_date,'%Y-%m-%d') duedate, description from achievement where user_no = #{userno} and deleted = 0
+	]]>
+	</select>
+
+	<select id="selectcount" resultType="int">
+	<![CDATA[
+	select count(*) from achievement
+	]]>
+	</select>
+	
+</mapper>
