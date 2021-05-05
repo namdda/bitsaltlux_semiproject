@@ -98,7 +98,7 @@
 				<div class="container" style="text-align: center;">
 					<div class="card card-body">
 						<h3 class="text-center mb-4">포스트 작성</h3>
-						<form id="add" name="add" method="post" action="/blog/${id }/post/addProc.do" enctype="multipart/form-data">
+						<form id="add" name="add" method="post" action="/blog/${id }/post/addProc.do">
 							<fieldset>
 								<div class="form-group">
 									<input id="input-title" class="form-control input-lg" placeholder="제목" name="title" type="text">
@@ -113,13 +113,13 @@
 								</div>
 								<br/>
 								<div class="form-group">
-									<input class="form-control input-lg" placeholder="아이디" name="blog_id" value="${id }" type="text" readonly="readonly">
+									<input class="form-control input-lg" placeholder="아이디" name="blogId" value="${id }" type="text" readonly="readonly">
 								</div>
 								<br/>
-								<div class="form-group">
+								<!-- <div class="form-group">
 									<input class="form-control input-lg" placeholder="첨부파일" name="file" type="file">
 								</div>
-								<br/>
+								<br/> -->
 								<input id="btn-submit" class="btn btn-lg btn-primary btn-block" value="작성하기" type="submit">
 							</fieldset>
 						</form>

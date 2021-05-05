@@ -23,8 +23,25 @@
 		<![CDATA[
 			insert
 			into post
-			values(null, #{title }, #{author }, #{content }, null, null, now(), #{blog_id })
+			values(null, #{title }, #{author }, #{content }, null, null, now(), #{blogId })
 		]]>
 	</insert>
+	
+	<update id="update" parameterType="postvo">
+		<![CDATA[
+			update post
+			set title = #{title },
+			 	content = #{content }
+		 	where no = #{no }
+		]]>
+	</update>
+	
+	<delete id="delete" parameterType="Long">
+		<![CDATA[
+			delete
+			from post
+			where no = #{no }
+		]]>
+	</delete>
 
 </mapper>

@@ -26,4 +26,13 @@ public class PostService {
 		return postRepository.findByNo(no);
 	}
 
+	public void delete(Long post_no) {
+		postRepository.delete(post_no);
+		
+	}
+
+	public void update(PostVo vo) {
+		postRepository.update(vo);
+	}
+
 }

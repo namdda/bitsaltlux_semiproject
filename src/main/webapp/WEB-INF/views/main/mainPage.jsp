@@ -282,6 +282,9 @@ function addZeros(num, digit) { // 자릿수 맞춰주기
 									<a href="/subject/studentSubjectView.do?inputId=${sessionScope.userId }" class=""><i class="lnr lnr-code"></i>
 										<span>수강과목 조회</span>
 									</a>
+									<a href="/blog/mainPage.do" class=""><i class="lnr lnr-code"></i>
+										<span>블로그 홈</span>
+									</a>
 								</c:when>
 								<c:otherwise>
 									<a href="/subject/proSubjectView.do?inputId=${sessionScope.userId }" class=""><i class="lnr lnr-code"></i>

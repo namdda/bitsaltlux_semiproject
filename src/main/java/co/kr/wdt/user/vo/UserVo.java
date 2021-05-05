@@ -9,7 +9,7 @@ public class UserVo implements Serializable {
 	private int no;
 	private String inputName;
 	private String inputSchool;
-	private int inputId = 0; // 학번
+	private int inputId; // 학번
 	private String inputMajor;
 	private String userPw;
 	private String level;

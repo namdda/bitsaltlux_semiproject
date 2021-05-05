@@ -9,7 +9,6 @@
 <meta charset="UTF-8">
 <title>블로그 홈</title>
 <c:import url="/WEB-INF/include/header.jsp" />
-<!-- <link rel="stylesheet" href="/assets/new/css/bootstrap.min.css"> -->
 </head>
 <body>
 	<div id="wrapper">
@@ -98,11 +97,11 @@
 		<div class="main">
 			<div class="main-content">
 				<div class="col-md-8 blog-main">
-					<h1 class="pb-3 mb-4 font-italic border-bottom">${sessionScope.userNm } 블로그</h1>
+					<h1 class="pb-3 mb-4 font-italic border-bottom">${postVo.author } 블로그</h1>
 					<div class="blog-post">
 						<h3 class="blog-post-title">${postVo.title }</h3>
-						<hr style="width: 60%;">
-						<p class="blog-post-meta">${postVo.w_date } by <a href="#"> ${postVo.author }</a>
+						<hr style="height: 2px; background: #ccc;">
+						<p class="blog-post-meta">${postVo.wDate } by <a href="#"> ${postVo.author }</a>
 						</p>
 						<br/>
 						<p>${fn:replace(postVo.content, newLineChar, "<br/>")}</p>
@@ -117,16 +116,103 @@
 							[<a href="${pageContext.request.contextPath }/upload/${vo.stored_file}" download>${vo.origin_file}</a>]
 						</div>
 					</c:if> --%>
-					<hr>
+					<hr style="height: 2px; background: #ccc;">
 					<div class="blog-post">
 						<c:if test="${sessionScope.userId eq id}">
-							<button class="btn btn-danger" onclick="postDel(${no})" style="float: left;">삭제</button>
-							<a class="btn btn-primary" href="/blog/${id}/post/view/${no}/updatePage.do" role="button" style="float: right; margin-left: 5px; margin-right: 5px;">수정</a>
+							<button class="btn btn-danger" onclick="postDel()" style="float: left;">삭제</button>
+							<a class="btn btn-primary" href="/blog/${id}/post/${no}/updateProc.do" role="button" style="float: right; margin-left: 5px; margin-right: 5px;">수정</a>
 						</c:if>
-						<a class="btn btn-primary" href="/blog/${id}/post/mainPage.do" role="button" style="float: right; margin-left: 5px;">목록</a>
+						<a class="btn btn-primary" href="/blog/${id}/mainPage.do" role="button" style="float: right; margin-left: 5px;">목록</a>
 					</div>
 					<br>
-					<hr>
+					<hr style="height: 2px; background: #ccc; margin-top: 30px;">
+
+					<div class="col-lg-12">
+						<!-- 댓글 폼 -->
+						<div class="panel panel-default">
+							<form action="/blog/${id}/post/${no}/comment/addProc.do" method="post">
+								<input name="writer" value="${sessionScope.userNm }" type="hidden">
+								<div class="panel-heading">댓글</div>
+								<div class="panel-body">
+									<div class="col-lg-1">
+										<img class="img-circle" src="https://i.imgur.com/mCHMpLT.png" width="40px">
+									</div>
+									<div class="col-lg-10">
+										<textarea id="reply-content" class="form-control ml-1 shadow-none textarea" name="content" placeholder="댓글을 달아주세요."></textarea>
+									</div>
+									<div class="col-lg-1">
+										<button id="btn-reply" class="btn btn-primary btn-xs" type="submit">등록</button>
+									</div>
+								</div>
+							</form>
+							<hr style="height: 1px; background: #ccc;" width="90%">
+							<!-- 댓글 조회 -->
+							<div class="panel-body">
+								<c:forEach items="${commentVo }" var="commentvo">
+									<div class="col-lg-12" style="margin-bottom: 30px;">
+										<div class="col-md-12" style="display: inline;">
+											${commentvo.writer } &#183; ${commentvo.wDate }
+											<c:if test="${sessionScope.userNm eq commentvo.writer }">
+												<a onclick="delComment(${commentvo.no})" style="float: right; color: red;" role="button">삭제</a>
+											</c:if>
+										</div>
+										<div class="col-md-12" style="margin-top: 5px;">
+											<span>${commentvo.content }</span>
+										</div>
+										<div class="col-md-12" style="margin-top: 5px;">
+											<div class="like p-2 cursor action-collapse" data-toggle="collapse" href="#collapseReply-${commentvo.no }" role="button" aria-expanded="false" aria-controls="collapseReply-${vo.no }">
+												Reply<span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+											</div>
+											<!-- 댓글 조회 끝 -->
+											
+											<div class="bg-light p-2 collapse" id="collapseReply-${commentvo.no }">
+												<div class="panel-body">
+													<!-- 댓글의 답글 폼 -->
+													<form action="/blog/${id}/post/${no}/comment/${commentvo.no}/reply/addProc.do" method="post">
+														<div class="row">
+															<input name="writer" value="${sessionScope.userNm }" type="hidden">
+															<div class="col-lg-1">
+																<img class="img-circle" src="https://i.imgur.com/mCHMpLT.png" width="40">
+															</div>
+															<div class="col-lg-10">
+																<textarea id="reply-content" class="form-control ml-1 shadow-none textarea" name="content" placeholder="답글을 달아주세요." style="margin-right: 10px;"></textarea>
+															</div>
+															<div class="col-lg-1">
+																<button id="btn-reply" class="btn btn-primary btn-xs" type="submit">등록</button>
+															</div>
+														</div>
+													</form>
+													<!-- 댓글의 답글 폼 끝 -->
+
+													<!-- 댓글의 답글 조회 -->
+													<hr style="height: 1px; background: #ccc;">
+													<c:forEach items="${replyVo }" var="replyvo">
+														<c:if test="${commentvo.no eq replyvo.commentNo}">
+															<div class="col-md-12" style="margin-bottom: 25px;">
+																<div class="col-md-12" style="display: inline;">
+																	${replyvo.writer } &#183; ${replyvo.regDate }
+																	<c:if test="${sessionScope.userNm eq replyvo.writer }">
+																		<a onclick="delReply(${replyvo.no})" style="float: right; color: red;" role="button">삭제</a>
+																	</c:if>
+																</div>
+																<div class="col-md-12">
+																	<span>${replyvo.content }</span>
+																</div>
+															</div>
+														</c:if>
+													</c:forEach>
+													<!-- 댓글의 답글 조회 끝-->
+												
+												</div>
+											</div>
+											<!-- 댓글의 답글 끝-->
+										</div>
+									</div>
+								</c:forEach>
+							</div>
+						</div>
+					</div>
+					<!-- Comment end -->
 				</div>
 			</div>
 		</div>
@@ -134,5 +220,27 @@
 	<!-- END MAIN CONTENT -->
 	<script src="/assets/new/js/jquery/jquery-3.6.0.js"></script>
 	<script src="/assets/new/js/bootstrap.bundle.min.js"></script>
+	<script type="text/javascript">
+		function postDel() {
+		    var chk = confirm("정말 삭제하시겠습니까?");
+		    if (chk) {
+		        location.href='delete.do?result=true';
+		    }
+		}
+	
+		function delComment(no) {
+		    var chk = confirm("정말 삭제하시겠습니까?");
+		    if (chk) {
+		        location.href='comment/' + no + '/delete.do?result=true';
+		    }
+		}
+		
+		function delReply(no) {
+		    var chk = confirm("정말 삭제하시겠습니까?");
+		    if (chk) {
+		        location.href='reply/' + no + '/delete.do?result=true';
+		    }
+		}
+	</script>
 </body>
 </html>

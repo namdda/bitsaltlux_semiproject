@@ -24,4 +24,13 @@ public class PostRepository extends CommonSqlDao2 {
 		return (PostVo) selectOne(PREFIX + "findByNo", no);
 	}
 
+	public void delete(Long post_no) {
+		delete(PREFIX + "delete", post_no);
+		
+	}
+
+	public void update(PostVo vo) {
+		update(PREFIX + "update", vo);
+	}
+
 }

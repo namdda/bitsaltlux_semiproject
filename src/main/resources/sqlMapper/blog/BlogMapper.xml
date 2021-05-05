@@ -3,9 +3,16 @@
 
 <mapper namespace="BlogMapper">
 
+	<select id="findAllBlog" resultType="blogvo">
+		<![CDATA[
+			select no, user_id, thumb_logo, intro
+			from blog
+		]]>
+	</select>
+
 	<select id="findById" parameterType="int" resultType="blogvo">
 		<![CDATA[
-			select no, user_id, o_logo, t_logo, intro
+			select no, user_id, origin_logo, thumb_logo, intro
 			from blog
 			where user_id = #{user_id }
 		]]>
@@ -15,7 +22,24 @@
 		<![CDATA[
 			insert
 			into blog
-			values(null, #{user_id }, #{o_logo }, #{t_logo }, #{intro }, null)
+			values(null, #{userId }, #{originLogo }, #{thumbLogo }, #{intro }, now())
 		]]>
 	</insert>
+	
+	<update id="update" parameterType="blogvo">
+		<![CDATA[
+			update blog
+			set intro = #{intro }
+		 	where no = #{no }
+		]]>
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		<![CDATA[
+			delete
+			from blog
+			where user_id = #{user_id }
+		]]>
+	</delete>
+	
 </mapper>

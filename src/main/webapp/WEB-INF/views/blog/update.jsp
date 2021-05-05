@@ -89,22 +89,22 @@
 			<div class="main-content">
 				<div class="container-fluid bg-light py-3">
 					<div class="col-md-6 col-md-offset-3">
-						<h3 class="text-center mb-4">블로그 생성</h3>
-						<form id="join" name="join" method="post" action="/blog/${id }/joinProc.do">
+						<h3 class="text-center mb-4">블로그 수정</h3>
+						<form id="join" name="join" method="post" action="/blog/${blogVo.userId }/updateProc.do">
 							<fieldset>
 								<div class="form-group">
-									<input class="form-control input-lg" placeholder="아이디" name="userId" type="text" value="${id }" readonly="readonly">
+									<input type="hidden" name="no" value="${blogVo.no }">
+									<input class="form-control input-lg" placeholder="아이디" name="user_id" type="text" value="${blogVo.userId }" readonly="readonly">
 								</div>
 								<br/>
 								<!-- <div class="form-group">
 									<input id="b_file_up" class="form-control input-lg" placeholder="블로그 로고" name="file" type="file">
-								</div> -->
-								<br/>
-								<div class="form-group">
-									<textarea class="form-control input-lg" placeholder="블로그 소개" name="intro" rows="5" cols="86" style="resize: none;"></textarea>
 								</div>
-								<br/> 
-								<input id="btn-submit" class="btn btn-lg btn-primary btn-block" value="입력 완료" type="submit">
+								<br/> -->
+								<div class="form-group">
+									<textarea class="form-control input-lg" placeholder="블로그 소개" name="intro" rows="5" cols="86" style="resize: none;">${blogVo.intro }</textarea>
+								</div>
+								<br/> <input id="btn-submit" class="btn btn-lg btn-primary btn-block" value="수정 완료" type="submit">
 							</fieldset>
 						</form>
 					</div>
