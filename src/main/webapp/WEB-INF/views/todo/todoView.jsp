@@ -163,10 +163,10 @@ button.left, .todo-area{
 																			설명
 																			<input type="text" id="description" name="description" value="${todovo.description}">
 																		</div>		
-																		<div>
+																		<span class="input-group-btn" style="position: static;">
 																			<button class="btn btn-success left" type="submit" onclick="$(this).closest('form').submit();">수정하기</button>
 																			<button class="btn btn-default left" type="button" onclick="abortEdit()">취소하기</button>
-																		</div>			
+																		</span>			
 																	</div>
 																</form>
 															</div>
