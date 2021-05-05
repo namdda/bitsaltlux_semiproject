@@ -163,5 +163,6 @@ function studentSubjectDel(idx, inputId) {
 		</footer>
 	</div>
 	<!-- END WRAPPER -->
+	<!-- git 올라가는거 확인  -->
 </body>
 </html>
