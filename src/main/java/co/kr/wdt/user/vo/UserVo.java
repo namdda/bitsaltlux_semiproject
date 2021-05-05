@@ -14,6 +14,9 @@ public class UserVo implements Serializable {
 	private String userPw;
 	private String level;
 	private String subjects;
+	private String fullName;
+	private String originalName;
+	private int fileSize;
 
 	public int getNo() {
 		return no;
@@ -79,11 +82,35 @@ public class UserVo implements Serializable {
 		this.subjects = subjects;
 	}
 
+	public String getFullName() {
+		return fullName;
+	}
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+
+	public String getOriginalName() {
+		return originalName;
+	}
+
+	public void setOriginalName(String originalName) {
+		this.originalName = originalName;
+	}
+
+	public int getFileSize() {
+		return fileSize;
+	}
+
+	public void setFileSize(int fileSize) {
+		this.fileSize = fileSize;
+	}
+
 	@Override
 	public String toString() {
 		return "UserVo [no=" + no + ", inputName=" + inputName + ", inputSchool=" + inputSchool + ", inputId=" + inputId
 				+ ", inputMajor=" + inputMajor + ", userPw=" + userPw + ", level=" + level + ", subjects=" + subjects
-				+ "]";
+				+ ", fullName=" + fullName + ", originalName=" + originalName + ", fileSize=" + fileSize + "]";
 	}
 
 }

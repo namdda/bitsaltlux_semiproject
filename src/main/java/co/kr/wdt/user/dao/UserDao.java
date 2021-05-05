@@ -30,4 +30,8 @@ public class UserDao extends CommonSqlDao2 {
 		delete(PREFIX + "deleteProc", userVo);
 	}
 
+	public void imageUserInsert(UserVo userVo) {
+		insert(PREFIX + "imageUserInsert", userVo);
+	}
+
 }

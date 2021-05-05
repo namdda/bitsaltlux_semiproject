@@ -68,5 +68,29 @@
 	<delete id="deleteProc"  parameterType="co.kr.wdt.user.vo.UserVo">
 		DELETE FROM MEMBER WHERE NO = #{no} AND INPUT_ID = #{inputId }
 	</delete>
-	
+
+	<insert id="imageUserInsert" parameterType="co.kr.wdt.user.vo.UserVo">
+		<![CDATA[
+		INSERT INTO USER_ADD_FILE
+		(
+			NO
+			, FULL_NAME
+			, ORIGINAL_NAME
+			, FILE_SIZE
+			, REG_DE
+		) VALUES (
+			NULL
+			, #{fullName }
+			, #{originalName }
+			, #{fileSize }
+			, NOW()
+		)
+		]]>
+		<selectKey keyProperty="no" resultType="int" order="AFTER">
+		<![CDATA[
+			SELECT LAST_INSERT_ID()
+		]]>
+		</selectKey>
+	</insert>
+
 </mapper>
