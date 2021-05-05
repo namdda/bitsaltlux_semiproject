@@ -12,7 +12,7 @@ public interface UserService {
 
 	public UserVo userUpdate(String inputId);
 
-	public void updateProc(UserVo userVo);
+	public void updateProc(UserVo userVo , MultipartHttpServletRequest req);
 
 	public void deleteProc(UserVo userVo);
 }

@@ -14,8 +14,8 @@ public class UserDao extends CommonSqlDao2 {
 		return (int) selectOne(PREFIX + "checkExistid", inputId);
 	}
 
-	public void joinProc(UserVo userVo) {
-		insert (PREFIX + "joinProc", userVo);
+	public int joinProc(UserVo userVo) {
+		return (int) insert (PREFIX + "joinProc", userVo);
 	}
 
 	public UserVo userUpdate(String inputId) {
@@ -32,6 +32,10 @@ public class UserDao extends CommonSqlDao2 {
 
 	public void imageUserInsert(UserVo userVo) {
 		insert(PREFIX + "imageUserInsert", userVo);
+	}
+
+	public int maxNo() {
+		return (int) selectOne(PREFIX + "maxNo");
 	}
 
 }

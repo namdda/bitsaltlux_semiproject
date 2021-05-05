@@ -135,7 +135,7 @@ $(function(){
 						<div class="col-md-9">
 							<!-- INPUTS -->
 							<div class="panel">
-								<form method="post" name="frm" action="/user/updateProc.do">
+								<form method="post" name="frm" action="/user/updateProc.do" enctype="multipart/form-data">
 									<div class="panel-body">
 										<input type="hidden" id="no" name="no" value="${result.no }">
 										<div style="margin-bottom:10px;height: 40px;">
@@ -184,6 +184,8 @@ $(function(){
 												</select>
 											</div>
 										</c:if>
+										
+										<span> 프로필 사진 수정 : <input type="file" name="file" /></span><br>
 										<div style="margin-bottom:10px;height: 40px;">
 											<span style="float:left; margin: 5px 10px 0 0;">비밀번호: </span>
 											<input type="password" class="form-control" id="userPw" name="userPw" value="${result.userPw}" style="width:70%;float: left;" />

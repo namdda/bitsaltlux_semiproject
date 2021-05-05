@@ -3,13 +3,28 @@
 
 <mapper namespace="LoginMapper">
 	<select id="loginProc" parameterType="String" resultType="co.kr.wdt.user.vo.UserVo">
-		SELECT INPUT_NAME
-			, INPUT_SCHOOL
-			, INPUT_ID
-			, INPUT_MAJOR
-			, USER_PW
-			, LEVEL
-			, REG_DATE
-		FROM MEMBER WHERE INPUT_ID = #{value }
+		SELECT  S.INPUT_NAME
+			, S.INPUT_SCHOOL
+			, S.INPUT_ID
+			, S.INPUT_MAJOR
+			, S.USER_PW
+			, S.LEVEL
+			, S.REG_DATE
+			, S.FULL_NAME
+			, S.ORIGINAL_NAME
+		FROM (
+			SELECT
+				A.INPUT_NAME
+				, A.INPUT_SCHOOL
+				, A.INPUT_ID
+				, A.INPUT_MAJOR
+				, A.USER_PW
+				, A.LEVEL
+				, A.REG_DATE
+				, B.FULL_NAME
+				, B.ORIGINAL_NAME
+				FROM MEMBER A JOIN USER_ADD_FILE B ON A.NO = B.NO
+		) s
+		 WHERE S.INPUT_ID = #{value } 
 	</select>
 </mapper>

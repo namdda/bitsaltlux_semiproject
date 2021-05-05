@@ -67,6 +67,13 @@ $(function(){
 			$("input[name=file]").focus();
 			return false;
 		}
+		if($("input[type=file]").val()){
+			var ext = $("input[type=file]").val().split('.').pop().toLowerCase();
+			if($.inArray(ext, ['jpg','png','bmp','jpeg','gif']) == -1) {
+				alert('이미지 파일만 업로드 할수 있습니다.');
+				return false;
+			}
+		}
 		var obj = document.frm;
 		obj.submit();
 	});
@@ -81,7 +88,7 @@ $(function(){
 		<!-- NAVBAR -->
 		<nav class="navbar navbar-default navbar-fixed-top">
 			<div class="brand">
-				<a href="../login/loginPage.do"><img src="/assets/img/logo-dark.png" alt="Klorofil Logo" class="img-responsive logo" /></a>
+				<a href="/login/loginPage.do"><img src="/assets/img/logo-dark.png" alt="Klorofil Logo" class="img-responsive logo" /></a>
 			</div>
 			<div class="container-fluid"></div>
 		</nav>
@@ -131,7 +138,6 @@ $(function(){
 											<input type="password" class="form-control" id="userPw" name="userPw" value="asecret" style="width:70%;float: left;" />
 										</div>
 										<input type="file" name="file" /><br>
-										<input id="fileUpload" type="button" value="업로드" />
 										회원 등급:
 										<label class="fancy-radio">
 											<input name="level" value="PRO" type="radio">

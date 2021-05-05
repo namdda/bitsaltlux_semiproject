@@ -1,5 +1,7 @@
 package co.kr.wdt.user.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -53,11 +55,11 @@ public class UserController {
 	public String userUpdate(@RequestParam String inputId, Model model) {
 		model.addAttribute("result", userService.userUpdate(inputId));
 		return "user/userUpdate";
-	}
-
+	}	
+	
 	@RequestMapping(value="/updateProc.do", method=RequestMethod.POST)
-	public String updateProc(@ModelAttribute("result") UserVo userVo) {
-		userService.updateProc(userVo);
+	public String updateProc(@ModelAttribute("result") UserVo userVo , MultipartHttpServletRequest request) {
+		userService.updateProc(userVo, request);
 		return "user/userUpdate";
 	}
 

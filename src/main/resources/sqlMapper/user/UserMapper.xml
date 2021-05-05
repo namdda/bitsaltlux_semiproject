@@ -6,7 +6,7 @@
 			SELECT COUNT(INPUT_ID) FROM MEMBER WHERE INPUT_ID = #{value }
 	</select>
 
-	<insert id="joinProc" parameterType="co.kr.wdt.user.vo.UserVo">
+	<insert id="joinProc" parameterType="co.kr.wdt.user.vo.UserVo" useGeneratedKeys="true" keyProperty="no">
 		INSERT INTO MEMBER (
 			NO
 			, INPUT_NAME
@@ -77,20 +77,19 @@
 			, FULL_NAME
 			, ORIGINAL_NAME
 			, FILE_SIZE
-			, REG_DE
+			, USE_YN
 		) VALUES (
-			NULL
-			, #{fullName }
+			#{no }
+			, #{fullName } 
 			, #{originalName }
 			, #{fileSize }
-			, NOW()
+			, 'Y'
 		)
 		]]>
-		<selectKey keyProperty="no" resultType="int" order="AFTER">
-		<![CDATA[
-			SELECT LAST_INSERT_ID()
-		]]>
-		</selectKey>
 	</insert>
+	
+	<select id="maxNo" resultType="int">
+		SELECT MAX(NO) FROM MEMBER
+	</select>
 
 </mapper>

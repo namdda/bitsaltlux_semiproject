@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
@@ -39,8 +40,8 @@ public class UserServiceImpl implements UserService {
 //		if("STUDENT".equals(userVo.getLevel())) userDao.joinProc(userVo);
 //		else userDao.joinProc(userVo);
 
-		userDao.joinProc(userVo);
-
+		int no = userDao.joinProc(userVo);
+		no = userDao.maxNo();
 		Iterator<String> iterator = request.getFileNames();
 		MultipartFile multipartFile = null;
 		while(iterator.hasNext()){
@@ -55,6 +56,7 @@ public class UserServiceImpl implements UserService {
 					userVo.setFullName(uploadFile(uploadPath, multipartFile.getOriginalFilename(), multipartFile.getBytes()));
 					userVo.setOriginalName(multipartFile.getOriginalFilename());
 					userVo.setFileSize((int) multipartFile.getSize());
+					userVo.setNo(no);
 					userDao.imageUserInsert(userVo);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -68,8 +70,16 @@ public class UserServiceImpl implements UserService {
 		return userDao.userUpdate(inputId);
 	}
 
-	@Override
-	public void updateProc(UserVo userVo) {
+		@SuppressWarnings("unlikely-arg-type")
+		@Override
+	public void updateProc(UserVo userVo, MultipartHttpServletRequest req) {
+		if(!"".equals(req.getFileNames())) {
+			// 기존 파일 삭제 및 파일 재 업로드 로직
+			
+		}
+		
+		String hashPassword = BCrypt.hashpw(userVo.getUserPw(), BCrypt.gensalt());
+		userVo.setUserPw(hashPassword);
 		userDao.updateProc(userVo);
 	}
 

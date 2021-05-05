@@ -250,7 +250,8 @@ function addZeros(num, digit) { // 자릿수 맞춰주기
 						</li>
 						
 						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="/assets/img/user.png" class="img-circle" alt="Avatar" style="display: none;"/><span>${sessionScope.userNm }</span></a>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="/main/profile.do?fileName=${sessionScope.fullName }" class="img-circle" alt="Avatar" /><span>${sessionScope.userNm }</span></a>
+							
 							<ul class="dropdown-menu">
 								<li><a href="/user/userUpdate.do?inputId=${sessionScope.userId }" class="active"><i class="lnr lnr-user"></i> <span>회원 정보</span></a></li>
 								<li><a href="/login/logOut.do"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>

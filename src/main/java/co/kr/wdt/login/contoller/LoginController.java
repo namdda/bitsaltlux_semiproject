@@ -52,6 +52,7 @@ public class LoginController {
 				session.setAttribute("userSchool", userVo.getInputSchool());
 				session.setAttribute("userLevel", userVo.getLevel());
 				session.setAttribute("userPw", userVo.getUserPw());
+				session.setAttribute("fullName", userVo.getFullName());
 				redirectUrl = "redirect:/main/mainPage.do";
 			}
 		}
