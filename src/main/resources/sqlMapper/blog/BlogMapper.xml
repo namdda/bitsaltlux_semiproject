@@ -3,7 +3,7 @@
 
 <mapper namespace="BlogMapper">
 
-	<select id="findById" parameterType="int" resultType="blogVo">
+	<select id="findById" parameterType="int" resultType="blogvo">
 		<![CDATA[
 			select no, user_id, o_logo, t_logo, intro
 			from blog
@@ -11,7 +11,7 @@
 		]]>
 	</select>
 	
-	<insert id="insert" parameterType="blogVo">
+	<insert id="insert" parameterType="blogvo">
 		<![CDATA[
 			insert
 			into blog

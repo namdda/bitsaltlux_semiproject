@@ -21,10 +21,8 @@ public class BlogController {
 	private BlogService blogService;
 	
 	@RequestMapping("/blogMain.do")
-	public String index(@PathVariable("id") String id) {
-		int user_id = Integer.parseInt(id);
-		BlogVo blogVo = blogService.findMyBlog(user_id);
-		
+	public String index(@ModelAttribute("id") @PathVariable("id") int id) {
+		BlogVo blogVo = blogService.findMyBlog(id);
 		
 		if(blogVo == null) {
 			return "blog/join";
@@ -41,5 +39,10 @@ public class BlogController {
 		blogService.join(vo);
 		return "redirect:/blog/{id}/post/mainPage.do";
 	}
+	
+//	@RequestMapping(value="/updateBlog.do", method=RequestMethod.GET)
+//	public String update(@PathVariable("id") String id) {
+//		
+//	}
 	
 }

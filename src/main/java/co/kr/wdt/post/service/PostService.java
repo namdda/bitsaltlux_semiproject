@@ -14,8 +14,16 @@ public class PostService {
 	@Autowired
 	private PostRepository postRepository;
 
-	public List<PostVo> findAllPost(int id) {
-		return postRepository.findAllPost(id);
+	public List<PostVo> findAllPost(int blog_id) {
+		return postRepository.findAllPost(blog_id);
+	}
+
+	public void insert(PostVo vo) {
+		postRepository.insert(vo);
+	}
+
+	public PostVo findByNo(Long no) {
+		return postRepository.findByNo(no);
 	}
 
 }

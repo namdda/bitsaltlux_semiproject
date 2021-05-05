@@ -5,10 +5,26 @@
 
 	<select id="findAllPost" parameterType="int" resultType="postvo">
 		<![CDATA[
-			select no, blog_id, title, author, content, w_date
+			select no, title, author, content, w_date, blog_id
 			from post
 			where blog_id = #{blog_id }
 		]]>
 	</select>
+	
+	<select id="findByNo" parameterType="Long" resultType="postvo">
+		<![CDATA[
+			select title, author, content, w_date, blog_id
+			from post
+			where no = #{no }
+		]]>
+	</select>
+	
+	<insert id="insert" parameterType="postvo">
+		<![CDATA[
+			insert
+			into post
+			values(null, #{title }, #{author }, #{content }, null, null, now(), #{blog_id })
+		]]>
+	</insert>
 
 </mapper>

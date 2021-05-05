@@ -1,15 +1,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>블로그 홈</title>
+<title>포스트 작성</title>
 <c:import url="/WEB-INF/include/header.jsp" />
-<!-- <link rel="stylesheet" href="/assets/new/css/bootstrap.min.css"> -->
 </head>
 <body>
 	<div id="wrapper">
@@ -97,40 +95,34 @@
 		<!-- MAIN -->
 		<div class="main">
 			<div class="main-content">
-				<div class="container-fluid">
-					<!-- OVERVIEW -->
-					<div class="jumbotron p-3 p-md-5 text-white rounded" style="background-color: black;">
-						<h1 class="display-4 font-italic" style="color: white;">${sessionScope.userNm } 블로그</h1>
-						<p class="lead my-3" style="color: silver;">${blogVo.intro }</p>
-						<div class="col-md-12">
-							<c:if test="${sessionScope.userId eq id }">
-								<p style="text-align: right;">
-									<a class="btn btn-primary" href="/blog/${sessionScope.userId }/post/addProc.do">포스트 작성</a>
-								</p>
-							</c:if>
-						</div>
-					</div>
-					
-					<div class="row-fluid" style="margin-top: 20px;">
-						<c:forEach items="${postVo }" var="vo" varStatus="status">
-							<div class="col-md-6 col-md-offset-3" style="margin-bottom: 10px;">
-								<hr style="height: 2px; background: #ccc;">
-								<div class="card flex-md-row mb-4 box-shadow h-md-250">
-									<div class="card-body">
-										<div class="col-md-12" >
-											<strong class="d-inline-block mb-2 text-primary" style="float:left;">Post</strong>
-										</div>
-										<h3 class="card-title">
-											<a class="text-dark" href="/blog/${id }/post/${vo.no }/viewPage.do" style="text-decoration: underline;">${vo.title }</a>
-										</h3>
-										<div class="mb-1 text-muted">${vo.w_date }</div>
-										<p style="white-space: nowrap; overflow: hidden; max-width: 800px; text-overflow: ellipsis; " class="card-text mb-auto">${vo.content }</p>
-										<a href="/blog/${id }/post/${vo.no }/viewPage.do">자세히 보기</a>
-									</div>
+				<div class="container" style="text-align: center;">
+					<div class="card card-body">
+						<h3 class="text-center mb-4">포스트 작성</h3>
+						<form id="add" name="add" method="post" action="/blog/${id }/post/addProc.do" enctype="multipart/form-data">
+							<fieldset>
+								<div class="form-group">
+									<input id="input-title" class="form-control input-lg" placeholder="제목" name="title" type="text">
 								</div>
-								<hr style="height: 2px; background: #ccc;">
-							</div>
-						</c:forEach>
+								<br/>
+								<div class="form-group">
+									<input class="form-control input-lg" placeholder="작성자" name="author" value="${sessionScope.userNm }" type="text" readonly="readonly">
+								</div>
+								<br/>
+								<div class="form-group">
+									<textarea id="input-content" class="form-control input-lg" placeholder="내용" name="content" rows="5" cols="86" style="resize:none;"></textarea>
+								</div>
+								<br/>
+								<div class="form-group">
+									<input class="form-control input-lg" placeholder="아이디" name="blog_id" value="${id }" type="text" readonly="readonly">
+								</div>
+								<br/>
+								<div class="form-group">
+									<input class="form-control input-lg" placeholder="첨부파일" name="file" type="file">
+								</div>
+								<br/>
+								<input id="btn-submit" class="btn btn-lg btn-primary btn-block" value="작성하기" type="submit">
+							</fieldset>
+						</form>
 					</div>
 				</div>
 			</div>
@@ -140,5 +132,16 @@
 	<!-- END MAIN CONTENT -->
 	<script src="/assets/new/js/jquery/jquery-3.6.0.js"></script>
 	<script src="/assets/new/js/bootstrap.bundle.min.js"></script>
+	<script type="text/javascript">
+		$('#btn-submit').click(function() {
+			const title = $("#input-title").val();
+			const content = $("#input-content").val();
+	
+			if (title == '' || content == '') {
+				alert("필수항목 미입력 오류입니다.");
+				return false;
+			}
+		});
+	</script>
 </body>
 </html>

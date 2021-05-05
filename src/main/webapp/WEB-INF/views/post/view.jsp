@@ -1,8 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<% pageContext.setAttribute("newLineChar", "\n"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -97,44 +97,38 @@
 		<!-- MAIN -->
 		<div class="main">
 			<div class="main-content">
-				<div class="container-fluid">
-					<!-- OVERVIEW -->
-					<div class="jumbotron p-3 p-md-5 text-white rounded" style="background-color: black;">
-						<h1 class="display-4 font-italic" style="color: white;">${sessionScope.userNm } 블로그</h1>
-						<p class="lead my-3" style="color: silver;">${blogVo.intro }</p>
-						<div class="col-md-12">
-							<c:if test="${sessionScope.userId eq id }">
-								<p style="text-align: right;">
-									<a class="btn btn-primary" href="/blog/${sessionScope.userId }/post/addProc.do">포스트 작성</a>
-								</p>
-							</c:if>
-						</div>
+				<div class="col-md-8 blog-main">
+					<h1 class="pb-3 mb-4 font-italic border-bottom">${sessionScope.userNm } 블로그</h1>
+					<div class="blog-post">
+						<h3 class="blog-post-title">${postVo.title }</h3>
+						<hr style="width: 60%;">
+						<p class="blog-post-meta">${postVo.w_date } by <a href="#"> ${postVo.author }</a>
+						</p>
+						<br/>
+						<p>${fn:replace(postVo.content, newLineChar, "<br/>")}</p>
 					</div>
 					
-					<div class="row-fluid" style="margin-top: 20px;">
-						<c:forEach items="${postVo }" var="vo" varStatus="status">
-							<div class="col-md-6 col-md-offset-3" style="margin-bottom: 10px;">
-								<hr style="height: 2px; background: #ccc;">
-								<div class="card flex-md-row mb-4 box-shadow h-md-250">
-									<div class="card-body">
-										<div class="col-md-12" >
-											<strong class="d-inline-block mb-2 text-primary" style="float:left;">Post</strong>
-										</div>
-										<h3 class="card-title">
-											<a class="text-dark" href="/blog/${id }/post/${vo.no }/viewPage.do" style="text-decoration: underline;">${vo.title }</a>
-										</h3>
-										<div class="mb-1 text-muted">${vo.w_date }</div>
-										<p style="white-space: nowrap; overflow: hidden; max-width: 800px; text-overflow: ellipsis; " class="card-text mb-auto">${vo.content }</p>
-										<a href="/blog/${id }/post/${vo.no }/viewPage.do">자세히 보기</a>
-									</div>
-								</div>
-								<hr style="height: 2px; background: #ccc;">
-							</div>
-						</c:forEach>
+					<%-- <c:if test="${postVo.origin_file != null}">
+						<hr>
+						<div class="like p-2 cursor action-collapse" data-toggle="collapse" href="#attach" role="button" aria-expanded="false" aria-controls="attach">
+							첨부파일<span class="fas fa-caret-down" aria-hidden="true"></span> 
+						</div>
+						<div class="bg-light p-2 collapse" id="attach">
+							[<a href="${pageContext.request.contextPath }/upload/${vo.stored_file}" download>${vo.origin_file}</a>]
+						</div>
+					</c:if> --%>
+					<hr>
+					<div class="blog-post">
+						<c:if test="${sessionScope.userId eq id}">
+							<button class="btn btn-danger" onclick="postDel(${no})" style="float: left;">삭제</button>
+							<a class="btn btn-primary" href="/blog/${id}/post/view/${no}/updatePage.do" role="button" style="float: right; margin-left: 5px; margin-right: 5px;">수정</a>
+						</c:if>
+						<a class="btn btn-primary" href="/blog/${id}/post/mainPage.do" role="button" style="float: right; margin-left: 5px;">목록</a>
 					</div>
+					<br>
+					<hr>
 				</div>
 			</div>
-			<!-- END OVERVIEW -->
 		</div>
 	</div>
 	<!-- END MAIN CONTENT -->

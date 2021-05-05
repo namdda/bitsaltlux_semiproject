@@ -12,8 +12,16 @@ public class PostRepository extends CommonSqlDao2 {
 	
 	private static String PREFIX = "PostMapper.";
 
-	public List<PostVo> findAllPost(int id) {
-		return selectList(PREFIX + "findAllPost", id);
+	public List<PostVo> findAllPost(int blog_id) {
+		return selectList(PREFIX + "findAllPost", blog_id);
+	}
+
+	public void insert(PostVo vo) {
+		insert(PREFIX + "insert", vo);
+	}
+
+	public PostVo findByNo(Long no) {
+		return (PostVo) selectOne(PREFIX + "findByNo", no);
 	}
 
 }
