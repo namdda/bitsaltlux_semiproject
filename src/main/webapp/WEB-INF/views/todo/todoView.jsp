@@ -11,6 +11,24 @@
 <!-- head -->
 <c:import url="/WEB-INF/include/header.jsp" />
 
+<style>
+.main{
+	min-height: 1729px;;
+}
+table{
+	margin-left:auto; 
+	margin-right:auto;
+}
+td,th{
+	text-align: center;
+	
+}
+button.left, .todo-area{
+    float: left;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+</style>
 </head>
 
 <body id="page-top">
@@ -18,13 +36,13 @@
 	<!-- Page Wrapper -->
 	<div id="wrapper">
 	
-	
 		<!-- NAVBAR -->
 		<nav class="navbar navbar-default navbar-fixed-top">
 			<div class="brand">
 				<a href="/main/mainPage.do"><img src="/assets/img/logo-dark.png" alt="Klorofil Logo" class="img-responsive logo" /></a>
 			</div>
 			<div class="container-fluid">
+				
 				<div class="navbar-btn">
 					<button type="button" class="btn-toggle-fullwidth"><i class="lnr lnr-arrow-left-circle"></i></button>
 				</div>
@@ -44,9 +62,6 @@
 								<li><a href="#"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>
 							</ul>
 						</li>
-						<!-- <li>
-							<a class="update-pro" href="https://www.themeineed.com/downloads/klorofil-pro-bootstrap-admin-dashboard-template/?utm_source=klorofil&utm_medium=template&utm_campaign=KlorofilPro" title="Upgrade to Pro" target="_blank"><i class="fa fa-rocket"></i> <span>UPGRADE TO PRO</span></a>
-						</li> -->
 					</ul>
 				</div>
 			</div>
@@ -62,7 +77,6 @@
 						<li><a href="/main/mainPage.do" class="active"><i class="lnr lnr-home"></i> <span>메인페이지</span></a></li>
 						<li><a href="/user/userUpdate.do?inputId=${sessionScope.userId }" class="active"><i class="lnr lnr-pencil"></i><span>회원 정보</span></a></li>
 						<li>
-							<!--  <a href="/subject/subjectView.do?inputId=${sessionScope.userId }" class=""><i class="lnr lnr-code"></i> -->
 							<c:choose>
 								<c:when test="${sessionScope.userLevel != 'PRO'}">
 									<a href="/subject/studentSubjectView.do?inputId=${sessionScope.userId }" class=""><i class="lnr lnr-code"></i>
@@ -101,115 +115,128 @@
 		<div class="main">
 
 			<!-- Main Content -->
-			<div id="main-content">
+			<div class="main-content">
 
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
-
-					<!-- Page Heading -->
-					<div class="panel-heading">
-						<h2 class="panel-title">TODO</h2>
-					</div>
-					<div class="panel-body">
-						<div class="card-body">
-							<table class="table table-borderless " >
-								<tr>
-									<th>DONE?</th>
-									<th>제목</th>
-									<th>시작일</th>
-									<th>종료일</th>
-									<th>설명</th>
-									<th><a class="modifyTodoButton text-white">수정</a></th>
-									<th><a class="text-white" >삭제</a></th>
-								</tr>
-							</table>
+					<div class="panel panel-headline">
+					
+						<!-- Page Heading -->
+						<div class="panel-heading">
+							<h3 class="panel-title">TODO</h3>
 						</div>
-						<c:forEach items="${list}" var="todovo" varStatus="status">
-							<div class="card-body">
-								<!-- 수정 화면, 평소에는 안보인다.  -->
-								<form class="modifyTodo"
-									action="/todo/modify.do"
-									method="post" >
-									<input type="hidden" value="${todovo.userno}" name="userno">
-									<input type="hidden" class="todono" value="${todovo.no}" name="no">
-									제목<input
-										type="text" id="title" name="title" required minlength="4"
-										maxlength="8" size="10" value="${todovo.title}"> 시작일: 
-										<input type="text" value="${todovo.startdate}" class="datestart" name="startdate" required />
-									종료일: 
-									<input type="text" value="${todovo.duedate}" class="dateend" name="duedate"  required />설명<input type="text"
-										id="description" name="description" value="${todovo.description}">
-									<input type="image" src="${pageContext.request.contextPath}/assets/img/edit.png" style="height: 30px; width: 30px" value="수정"
-										class="modifyTodoSubmitButton">
-								</form>
-								<table class="viewTodo table table-borderless " >
-									<tr>
-										<td>
-											<c:choose>
-												<c:when test="${todovo.issuccess eq 1}">
-										<img alt="" src="${pageContext.request.contextPath}/assets/img/checked.png" style="height: 30px; width: 30px" class="imgClickAndChange" onclick="changeImage(${todovo.no})"/>
-												</c:when>
-												<c:otherwise>
-										<img alt="" src="${pageContext.request.contextPath}/assets/img/unchecked.png" style="height: 30px; width: 30px" class="imgClickAndChange" onclick="changeImage(${todovo.no})"/>
-												</c:otherwise>
-											</c:choose>        
-										</td>
-										<td><a class="text-white">${todovo.title}</a></td>
-										<td><a class="text-white">${todovo.startdate}</a></td>
-										<td><a class="text-white">${todovo.duedate}</a></td>
-										<td><a class="text-white">${todovo.description}</a></td>
-										<td><a class="modifyTodoButton text-white">
-											<img alt="수정" src="${pageContext.request.contextPath}/assets/img/edit.png" style="height: 30px; width: 30px">
-										</a></td>
-										<td><a
-											
-											class="text-white" data-toggle="modal"
-							data-target="#deleteModal"><img alt="삭제" src="${pageContext.request.contextPath}/assets/img/delete.png" style="height: 30px; width: 30px"></a></td>
-									</tr>
-								</table>
-							</div>
-						</c:forEach>
-					</div>
-					<form class="col-xl-auto col-md-auto mb-4 template" id="addTodo"
-						name="addTodo"
-						action="/todo/add.do" method="post">
-						<div class="card border-left-primary shadow h-100 py-2">
-							<div class="card-body">
-								<div class="row no-gutters align-items-center">
-									<div class="col mr-2">
-										<input type="hidden" value="${sessionScope.userId}" name="userno">
-											제목 
-										<input class="form-control"
-											type="text" id="title" name="title" required minlength="4"
-											maxlength="8" size="10"> 시작일: 
-										<input 
-											type="text" value="" class="datestart" name="startdate"
-											required /> 종료일: 
-										<input type="text" value=""
-											class="dateend" name="duedate" required /> 설명 
-										<input class="form-control"
-											type="text" id="description" name="description">
-										<input class="form-control" type="submit" value="추가"
-											class="btn-lg btn-primary btn-icon-split "> 
+						<!--  Page Body -->
+						<div class="panel-body">
+							<!-- 아이템 조회 및 수정 테이블 -->
+							<div class="row">
+								<div class="col-md-9">
+									<div class="panel">
+										<table class="table table-bordered" >
+											<thead>
+												<tr>
+													<th>DONE?</th>
+													<th>제목</th>
+													<th>시작일</th>
+													<th>종료일</th>
+													<th>설명</th>
+													<th>수정</th>
+													<th>삭제</th>
+												</tr>
+											</thead>
+											<tbody>
+												<c:forEach var="todovo" items="${list}" varStatus="no" >
+													<tr class="modifyTodo" >
+														<td colspan="7" id="${no.index}" valign=middle>												
+															<div class="panel">
+																<!-- 수정 화면, 평소에는 안보인다.  -->
+																<form action="/todo/modify.do" method="post">
+																	<div class="panel-body">
+																		<input type="hidden" value="${todovo.userno}" name="userno">
+																		<input type="hidden" class="todono" value="${todovo.no}" name="no">
+																		<div class="todo-area">
+																			제목
+																			<input type="text" id="title" name="title" required minlength="4" maxlength="8" size="10" value="${todovo.title}"> 
+																			시작일: 
+																			<input type="text" value="${todovo.startdate}" class="datestart" name="startdate" required />
+																			종료일: 
+																			<input type="text" value="${todovo.duedate}" class="dateend" name="duedate"  required />
+																			설명
+																			<input type="text" id="description" name="description" value="${todovo.description}">
+																		</div>		
+																		<div>
+																			<button class="btn btn-success left" type="submit" onclick="$(this).closest('form').submit();">수정하기</button>
+																			<button class="btn btn-default left" type="button" onclick="abortEdit()">취소하기</button>
+																		</div>			
+																	</div>
+																</form>
+															</div>
+														</td>
+													</tr>
+													<!--  조회 화면  -->
+													<tr class="viewTodo" >		
+														<td valign=middle>
+															<span class="imgClickAndChange" onclick="changeImage(${todovo.no})" style="display:block">
+																<c:choose>
+																	<c:when test="${todovo.issuccess eq 1}" >
+																		<img alt="" src="/assets/img/checked.png" />
+																	</c:when>
+																	<c:otherwise>
+																		<img alt="" src="/assets/img/unchecked.png"  />
+																	</c:otherwise>
+																</c:choose>      
+															</span>
+														</td>
+														<td valign=middle>${todovo.title}</td>
+														<td valign=middle>${todovo.startdate}</td>
+														<td valign=middle>${todovo.duedate}</td>
+														<td valign=middle>${todovo.description}</td>
+														<td valign=middle><a class="modifyTodoButton" data-index="${no.index}"><span  style="height: 50px; width: 50px" class="lnr lnr-pencil"></span></a></td>
+														<td valign=middle><a class="text-white delete-todo" data-no="${todovo.no}" data-toggle="modal" data-target="#deleteModal"><span  style="height: 50px; width: 50px" class="lnr lnr-cross"></span></a></td>
+													</tr>
+												</c:forEach>
+											</tbody>
+										</table>
 									</div>
+								</div>						
+							</div>
+							
+							<!-- 아이템 추가 -->
+							<div class="col-md-9">
+								<div class="panel" id="addTodo">
+									<form class="col-xl-auto col-md-auto mb-4 template" 
+										name="addTodo"
+										action="/todo/add.do" method="post">
+										
+										<div class="panel-body">
+											<input type="hidden" value="${sessionScope.userId}" name="userno">
+											<div class="todo-area">
+												제목
+												<input type="text" id="title" name="title" required minlength="4" maxlength="8" size="10" value=""> 
+												시작일: 
+												<input type="text" value="" class="datestart" name="startdate" required />
+												종료일: 
+												<input type="text" value="" class="dateend" name="duedate"  required />
+												설명
+												<input type="text" id="description" name="description" value="">
+
+												<span class="input-group-btn">
+													<button type="button" class="btn btn-primary left" id="search" onclick="document.getElementById('addTodo').getElementsByTagName('form')[0].submit();">추가</button>
+													<button class="btn btn-default left" type="button" onclick="abortAdd()">취소</button>
+												</span> 
+											</div>					
+										</div>
+									</form>
 								</div>
+								<span class="input-group-btn" style="position: static;">
+									<button type="button" class="btn-lg btn-primary left" id="addTodoBtn">새 TODO 만들기</button>
+								</span>
 							</div>
 						</div>
-					</form>
-
-					<a id="addTodoBtn"
-						class="btn-lg btn-primary btn-icon-split"> <span
-						class="icon text-white-50"> <i class="fas fa-flag"></i>
-					</span> <span class="text">새로운 TODO 만들기</span>
-					</a>
-
+					</div>	
 				</div>
 				<!-- /.container-fluid -->
-
 			</div>
 			<!-- End of Main Content -->
-
-
 		</div>
 		<!-- End of Content Wrapper -->
 		
@@ -245,7 +272,7 @@
 				<div class="modal-footer">
 					<button class="btn btn-secondary" type="button"
 						data-dismiss="modal">취소</button>
-					<a class="btn btn-primary" href="/todo/delete.do?no=${todovo.no}">삭제</a>
+					<a class="btn btn-primary" id="delete-confirm" href="/todo/delete.do?no=">삭제</a>
 				</div>
 			</div>
 		</div>
@@ -276,23 +303,21 @@
 	
 		// 일별 todo 체크 여부 확인
 		function changeImage(todo_no) {
-		   checked = $(event.target).attr('src') === "/todosite/assets/img/checked.png";
-		   let src = (checked == true) ? '/todosite/assets/img/unchecked.png' : '/todosite/assets/img/checked.png';  
-		   var is_success = checked == true ? 0 : 1;
-		   console.log(is_success);
 		   var elem = $(event.target);
-		   //$(event.target).attr('src',src);
+		   checked = elem.attr('src') === "/assets/img/checked.png";
+		   let src = (checked == true) ? '/assets/img/unchecked.png' : '/assets/img/checked.png';  
+		   var is_success = checked == true ? 0 : 1;
 		   var form = {
 				   todono : todo_no,
 				   issuccess : is_success
 		   }
 		   // todo 달성정보를 전송
 		   $.ajax({
-			   url: "todo/setachievement", 
+			   url: "setachievement.do", 
 			   type: "POST",
 			   data: form,
 			   success: function(data){
-				   let issuccess = (data == 1)? '/todosite/assets/img/checked.png' : '/todosite/assets/img/unchecked.png';
+				   let issuccess = (data == 1)? '/assets/img/checked.png' : '/assets/img/unchecked.png';
 				   elem.attr('src',issuccess);
 			   },
 			   error:function(){
@@ -300,6 +325,32 @@
 			   }
 		   })
 	    }
+		// 수정 취소하기 
+		function abortEdit(){
+			let editElement = $(event.target).closest('.modifyTodo');
+			let viewElement = $(event.target).closest('.modifyTodo').next();
+			editElement.css("display","none");
+			viewElement.css("display","");
+		}
+		// todo 추가 취소
+		function abortAdd(){
+			let addElement = $('#addTodo');
+			addElement.css("display","none");
+		}
+		// datepicker 초기화
+	    $.datepicker.setDefaults({
+	        dateFormat: 'yy-mm-dd',
+	        prevText: '이전 달',
+	        nextText: '다음 달',
+	        monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+	        monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+	        dayNames: ['일', '월', '화', '수', '목', '금', '토'],
+	        dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
+	        dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
+	        showMonthAfterYear: true,
+	        yearSuffix: '년'
+	    });
+	    
 		// date format 맞추기
 		$(".datestart, .dateend").datepicker({
 			dateFormat : 'yy-mm-dd'
@@ -311,28 +362,35 @@
 		$('#addTodo').css("display", "none");
 		$('#addTodoBtn').click(function() {
 			$('.modifyTodo').css("display","none"); 
-			$('.viewTodo').css("display","block");
-			$('#addTodo').css("display", "block");
+			$('.viewTodo').css("display","");
+			$('#addTodo').css("display", "");
 		});
 		$('.modifyTodo').css("display","none");
 		$(function(){
 			// 수정버튼 누를시 수정화면 보이게끔 함
 			$('.modifyTodoButton').click(function(){
+				
 				$('#addTodo').css("display", "none");
 				// 한번 수정화면을 열 경우 가까운 tag 처리가 꼬여서 다 없어지게 된다.
-				$('.viewTodo').css("display","block");
+				$('.viewTodo').css("display","");
 				// 수정을 누르면 수정화면이 다 안뜨게 된다. 
 				$('.modifyTodo').css("display","none");
 				// 그리고 가장가까운 view 화면이 뜨지 않는다
-				$(this).closest('.viewTodo').css("display","none");
-				$(this).closest('.card-body').children('.modifyTodo').css("display","block");				
+				console.log($(this).attr('data-index'));
+				let no = $(this).attr('data-index');
+				console.log($(this).prev());
+				let row = $(this).closest('.viewTodo');
+				row.prev().css("display","");
+				row.css("display","none");
+				//$(this).closest('.viewTodo').css("display","none");
+				//$(this).closest('.card-body').children('.modifyTodo').css("display","block");				
 				// 가장 가까운 수정화면이 뜬다. 
 			});
 			
 			$('.modifyTodoSubmitButton').click(function(){
 				// 확인 클릭시 모든 view 화면이 뜬다. 
 				$('.viewTodo').css("display","block");				
-				$(this).closest('.card-body').children('.viewTodo').css("display","block");
+				$(this).closest('.card-body').children('.viewTodo').css("display","");
 				$(this).closest('.modifyTodo').css("display","none");
 			});
 			// 종료날짜 클릭시 시작날짜 입력 여부를 확인
@@ -358,9 +416,29 @@
 					return;
 				} 
 			});
+			// 시작날짜가 종료날짜보다 더 늦는지 확인
+			$(".datestart").change(function(){
+				let startDate= $(this).val();
+				let dueDate= $(this).next().val();
+				
+				let dateDiff = betweenDate(startDate,dueDate);
+				if(dateDiff > 0){
+					$(this).val("");
+					alert("종료날짜는 시작 날짜보다 크거나 같아야 합니다");
+					return;
+				} 
+				
+			});
+			
+			// 삭제 버튼 누를 때 번호 저장 
+			$('.delete-todo').click(function(){
+				console.log();
+				let no = $(this).attr('data-no');
+				let link = $("#delete-confirm").attr('href');
+				$("#delete-confirm").attr('href',link + no);
+				console.log($("#delete-confirm").attr('href'));
+			});
 		});
-		
-
 		
 
 	</script>

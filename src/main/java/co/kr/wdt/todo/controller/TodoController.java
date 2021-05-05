@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -42,6 +43,7 @@ public class TodoController {
 			}else {
 				List<TodoVo> list = todoService.getAllByUserno((int)session.getAttribute("userId"));
 				model.addAttribute("list", list);
+				System.out.println(list);
 			}
 			// if("PRO".equals(session.getAttribute("level"))) redirectUrl = "main/proMainPage";
 		}
@@ -55,7 +57,7 @@ public class TodoController {
 		return "redirect:/todo/todoView.do";
 	}
 	@RequestMapping("/delete.do")
-	public String delete(@RequestParam(value="no", required=true)int no) {
+	public String delete(@RequestParam("no") int no) {
 		System.out.println(no);
 		
 		todoService.eraseTodo(no);
@@ -75,6 +77,7 @@ public class TodoController {
 	public int switchAchievement(@ModelAttribute AchievementVo vo) {
 		// 조건부로 없으면 추가한다.
 		achievementService.addAchievement(vo.getTodono());
+		System.out.println(vo);
 		// client쪽에서 이미 바뀐 값이 들어간다
 		achievementService.modifyAchievement(vo);
 		return vo.getIssuccess();
