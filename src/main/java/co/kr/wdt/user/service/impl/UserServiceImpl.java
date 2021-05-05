@@ -73,7 +73,8 @@ public class UserServiceImpl implements UserService {
 		@SuppressWarnings("unlikely-arg-type")
 		@Override
 	public void updateProc(UserVo userVo, MultipartHttpServletRequest req) {
-		if(!"".equals(req.getFileNames())) {
+		if(!"".equals(req.getFileNames())) { 
+			//기존의 파일을 어떻게 알 수 있을까
 			// 기존 파일 삭제 및 파일 재 업로드 로직
 			
 		}
