@@ -18,4 +18,6 @@ public interface TodoService {
 	public boolean eraseTodo(int no);
 	
 	public boolean modifyTodo(TodoVo vo);
+	
+	public List<TodoVo> getAchievementRateByUserno(int userno);
 }

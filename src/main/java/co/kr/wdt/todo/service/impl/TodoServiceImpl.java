@@ -45,4 +45,8 @@ public class TodoServiceImpl implements TodoService{
 	public boolean modifyTodo(TodoVo vo) {
 		return todoDao.update(vo);
 	}
+	@Override
+	public List<TodoVo> getAchievementRateByUserno(int userno) {
+		return todoDao.selectAllAchievementRate(userno);
+	}
 }

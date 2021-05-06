@@ -8,8 +8,10 @@ public class TodoVo {
 	private String description;
 	private String startdate;
 	private String duedate;
-	
+	// 일일 todo 달성률
 	private int issuccess;
+	// 전체 todo 달성률
+	private int achievementRate;
 	
 	
 	
@@ -77,12 +79,19 @@ public class TodoVo {
 	public void setIssuccess(int issuccess) {
 		this.issuccess = issuccess;
 	}
+	
+	public int getAchievementRate() {
+		return achievementRate;
+	}
+	public void setAchievementRate(int achievementRate) {
+		this.achievementRate = achievementRate;
+	}
+
 	@Override
 	public String toString() {
 		return "TodoVo [no=" + no + ", userno=" + userno + ", category=" + category + ", title=" + title
 				+ ", description=" + description + ", startdate=" + startdate + ", duedate=" + duedate + ", issuccess="
-				+ issuccess + "]";
+				+ issuccess + ", achievementRate=" + achievementRate + "]";
 	}
-	
 
 }

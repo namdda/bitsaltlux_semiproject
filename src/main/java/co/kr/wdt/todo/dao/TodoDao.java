@@ -45,5 +45,9 @@ public class TodoDao extends CommonSqlDao2{
 	public int selectCount() {
 		return (int)selectOne(PREFIX +"selectcount");
 	}
+	// 달성률 조회 기능(사용자 번호) 
+	public List<TodoVo> selectAllAchievementRate(int userno) {
+		return selectList(PREFIX +"selectAchievementRateByUserNo",userno);
+	}
 		
 }

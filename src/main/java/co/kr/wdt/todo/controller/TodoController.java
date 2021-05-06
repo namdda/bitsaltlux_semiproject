@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +20,7 @@ import co.kr.wdt.achievement.service.impl.AchievementServiceImpl;
 import co.kr.wdt.achievement.vo.AchievementVo;
 import co.kr.wdt.todo.service.impl.TodoServiceImpl;
 import co.kr.wdt.todo.vo.TodoVo;
+import co.kr.wdt.user.vo.UserVo;
 
 
 
@@ -29,6 +31,7 @@ public class TodoController {
 	TodoServiceImpl todoService;
 	@Autowired
 	AchievementServiceImpl achievementService;
+	protected static Logger logger = Logger.getLogger(TodoController.class.getName());
 	
 	@RequestMapping(value="/todoView.do",method=RequestMethod.GET)
 	public String index(HttpServletRequest request, Model model) {
@@ -43,7 +46,6 @@ public class TodoController {
 			}else {
 				List<TodoVo> list = todoService.getAllByUserno((int)session.getAttribute("userId"));
 				model.addAttribute("list", list);
-				System.out.println(list);
 			}
 			// if("PRO".equals(session.getAttribute("level"))) redirectUrl = "main/proMainPage";
 		}
@@ -81,6 +83,16 @@ public class TodoController {
 		// client쪽에서 이미 바뀐 값이 들어간다
 		achievementService.modifyAchievement(vo);
 		return vo.getIssuccess();
+	}
+	// 해당 todo를 그날 달성했는지 확인
+	@RequestMapping(value="/getachievementrate.do",method=RequestMethod.POST)
+	@ResponseBody
+	public List<TodoVo> getachievementrate(@ModelAttribute UserVo vo) {
+		logger.info(vo.getInputId());
+		int userno = vo.getInputId();
+		// todo의 달성률을 가져온다.
+		List<TodoVo> list = todoService.getAchievementRateByUserno(userno);
+		return list;
 	}
 	
 }

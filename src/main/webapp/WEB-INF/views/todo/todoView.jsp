@@ -28,6 +28,16 @@ button.left, .todo-area{
     margin-top: 10px;
     margin-right: 10px;
 }
+h3.todo-heading{
+	margin-bottom: 8px;
+    font-size: 22px;
+    font-weight: normal;
+}
+
+.progress {
+    height: 25px;
+    margin-bottom: 25px;
+}
 </style>
 <c:set var="now" value="<%=new java.util.Date()%>" />
 <c:set var="nowdate"><fmt:formatDate value="${now}" pattern="yyyy-MM-dd" /></c:set> 
@@ -238,9 +248,24 @@ button.left, .todo-area{
 										</div>
 									</form>
 								</div>
-								<span class="input-group-btn" style="position: static;">
+								<div class="input-group-btn" >
 									<button type="button" class="btn-lg btn-primary left" id="addTodoBtn">새 TODO 만들기</button>
-								</span>
+								</div>
+							</div>
+							<!-- 통계 -->
+							<div class="col-md-9">
+								<div class="row">
+									<div class="panel">
+										<div class="panel-heading">
+											<h3 class="panel-title">Progress Bars</h3>
+										</div>
+										<div class="panel-body" id="achievement-rate-panel">
+											<span class="input-group-btn">
+												<button type="button" class="btn-lg btn-primary left" id="achievementRateBtn" value="${sessionScope.userId}">achievement 가져오기</button>
+											</span>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>	
@@ -330,12 +355,58 @@ button.left, .todo-area{
 			   success: function(data){
 				   let issuccess = (data == 1)? '/assets/img/checked.png' : '/assets/img/unchecked.png';
 				   elem.attr('src',issuccess);
+				   $('#achievement-rate-panel').empty();
+				   
 			   },
 			   error:function(){
 				   alert("error");
 			   }
-		   })
+		   }).done( function(result, status, responseObj) {
+			   achievementRateLoad();
+			}).fail(function (result, status, responseObj) {
+			}).always(function (result, status, responseObj) {
+			});
 	    }
+		// rate 별 class mapping하는 함수
+		function getColor(rate){
+			const barColor ={
+				0: 'progress-bar-danger',
+ 				1: 'progress-bar-warning',
+ 				2: 'progress-bar-success',
+  				3: 'progress-bar-info',
+  				4: ''
+			};
+			return barColor[Math.floor((rate * 4)/ 100)];
+		}
+		// 달성률 정보를 가져와서 chart를 구성한다.
+		function achievementRateLoad(){
+			let userno = parseInt($("input[name='userno']").first().val());
+			let form = {
+			   inputId : userno
+		   	}
+			let panelArea = $('#achievement-rate-panel'); 
+
+			$.ajax({
+				url: "getachievementrate.do",
+				type: "POST",
+				data: form,
+				success: function(data){
+					data.forEach(function(item){
+						let htmlText = '<h3 class="todo-heading">'+item.title+'</h3>';
+						htmlText += '<div class="progress"><div class="progress-bar progress-bar-striped active ';
+						htmlText += getColor(item.achievementRate) + ' " role="progressbar" aria-valuenow="'+item.achievementRate+'" aria-valuemin="0" aria-valuemax="100" style="width: '+item.achievementRate+'%;">'+item.achievementRate+'%	</div></div>';
+						panelArea.append(htmlText);
+					});
+				},
+				error:function(){
+					alert(typeof(userno));
+				}
+			})
+		}
+		$(window).on('load', function() {
+			achievementRateLoad();
+		});		
+
 		// 수정 취소하기 
 		function abortEdit(){
 			let editElement = $(event.target).closest('.modifyTodo');
@@ -348,6 +419,8 @@ button.left, .todo-area{
 			let addElement = $('#addTodo');
 			addElement.css("display","none");
 		}
+		
+		
 		// datepicker 초기화
 	    $.datepicker.setDefaults({
 	        dateFormat: 'yy-mm-dd',

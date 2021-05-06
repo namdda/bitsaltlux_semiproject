@@ -57,4 +57,14 @@
 	]]>
 	</select>
 	
+	<select id="selectAchievementRateByUserNo" parameterType='int' resultType="todovo">
+	<![CDATA[
+	select t.no, t.title, round(ifnull(sum(a.is_success),0)/(datediff(t.due_date,t.start_date)+1)*100) achievementRate from todo t
+	left join achievement a
+	on a.todo_no = t.no 
+	where t.user_no = #{userno} and t.deleted = 0
+	group by t.no;
+	]]>
+	</select>
+	
 </mapper>
