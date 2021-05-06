@@ -54,7 +54,7 @@ function studentSubjectDel(idx, inputId) {
 						</li>
 						
 						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="/main/profile.do?fileName=${userProfile.fullName }" class="img-circle" alt="Avatar" /><span>${userProfile.userNm }</span></a>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="/main/profile.do?fileName=${userProfile.fullName }" class="img-circle" alt="Avatar" /><span>${sessionScope.userNm }</span></a>
 							<ul class="dropdown-menu">
 								<li><a href="/user/userUpdate.do?inputId=${userProfile.userId }" class="active"><i class="lnr lnr-user"></i> <span>회원 정보</span></a></li>
 								<li><a href="/login/logOut.do"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>

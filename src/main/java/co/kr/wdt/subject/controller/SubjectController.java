@@ -61,6 +61,7 @@ public class SubjectController {
 	String proSubjectView(@RequestParam String inputId, Model model) {
 		//List<SubjectVo> subjectVo = subjectService.proSubjectView(inputId);
 		model.addAttribute("subjectList",subjectService.proSubjectView(inputId));
+		model.addAttribute("userProfile", mainService.userProfile(Integer.parseInt(inputId)));
 		return "subject/proSubjectView";
 	}
 
