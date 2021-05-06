@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="courseEvaluationBoard">
+																				
+	<select id="findAll" parameterType="co.kr.wdt.common.vo.PageVo" resultType="co.kr.wdt.courseevaluationboard.vo.CourseEvaluationBoardVo">
+		<![CDATA[
+			 SELECT
+				BOARD_IDX,
+				COURSE_IDX,
+				TITLE,
+				USER_NAME,
+				COURSE_NAME,
+				USER_IDX,
+				HIT_CNT,
+				REG_DATE
+ 		     FROM
+ 		     	courseevaluationboard
+ 		     WHERE
+ 		        DEL_GB = 'N' 
+ 		 ]]>		    
+ 		 	<if test='courseIdx != null'>
+ 		     AND
+ 		     	COURSE_IDX = #{courseIdx}
+ 		     </if>
+ 		  <![CDATA[ 
+ 		  	 ORDER BY REG_DATE DESC  
+			 LIMIT #{start} , #{end}
+			 ]]> 		     	
+		
+	</select>
+	
+	<update id="updateMovieHit_Cnt" parameterType="_int">
+		<![CDATA[
+			 UPDATE
+				course
+ 		     SET
+ 		     	HIT_CNT = HIT_CNT + 1
+ 		     WHERE
+ 		        COURSE_IDX = #{courseIdx}
+ 		 ]]>		    
+	</update>
+	
+	<select id="findAll_totalCount" resultType="_int" parameterType="paramMap">
+		<![CDATA[
+			 SELECT
+				COUNT(*) AS totalCount
+ 		     FROM
+ 		     	courseevaluationboard
+ 		     WHERE
+ 		        DEL_GB = 'N'
+		]]>
+	 	<if test='courseIdx != null'>
+ 		     AND
+ 		     	COURSE_IDX = #{courseIdx}
+	     </if>
+ 	
+	</select>
+	
+	<select id="findOne" resultType="co.kr.wdt.courseevaluationboard.vo.CourseEvaluationBoardVo">
+		<![CDATA[
+			 SELECT
+				BOARD_IDX,
+				COURSE_IDX,
+				TITLE,
+				CONTENT,
+				USER_NAME,
+				COURSE_NAME,
+				USER_IDX,
+				HIT_CNT,
+				REG_DATE
+ 		     FROM
+ 		     	courseevaluationboard
+ 		     WHERE
+ 		        DEL_GB = 'N'
+ 		     AND
+ 		        BOARD_IDX = #{boardIdx}
+			 	     	
+		]]>
+	</select>
+	
+	<select id="search" parameterType="paramMap" resultType="co.kr.wdt.courseevaluationboard.vo.CourseEvaluationBoardVo">
+		<![CDATA[
+			 SELECT
+				BOARD_IDX,
+				COURSE_IDX,
+				TITLE,
+				USER_NAME,
+				COURSE_NAME,
+				USER_IDX,
+				HIT_CNT,
+				REG_DATE
+ 		     FROM
+ 		     	courseevaluationboard
+ 		     WHERE
+ 		        DEL_GB = 'N'
+ 		     AND
+ 		        TITLE like #{searchText}
+ 		     OR
+				CONTENT like #{searchText}
+		]]>
+	 		<if test='courseIdx != null'>
+ 		     AND
+ 		     	COURSE_IDX = #{courseIdx}
+ 		     </if>
+	  <![CDATA[   
+			 LIMIT #{start} , #{end}
+	 	]]> 
+	</select>
+	
+	<select id="search_totalCount" parameterType="String" resultType="_int">
+		<![CDATA[
+			 SELECT
+				COUNT(*) AS totalCount
+ 		     FROM
+ 		     	courseevaluationboard
+ 		     WHERE
+ 		        DEL_GB = 'N'
+ 		     AND
+ 		        TITLE like #{searchText}
+ 		     AND
+				CONTENT like #{searchText}
+		]]>
+	 		<if test='courseIdx != null'>
+ 		     AND
+ 		     	COURSE_IDX = #{courseIdx}
+ 		     </if>
+	</select>
+	
+	<update id="updateHit_Cnt">
+		<![CDATA[
+			 UPDATE
+				courseevaluationboard
+ 		     SET
+ 		     	HIT_CNT = HIT_CNT + 1
+ 		     WHERE
+ 		     	BOARD_IDX = #{boardIdx}
+		]]>
+	</update>
+	
+	<select id="search_courseName" parameterType="_int" resultType="String">
+		<![CDATA[
+			 SELECT
+				COURSE_NAME
+ 		     FROM
+ 		     	course
+ 		     WHERE
+ 		     	COURSE_IDX = #{courseIdx}
+		]]>
+	</select>
+
+	<insert id="insert" parameterType="paramMap" >
+		<![CDATA[
+			INSERT INTO 
+				courseevaluationboard (
+					COURSE_IDX,
+					TITLE,
+					CONTENT,
+					USER_NAME,
+					COURSE_NAME,
+					USER_IDX
+					)
+			VALUES
+				(
+				 #{courseEvaluationBoardVo.courseIdx}, #{courseEvaluationBoardVo.title}, #{courseEvaluationBoardVo.content}, 
+				 #{userVo.inputName}, #{courseEvaluationBoardVo.courseName}, #{userVo.no}
+				 )
+		]]>
+	</insert>
+	
+	<update id="delete" parameterType="_int">
+		<![CDATA[
+			UPDATE
+				courseevaluationboard
+			SET 
+				DEL_GB = 'Y'
+			WHERE
+				BOARD_IDX = #{boardIdx}
+ 		     	
+		]]>
+	</update>
+	
+	<update id="update" parameterType="co.kr.wdt.courseevaluationboard.vo.CourseEvaluationBoardVo">
+		<![CDATA[
+			UPDATE 
+				courseevaluationboard
+			SET
+				TITLE = #{title},
+				CONTENT = #{content}
+			WHERE
+				BOARD_IDX = #{boardIdx}
+		]]>
+	</update>
+	
+</mapper>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="courseEvaluationManagement">
+
+	<select id="getCategory" resultType="co.kr.wdt.courseevaluationmanagement.vo.CourseCategoryVo">
+		<![CDATA[
+			SELECT
+				COURSE_CODE,
+				COURSE_CATE_NAME,
+				COURSE_CODE_REF
+			FROM
+				course_category	
+		]]>
+	</select>
+	
+										 
+	<insert id="addMovie" parameterType="co.kr.wdt.courseevaluationmanagement.vo.CourseVo" useGeneratedKeys="true" keyProperty="mv_Idx">
+		<![CDATA[
+			INSERT INTO 
+				course (
+					COURSE_NAME,
+					COURSE_CODE,
+					PARTICI_NUM,
+					COURSE_DES,
+					REG_DATE
+				)
+			VALUES
+				(#{courseName}, #{courseCode}, #{particiNum}, #{courseDes}, now())
+			
+		]]>
+		<selectKey keyProperty="courseIdx" resultType="_int" order="AFTER"> 
+ 			SELECT last_insert_id() FROM DUAL 
+ 		</selectKey>
+	</insert>
+	
+	<select id="getMovie" resultType="paramMap">
+		<![CDATA[
+			 SELECT
+				c.COURSE_IDX,
+				c.COURSE_NAME,
+				COURSE_CATE_NAME,
+				c.COURSE_CODE,
+				PARTICI_NUM,
+				COURSE_DES,
+				REG_DATE,
+				ORIGINAL_FILE_NAME,
+				STORED_FILE_NAME
+ 		     FROM
+ 		     	course c
+ 		     LEFT OUTER JOIN
+ 		     	course_file cf 
+ 		     ON 
+ 		     	c.COURSE_IDX = cf.COURSE_IDX
+ 		     LEFT OUTER JOIN
+ 		     	course_category cc
+ 		     ON c.COURSE_CODE = cc.COURSE_CODE
+ 		     	
+		]]>
+	</select>
+	
+	<select id="findMovieOne" resultType="paramMap">
+		<![CDATA[
+			 SELECT
+				c.COURSE_IDX,
+				c.COURSE_NAME,
+				cc.COURSE_CATE_NAME,
+				c.COURSE_CODE,
+				c.PARTICI_NUM,
+				c.COURSE_DES,
+				c.REG_DATE,
+				cf.STORED_FILE_NAME
+ 		     FROM
+ 		     	course c
+ 		     LEFT OUTER JOIN
+ 		     	course_category cc
+ 		     ON 
+ 		     	c.COURSE_CODE = cc.COURSE_CODE
+ 		     LEFT OUTER JOIN
+ 		     	course_file cf
+ 		     ON 
+ 		     	c.COURSE_IDX = cf.COURSE_IDX 		     
+			 WHERE
+			 	c.COURSE_IDX = #{courseIdx} 
+		]]>
+	</select>
+	
+	
+	<insert id="insertFile" parameterType="paramMap">
+		<![CDATA[
+			INSERT INTO 
+				course_file ( 
+					COURSE_IDX, 
+					COURSE_NAME,
+					ORIGINAL_FILE_NAME, 
+					STORED_FILE_NAME, 
+					FILE_SIZE, 
+					CREA_ID 
+					)
+			VALUES ( 
+			 	#{courseIdx}, 
+			 	#{courseName},
+			 	#{originalFileName}, 
+			 	#{storedFileName}, 
+			 	#{fileSize}, 
+			 	'Admin' 
+			 	)
+		]]>
+	</insert>
+	
+</mapper>

@@ -34,13 +34,6 @@ public class AuthUserHandlerMethodArgumentResolver extends HandlerMethodArgument
 			return null;
 		}
 		
-		System.out.println(session.getAttribute("userNo"));
-		System.out.println(session.getAttribute("userId"));
-		System.out.println(session.getAttribute("userNm"));
-		System.out.println(session.getAttribute("userMajor"));
-		System.out.println(session.getAttribute("userSchool"));
-		System.out.println(session.getAttribute("userLevel"));
-		System.out.println(session.getAttribute("userPw"));
 		
 		userVo.setNo((int)session.getAttribute("userNo"));
 		userVo.setInputId((int)session.getAttribute("userId"));
