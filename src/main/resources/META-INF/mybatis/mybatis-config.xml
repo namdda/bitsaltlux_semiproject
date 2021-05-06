@@ -13,5 +13,7 @@
 		<typeAlias type="java.util.List" alias="paramList" />
 		<typeAlias type="java.util.HashMap" alias="resultMap" />
 		<typeAlias type="java.util.List" alias="resultList" />
+		<typeAlias type="co.kr.wdt.achievement.vo.AchievementVo" alias="achievementvo" />
+		<typeAlias type="co.kr.wdt.todo.vo.TodoVo" alias="todovo" />
 	</typeAliases>
 </configuration>

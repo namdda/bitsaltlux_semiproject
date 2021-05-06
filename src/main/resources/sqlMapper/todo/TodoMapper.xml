@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="TodoMapper">
+	<insert id="insert" parameterType="todovo">
+	<![CDATA[
+	insert into 
+	todo(user_no, category, title, description, start_date, due_date) 
+	values(#{userno}, 'default', #{title},#{description}, #{startdate}, #{duedate})
+	]]>
+	</insert>
+	<delete id="harddelete" parameterType="todovo">
+	<![CDATA[
+	delete from todo where user_no = #{userno} and title = #{title}
+	]]>
+	</delete>
+	
+	<delete id="harddeleteall" >
+	<![CDATA[
+	delete from todo
+	]]>
+	</delete>
+	
+	<delete id="delete" parameterType="todovo" >
+	<![CDATA[
+	update todo set deleted = 1 where no = #{no}
+	]]>
+	</delete>
+	
+	<update id="update" parameterType="todovo">
+	<![CDATA[
+	update todo 
+	set title=#{title}, description=#{description}, start_date=#{startdate}, due_date=#{duedate}
+	where no = #{no} and deleted = 0
+	]]>
+	</update>
+	
+	<select id="selectall" parameterType='int' resultType="todovo">
+	<![CDATA[
+	select t.no as no, t.user_no as userNo, category, title, date_format(start_date,'%Y-%m-%d') startdate, date_format(due_date,'%Y-%m-%d') duedate, description , ifnull(a.is_success,0) as issuccess
+	from todo t 
+	left outer join achievement a
+	on t.no = a.todo_no and date(a.success_date) = CURDATE()
+	where t.user_no = #{userno} and t.deleted = 0 and CURDATE() <= date(t.due_date)
+	]]>
+	</select>
+
+	<select id="selectbyusernotitle" parameterType='todovo' resultType="todovo">
+	<![CDATA[
+	select * from todo where title = #{title} and user_no = #{userno} and deleted = 0
+	]]>
+	</select>
+	
+	<select id="selectcount" resultType="int">
+	<![CDATA[
+	select count(*) from todo
+	]]>
+	</select>
+	
+	<select id="selectAchievementRateByUserNo" parameterType='int' resultType="todovo">
+	<![CDATA[
+	select t.no, t.title, round(ifnull(sum(a.is_success),0)/(datediff(t.due_date,t.start_date)+1)*100) achievementRate from todo t
+	left join achievement a
+	on a.todo_no = t.no 
+	where t.user_no = #{userno} and t.deleted = 0
+	group by t.no;
+	]]>
+	</select>
+	
+</mapper>
