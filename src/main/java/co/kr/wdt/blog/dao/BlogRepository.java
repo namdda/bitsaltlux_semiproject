@@ -13,8 +13,8 @@ public class BlogRepository extends CommonSqlDao2 {
 	
 	private static String PREFIX = "BlogMapper.";
 	
-	public List<BlogVo> findAllBlog() {
-		return selectList(PREFIX + "findAllBlog");
+	public List<BlogVo> findAllBlog(int curPage) {
+		return selectList(PREFIX + "findAllBlog", curPage);
 	}
 
 	public BlogVo findById(int user_id) {
@@ -33,6 +33,9 @@ public class BlogRepository extends CommonSqlDao2 {
 		delete(PREFIX + "delete", user_id);
 	}
 
-	
+	public int getCount() {
+		return (int) selectOne(PREFIX + "getCount");
+	}
+
 
 }

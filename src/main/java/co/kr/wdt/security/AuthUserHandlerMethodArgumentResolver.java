@@ -1,8 +1,5 @@
 package co.kr.wdt.security;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -16,11 +13,12 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 import co.kr.wdt.user.vo.UserVo;
 
 public class AuthUserHandlerMethodArgumentResolver extends HandlerMethodArgumentResolverComposite {
-
-	
 	@Override
-	public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
-			NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
+	public Object resolveArgument(
+			MethodParameter parameter, 
+			ModelAndViewContainer mavContainer,
+			NativeWebRequest webRequest, 
+			WebDataBinderFactory binderFactory) throws Exception {
 		
 		UserVo userVo = new UserVo();
 		
@@ -50,7 +48,6 @@ public class AuthUserHandlerMethodArgumentResolver extends HandlerMethodArgument
 		userVo.setLevel((String)session.getAttribute("userLevel"));
 		userVo.setUserPw((String)session.getAttribute("userPw"));
 		
-		
 		return userVo;
 	}
 	
@@ -70,7 +67,5 @@ public class AuthUserHandlerMethodArgumentResolver extends HandlerMethodArgument
 		
 		return true;
 	}
-
-
 
 }

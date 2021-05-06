@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import co.kr.wdt.blog.dao.BlogRepository;
 import co.kr.wdt.blog.vo.BlogVo;
+import co.kr.wdt.post.dao.PostRepository;
+import co.kr.wdt.post.vo.PostVo;
 
 @Service
 public class BlogService {
@@ -14,8 +16,11 @@ public class BlogService {
 	@Autowired
 	private BlogRepository blogRepository;
 	
-	public List<BlogVo> findAllBlog() {
-		return blogRepository.findAllBlog();
+	@Autowired
+	private PostRepository postRepository;
+	
+	public List<BlogVo> findAllBlog(int curPage) {
+		return blogRepository.findAllBlog((curPage-1) * 3);
 	}
 
 	public BlogVo findMyBlog(int user_id) {
@@ -33,6 +38,21 @@ public class BlogService {
 
 	public void delete(int user_id) {
 		blogRepository.delete(user_id);
+	}
+
+	public int getCount() {
+		return blogRepository.getCount();
+	}
+
+	public int findPostByKeyword(String keyword) {
+		return postRepository.findPostByKeyword(keyword);
+	}
+
+	public List<PostVo> findByKeyword(String keyword, int curPage) {
+		BlogVo blogVo = new BlogVo();
+		blogVo.setKeyword(keyword);
+		blogVo.setCurPage((curPage-1) *5);
+		return postRepository.findByKeyword(blogVo);
 	}
 
 	

@@ -3,34 +3,38 @@
 
 <mapper namespace="BlogMapper">
 
-	<select id="findAllBlog" resultType="blogvo">
+	<select id="findAllBlog" parameterType="int" resultType="blogvo">
 		<![CDATA[
-			select no, user_id, thumb_logo, intro
+			select no, user_id, user_name, thumb_logo, intro
 			from blog
+			order by no desc limit #{curPage}, 3
 		]]>
 	</select>
 
 	<select id="findById" parameterType="int" resultType="blogvo">
 		<![CDATA[
-			select no, user_id, origin_logo, thumb_logo, intro
+			select no, user_id, user_name, origin_logo, thumb_logo, intro
 			from blog
 			where user_id = #{user_id }
 		]]>
 	</select>
 	
+	
 	<insert id="insert" parameterType="blogvo">
 		<![CDATA[
 			insert
 			into blog
-			values(null, #{userId }, #{originLogo }, #{thumbLogo }, #{intro }, now())
+			values(null, #{userId }, #{userName }, #{originLogo }, #{thumbLogo }, #{intro }, now())
 		]]>
 	</insert>
 	
 	<update id="update" parameterType="blogvo">
 		<![CDATA[
 			update blog
-			set intro = #{intro }
-		 	where no = #{no }
+		 	set intro = #{intro }, 
+			 	origin_logo = #{originLogo}, 
+			 	thumb_logo = #{thumbLogo}
+		 	where user_id = #{userId}
 		]]>
 	</update>
 	
@@ -41,5 +45,12 @@
 			where user_id = #{user_id }
 		]]>
 	</delete>
+	
+	<select id="getCount" resultType="int">
+		<![CDATA[
+			select count(no)
+			from blog
+		]]>
+	</select>
 	
 </mapper>
