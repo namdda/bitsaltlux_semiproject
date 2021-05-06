@@ -12,112 +12,46 @@
 </head>
 <body>
 	<div id="wrapper">
-		<!-- NAVBAR -->
-		<nav class="navbar navbar-default navbar-fixed-top">
-			<div class="brand">
-				<a href="/main/mainPage.do"><img src="/assets/img/logo-dark.png"
-					alt="Klorofil Logo" class="img-responsive logo" /></a>
-			</div>
-			<div class="container-fluid">
-				<div class="navbar-btn">
-					<button type="button" class="btn-toggle-fullwidth">
-						<i class="lnr lnr-arrow-left-circle"></i>
-					</button>
-				</div>
-				<div id="navbar-menu">
-					<ul class="nav navbar-nav navbar-right">
-						<li class="dropdown"></li>
-						<li><a href="/login/logOut.do" class="dropdown-toggle"><span>logout</span></a>
-						</li>
-						<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown"><img src="/assets/img/user.png"
-								class="img-circle" alt="Avatar" style="display: none;" /><span>${sessionScope.userNm }</span></a>
-							<ul class="dropdown-menu">
-								<li><a href="#"><i class="lnr lnr-user"></i> <span>My
-											Profile</span></a></li>
-								<li><a href="#"><i class="lnr lnr-envelope"></i> <span>Message</span></a></li>
-								<li><a href="/blog/${sessionScope.userId }/blogMain.do"><i
-										class="lnr lnr-cog"></i> <span>블로그 가기</span></a></li>
-								<li><a href="#"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>
-							</ul></li>
-						<!-- <li>
-							<a class="update-pro" href="https://www.themeineed.com/downloads/klorofil-pro-bootstrap-admin-dashboard-template/?utm_source=klorofil&utm_medium=template&utm_campaign=KlorofilPro" title="Upgrade to Pro" target="_blank"><i class="fa fa-rocket"></i> <span>UPGRADE TO PRO</span></a>
-						</li> -->
-					</ul>
-				</div>
-			</div>
-		</nav>
-		<!-- END NAVBAR -->
-		<!-- LEFT SIDEBAR -->
-		<div id="sidebar-nav" class="sidebar">
-			<div class="sidebar-scroll">
-				<nav>
-					<ul class="nav">
-						<li><a href="/main/mainPage.do" class="active"><i
-								class="lnr lnr-home"></i> <span>메인페이지</span></a></li>
-						<li><a
-							href="/user/userUpdate.do?inputId=${sessionScope.userId }"
-							class="active"><i class="lnr lnr-pencil"></i><span>회원
-									정보</span></a></li>
-						<li>
-							<!--  <a href="/subject/subjectView.do?inputId=${sessionScope.userId }" class=""><i class="lnr lnr-code"></i> -->
-							<c:choose>
-								<c:when test="${sessionScope.userLevel != 'PRO'}">
-									<a
-										href="/subject/studentSubjectView.do?inputId=${sessionScope.userId }"
-										class=""><i class="lnr lnr-code"></i> <span>수강과목 조회</span>
-									</a>
-								</c:when>
-								<c:otherwise>
-									<a
-										href="/subject/proSubjectView.do?inputId=${sessionScope.userId }"
-										class=""><i class="lnr lnr-code"></i> <span>내 과목 조회</span>
-									</a>
-								</c:otherwise>
-							</c:choose> <!-- </a> -->
-						</li>
-						<c:if test="${sessionScope.userLevel == 'PRO'}">
-							<li style="display: none;"><a href="#subPages"
-								data-toggle="collapse" class="collapsed"><i
-									class="lnr lnr-file-empty"></i><span> 과목</span><i
-									class="icon-submenu lnr lnr-chevron-left"></i></a>
-								<div id="subPages" class="collapse">
-									<ul class="nav">
-										<li><a href="/subject/subjectView.do">과목 등록</a></li>
-										<li><a href="page-login.html">과목 수정</a></li>
-									</ul>
-								</div></li>
-						</c:if>
-					</ul>
-				</nav>
-			</div>
-		</div>
-		<!-- END LEFT SIDEBAR -->
+		<c:import url="/WEB-INF/include/navbar.jsp"/>
 		<!-- MAIN -->
 		<div class="main">
 			<div class="main-content">
 				<div class="col-md-8 blog-main">
 					<h1 class="pb-3 mb-4 font-italic border-bottom">${postVo.author } 블로그</h1>
 					<div class="blog-post">
-						<h3 class="blog-post-title">${postVo.title }</h3>
-						<hr style="height: 2px; background: #ccc;">
-						<p class="blog-post-meta">${postVo.wDate } by <a href="#"> ${postVo.author }</a>
-						</p>
+						<div class="col-md-12">
+							<div class="carousel-inner">
+								<img class="first-slide" src="/assets/img/blogtitle.png"  style="width: 878px; height:301px;"/>
+								<div class="carousel-caption">
+									<div class="title-area">
+										<h1 class="title-modern" style="color: white;">${postVo.title }</h1>		
+									</div>
+									<div class="col-md-12" style="display: inline; margin-top:20px;">
+										<h4 class="blog-post-meta">${postVo.author } / ${postVo.wDate } </h4>
+									</div>
+								</div>
+							</div>
+						</div>
+
 						<br/>
-						<p>${fn:replace(postVo.content, newLineChar, "<br/>")}</p>
+						<div class="col-md-12" style="margin-top: 20px; margin-bottom: 20px;">
+							<h3>${fn:replace(postVo.content, newLineChar, "<br/>")}</h3>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<c:if test="${postVo.originFile != null}">
+							<div class="like p-2 cursor action-collapse" data-toggle="collapse" href="#attach" role="button" aria-expanded="false" aria-controls="attach" style="margin-top:20px;">
+								첨부파일<span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span> 
+							</div>
+							<div class="bg-light p-2 collapse" id="attach">
+								[<a href="/resources/upload/${postVo.storedFile}" download>${postVo.originFile}</a>]
+							</div>
+						</c:if>
+						
 					</div>
 					
-					<%-- <c:if test="${postVo.origin_file != null}">
-						<hr>
-						<div class="like p-2 cursor action-collapse" data-toggle="collapse" href="#attach" role="button" aria-expanded="false" aria-controls="attach">
-							첨부파일<span class="fas fa-caret-down" aria-hidden="true"></span> 
-						</div>
-						<div class="bg-light p-2 collapse" id="attach">
-							[<a href="${pageContext.request.contextPath }/upload/${vo.stored_file}" download>${vo.origin_file}</a>]
-						</div>
-					</c:if> --%>
-					<hr style="height: 2px; background: #ccc;">
-					<div class="blog-post">
+					<div class="col-lg-12">
+						<hr style="height: 2px; background: #ccc;">					
 						<c:if test="${sessionScope.userId eq id}">
 							<button class="btn btn-danger" onclick="postDel()" style="float: left;">삭제</button>
 							<a class="btn btn-primary" href="/blog/${id}/post/${no}/updateProc.do" role="button" style="float: right; margin-left: 5px; margin-right: 5px;">수정</a>
@@ -125,9 +59,8 @@
 						<a class="btn btn-primary" href="/blog/${id}/mainPage.do" role="button" style="float: right; margin-left: 5px;">목록</a>
 					</div>
 					<br>
-					<hr style="height: 2px; background: #ccc; margin-top: 30px;">
 
-					<div class="col-lg-12">
+					<div class="col-lg-12" style="margin-top:20px;">
 						<!-- 댓글 폼 -->
 						<div class="panel panel-default">
 							<form action="/blog/${id}/post/${no}/comment/addProc.do" method="post">
@@ -214,6 +147,44 @@
 					</div>
 					<!-- Comment end -->
 				</div>
+				<aside class="col-md-4 blog-sidebar">
+				<div class="p-3 mb-3 bg-light rounded">
+					<h4 class="font-italic">About</h4>
+					<p class="mb-0">
+						Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras
+						mattis consectetur purus sit amet fermentum. Aenean lacinia
+						bibendum nulla sed consectetur.
+					</p>
+				</div>
+
+				<div class="p-3">
+					<h4 class="font-italic">Archives</h4>
+					<ol class="list-unstyled mb-0">
+						<li><a href="#">March 2021</a></li>
+						<li><a href="#">February 2021</a></li>
+						<li><a href="#">January 2021</a></li>
+						<li><a href="#">December 2020</a></li>
+						<li><a href="#">November 2020</a></li>
+						<li><a href="#">October 2020</a></li>
+						<li><a href="#">September 2020</a></li>
+						<li><a href="#">August 2020</a></li>
+						<li><a href="#">July 2020</a></li>
+						<li><a href="#">June 2020</a></li>
+						<li><a href="#">May 2020</a></li>
+						<li><a href="#">April 2020</a></li>
+					</ol>
+				</div>
+
+				<div class="p-3">
+					<h4 class="font-italic">Elsewhere</h4>
+					<ol class="list-unstyled">
+						<li><a href="#">GitHub</a></li>
+						<li><a href="#">Twitter</a></li>
+						<li><a href="#">Facebook</a></li>
+					</ol>
+				</div>
+			</aside>
+			<!-- /.blog-sidebar -->
 			</div>
 		</div>
 	</div>

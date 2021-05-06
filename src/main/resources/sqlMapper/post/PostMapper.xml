@@ -3,19 +3,38 @@
 
 <mapper namespace="PostMapper">
 
-	<select id="findAllPost" parameterType="int" resultType="postvo">
+	<select id="findAllPost" parameterType="blogvo" resultType="postvo">
 		<![CDATA[
 			select no, title, author, content, w_date, blog_id
 			from post
-			where blog_id = #{blog_id }
+			where blog_id = #{userId }
+			order by no desc limit #{curPage }, 5
 		]]>
 	</select>
 	
 	<select id="findByNo" parameterType="Long" resultType="postvo">
 		<![CDATA[
-			select title, author, content, w_date, blog_id
+			select title, author, content, origin_file, stored_file, w_date, blog_id
 			from post
 			where no = #{no }
+		]]>
+	</select>
+	
+	<select id="findPostByKeyword" parameterType="String" resultType="int">
+		<![CDATA[
+			select count(no)
+			from post
+			where title like CONCAT('%',#{keyword},'%')
+		]]>
+	
+	</select>
+	
+	<select id="findByKeyword" parameterType="blogvo" resultType="postvo">
+		<![CDATA[
+			select no, title, author, content, w_date, blog_id
+			from post
+			where title like CONCAT('%',#{keyword},'%')
+			order by no desc limit #{curPage}, 5
 		]]>
 	</select>
 	
@@ -23,16 +42,18 @@
 		<![CDATA[
 			insert
 			into post
-			values(null, #{title }, #{author }, #{content }, null, null, now(), #{blogId })
+			values(null, #{title }, #{author }, #{content }, #{originFile }, #{storedFile }, now(), #{blogId })
 		]]>
 	</insert>
 	
 	<update id="update" parameterType="postvo">
 		<![CDATA[
 			update post
-			set title = #{title },
-			 	content = #{content }
-		 	where no = #{no }
+		 	set title = #{title},
+		 		content = #{content},
+		 		origin_file = #{originFile},
+		 		stored_file = #{storedFile}
+		 	where no = #{no}
 		]]>
 	</update>
 	
@@ -43,5 +64,13 @@
 			where no = #{no }
 		]]>
 	</delete>
+	
+	<select id="getCount" parameterType="int" resultType="Integer">
+		<![CDATA[
+			select count(no)
+			from post
+			where blog_id = #{blog_id }
+		]]>
+	</select>
 
 </mapper>

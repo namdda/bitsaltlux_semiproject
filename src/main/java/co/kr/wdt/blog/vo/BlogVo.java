@@ -4,10 +4,31 @@ public class BlogVo {
 
 	private Long no;
 	private int userId;
+	private String userName;
 	private String originLogo;
 	private String thumbLogo;
 	private String intro;
 	private String regDate;
+	
+	private String keyword;
+	
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+
+	private int curPage;
+	
+	public int getCurPage() {
+		return curPage;
+	}
+
+	public void setCurPage(int curPage) {
+		this.curPage = curPage;
+	}
 	
 	public Long getNo() {
 		return no;
@@ -23,6 +44,14 @@ public class BlogVo {
 
 	public void setUserId(int userId) {
 		this.userId = userId;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public String getOriginLogo() {
@@ -59,10 +88,9 @@ public class BlogVo {
 
 	@Override
 	public String toString() {
-		return "BlogVo [no=" + no + ", userId=" + userId + ", originLogo=" + originLogo + ", thumbLogo=" + thumbLogo
-				+ ", intro=" + intro + ", regDate=" + regDate + "]";
+		return "BlogVo [no=" + no + ", userId=" + userId + ", userName=" + userName + ", originLogo=" + originLogo
+				+ ", thumbLogo=" + thumbLogo + ", intro=" + intro + ", regDate=" + regDate + ", keyword=" + keyword
+				+ ", curPage=" + curPage + "]";
 	}
 
-	
-	
 }
