@@ -146,7 +146,7 @@ function joinEducations(idx1, idx2) {
 						success: function(data) {
 							$("#search").trigger("click");
 							$(".edu").text("");
-							$(".edu").css("backgroundColor","#0000");
+							$(".edu").css("backgroundColor","#fff");
 							for(var i=0; i<data.length; i++) {
 								$(".edu_"+data[i].firstSubject).text(data[i].name);
 								$(".edu_"+data[i].firstSubject).css("backgroundColor","#dff0d8");
@@ -343,7 +343,7 @@ function addZeros(num, digit) { // 자릿수 맞춰주기
 												<tbody>
 													<tr>
 														<td>1 교시</td>
-														<td class="edu edu_1"></td>
+														<td class="edu4 edu_1"></td>
 														<td class="edu edu_9"></td>
 														<td class="edu edu_17"></td>
 														<td class="edu edu_25"></td>

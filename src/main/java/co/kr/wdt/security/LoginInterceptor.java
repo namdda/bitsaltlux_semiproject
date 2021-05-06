@@ -21,9 +21,9 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		
 		String password = (request.getParameter("userPw") != null) ? request.getParameter("userPw") : "";
-		String redirectUrl = "redirect:/login/loginPage.do?Status=PWNE";
+		// 해당 메소드에서 사용하는 곳이 없어서 주석 처리했습니다. 
+		// String redirectUrl = "redirect:/login/loginPage.do?Status=PWNE";
 		UserVo userVo = new UserVo();
 		LoginVo loginVo = new LoginVo();
 
@@ -32,12 +32,13 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 			loginVo.setInputId(request.getParameter("inputId"));
 		}
 		
+		
 		if(request.getParameter("userPw") != null  && !("".equals(request.getParameter("userPw")))) {
 			loginVo.setUserPw(request.getParameter("userPw"));
 		}
 		
 		
-userVo = loginService.loginProc(loginVo.getInputId());
+		userVo = loginService.loginProc(loginVo.getInputId());
 		
 		if(userVo != null) {
 			if(BCrypt.checkpw(password, userVo.getUserPw())) {
