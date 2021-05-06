@@ -13,7 +13,7 @@
 
 <style>
 .main{
-	min-height: 1729px;;
+	min-height: 1729px;
 }
 table{
 	margin-left:auto; 
