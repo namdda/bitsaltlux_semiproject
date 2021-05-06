@@ -31,8 +31,8 @@ public class TodoController {
 	TodoServiceImpl todoService;
 	@Autowired
 	AchievementServiceImpl achievementService;
-	protected static Logger logger = Logger.getLogger(TodoController.class.getName());
 	
+	// todo 화면
 	@RequestMapping(value="/todoView.do",method=RequestMethod.GET)
 	public String index(HttpServletRequest request, Model model) {
 		//TODO: userno를 어디ㅔ서 넣어야 하는가? 
@@ -52,43 +52,41 @@ public class TodoController {
 		return redirectUrl;
 	}
 	
+	// todo 추가 
 	@RequestMapping("/add.do")
 	public String add(@ModelAttribute TodoVo vo) {
-		System.out.println(vo);
 		todoService.addTodo(vo);
 		return "redirect:/todo/todoView.do";
 	}
+	
+	// todo 삭제
 	@RequestMapping("/delete.do")
 	public String delete(@RequestParam("no") int no) {
-		System.out.println(no);
-		
 		todoService.eraseTodo(no);
 		return "redirect:/todo/todoView.do";
 	}
+	
+	//todo 수정
 	@RequestMapping("/modify.do")
 	public String modify(@ModelAttribute TodoVo vo) {
-		System.out.println(vo);
-		
 		todoService.modifyTodo(vo);
 		return "redirect:/todo/todoView.do";
 	}
 	
-	// 해당 todo를 그날 달성했는지 확인
+	// 해당 todo를 그날 달성했는지 확인 
 	@RequestMapping(value="/setachievement.do",method=RequestMethod.POST)
 	@ResponseBody
 	public int switchAchievement(@ModelAttribute AchievementVo vo) {
 		// 조건부로 없으면 추가한다.
 		achievementService.addAchievement(vo.getTodono());
-		System.out.println(vo);
 		// client쪽에서 이미 바뀐 값이 들어간다
 		achievementService.modifyAchievement(vo);
 		return vo.getIssuccess();
 	}
-	// 해당 todo를 그날 달성했는지 확인
+	// 전체 todo 달성률 정보 가져오기
 	@RequestMapping(value="/getachievementrate.do",method=RequestMethod.POST)
 	@ResponseBody
 	public List<TodoVo> getachievementrate(@ModelAttribute UserVo vo) {
-		logger.info(vo.getInputId());
 		int userno = vo.getInputId();
 		// todo의 달성률을 가져온다.
 		List<TodoVo> list = todoService.getAchievementRateByUserno(userno);

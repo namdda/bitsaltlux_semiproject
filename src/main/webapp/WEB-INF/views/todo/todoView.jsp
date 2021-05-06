@@ -28,6 +28,9 @@ button.left, .todo-area{
     margin-top: 10px;
     margin-right: 10px;
 }
+div.section-distancing{
+	margin-top: 40px;
+}
 h3.todo-heading{
 	margin-bottom: 8px;
     font-size: 22px;
@@ -38,6 +41,7 @@ h3.todo-heading{
     height: 25px;
     margin-bottom: 25px;
 }
+
 </style>
 <c:set var="now" value="<%=new java.util.Date()%>" />
 <c:set var="nowdate"><fmt:formatDate value="${now}" pattern="yyyy-MM-dd" /></c:set> 
@@ -253,16 +257,13 @@ h3.todo-heading{
 								</div>
 							</div>
 							<!-- 통계 -->
-							<div class="col-md-9">
+							<div class="col-md-9 section-distancing">
 								<div class="row">
 									<div class="panel">
 										<div class="panel-heading">
-											<h3 class="panel-title">Progress Bars</h3>
+											<h3 class="panel-title">TODO 달성률</h3>
 										</div>
 										<div class="panel-body" id="achievement-rate-panel">
-											<span class="input-group-btn">
-												<button type="button" class="btn-lg btn-primary left" id="achievementRateBtn" value="${sessionScope.userId}">achievement 가져오기</button>
-											</span>
 										</div>
 									</div>
 								</div>
@@ -460,14 +461,10 @@ h3.todo-heading{
 				// 수정을 누르면 수정화면이 다 안뜨게 된다. 
 				$('.modifyTodo').css("display","none");
 				// 그리고 가장가까운 view 화면이 뜨지 않는다
-				console.log($(this).attr('data-index'));
 				let no = $(this).attr('data-index');
-				console.log($(this).prev());
 				let row = $(this).closest('.viewTodo');
 				row.prev().css("display","");
 				row.css("display","none");
-				//$(this).closest('.viewTodo').css("display","none");
-				//$(this).closest('.card-body').children('.modifyTodo').css("display","block");				
 				// 가장 가까운 수정화면이 뜬다. 
 			});
 			
@@ -516,11 +513,9 @@ h3.todo-heading{
 			
 			// 삭제 버튼 누를 때 번호 저장 
 			$('.delete-todo').click(function(){
-				console.log();
 				let no = $(this).attr('data-no');
 				let link = $("#delete-confirm").attr('href');
 				$("#delete-confirm").attr('href',link + no);
-				console.log($("#delete-confirm").attr('href'));
 			});
 		});
 		
