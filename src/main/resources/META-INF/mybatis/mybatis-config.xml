@@ -15,5 +15,9 @@
 		<typeAlias type="java.util.List" alias="resultList" />
 		<typeAlias type="co.kr.wdt.achievement.vo.AchievementVo" alias="achievementvo" />
 		<typeAlias type="co.kr.wdt.todo.vo.TodoVo" alias="todovo" />
+		<typeAlias type="co.kr.wdt.blog.vo.BlogVo" alias="blogvo" />
+		<typeAlias type="co.kr.wdt.post.vo.PostVo" alias="postvo" />
+		<typeAlias type="co.kr.wdt.comment.vo.CommentVo" alias="commentvo" />
+		<typeAlias type="co.kr.wdt.reply.vo.ReplyVo" alias="replyvo" />
 	</typeAliases>
 </configuration>

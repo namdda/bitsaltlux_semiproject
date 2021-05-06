@@ -31,9 +31,9 @@
 			</bean>
 		</mvc:message-converters>
 		
-	   <mvc:argument-resolvers>
+	   <!-- <mvc:argument-resolvers>
 		 	<bean class="co.kr.wdt.security.AuthUserHandlerMethodArgumentResolver"/>           
-	   </mvc:argument-resolvers>
+	   </mvc:argument-resolvers> -->
 	   
 	</mvc:annotation-driven>
 	
@@ -45,9 +45,9 @@
 
 	
     <!-- 파일업로드 bean -->
-	<bean class="java.lang.String" id="uploadPath">
+<!-- 	<bean class="java.lang.String" id="uploadPath">
 		<constructor-arg value="C:\Users\MyComputer\eclipse-workspace-1week\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\MovieReview\resources"/>
-	</bean> 
+	</bean> -->
 	
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->

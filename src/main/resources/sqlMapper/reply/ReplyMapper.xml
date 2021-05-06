@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ReplyMapper">
+
+
+	<insert id="insert" parameterType="replyvo">
+		<![CDATA[
+			insert
+			into reply
+			values(null, #{writer}, #{content}, now(), #{commentNo}, #{postNo})
+		]]>
+	</insert>
+	
+	<select id="findAllReply" parameterType="Long" resultType="replyvo">
+		<![CDATA[
+			select no, writer, content, reg_date, comment_no
+			from reply
+			where post_no = #{post_no}
+		]]>
+	</select>
+	
+	<delete id="delete" parameterType="Long">
+		<![CDATA[
+			delete
+			from reply
+			where no = #{no}
+		]]>
+	</delete>
+	
+</mapper>
