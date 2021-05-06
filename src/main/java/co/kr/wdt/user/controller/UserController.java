@@ -1,7 +1,5 @@
 package co.kr.wdt.user.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -27,4 +27,19 @@
 		WHERE SUBJECTS = #{value }
 		AND LEVEL ='PRO'
 	</select>
+	
+	<select id="userProfile" parameterType="int" resultType="co.kr.wdt.common.vo.ProFilerVo">
+		SELECT A.NO AS USER_NO
+			, A.INPUT_NAME AS USER_NM
+			, A.INPUT_SCHOOL
+			, A.INPUT_ID AS USER_ID
+			, A.INPUT_MAJOR
+			, A.USER_PW
+			, A.LEVEL AS USER_LEVEL
+			, A.REG_DATE
+			, A.SUBJECTS
+			, B.FULL_NAME
+		FROM MEMBER A JOIN USER_ADD_FILE B ON A.NO = B.NO
+		WHERE A.INPUT_ID = #{value }
+	</select>
 </mapper>

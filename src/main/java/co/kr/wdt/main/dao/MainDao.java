@@ -25,4 +25,8 @@ public class MainDao extends CommonSqlDao2 {
 	public List<ProfessorVo> professorList(String value) {
 		return selectList(PREFIX + "professorList", value);
 	}
+
+	public Object userProfile(int userId) {
+		return selectOne(PREFIX + "userProfile", userId);
+	}
 }

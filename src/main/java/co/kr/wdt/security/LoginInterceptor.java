@@ -50,7 +50,6 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 				session.setAttribute("userSchool", userVo.getInputSchool());
 				session.setAttribute("userLevel", userVo.getLevel());
 				session.setAttribute("userPw", userVo.getUserPw());
-				session.setAttribute("fullName", userVo.getFullName());
 				response.sendRedirect("/main/mainPage.do");
 				return false;
 			} else {

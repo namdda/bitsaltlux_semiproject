@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import co.kr.wdt.main.service.MainService;
 import co.kr.wdt.subject.service.SubjectService;
 import co.kr.wdt.subject.vo.SubjectVo;
 
@@ -19,6 +20,9 @@ public class SubjectController {
 
 	@Autowired
 	private SubjectService subjectService;
+	
+	@Autowired
+	private MainService mainService;
 
 	@RequestMapping(value="/studentSubjectView.do", method={RequestMethod.GET,RequestMethod.POST})
 	String studentSubjectView(@RequestParam(value="inputId", required=false) String inputId, @RequestParam(value="idx", required=false) String idx, Model model) {
@@ -27,6 +31,7 @@ public class SubjectController {
 			model.addAttribute("sccessCall", "정상 취소 되셨습니다.");
 		}
 		List<SubjectVo> subjectVo = subjectService.studentsubjectView(inputId);
+		model.addAttribute("userProfile", mainService.userProfile(Integer.parseInt(inputId)));
 		model.addAttribute("subjectList", subjectVo);
 		return "subject/studentSubjectView";
 	}

@@ -23,14 +23,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import co.kr.wdt.common.vo.AllTypeVo;
 import co.kr.wdt.common.vo.MajorVo;
 import co.kr.wdt.common.vo.ProfessorVo;
-import co.kr.wdt.main.service.MainSevice;
+import co.kr.wdt.main.service.MainService;
 
 @Controller
 @RequestMapping(value="/main")
 public class MainController {
 
 	@Autowired
-	private MainSevice mainService;
+	private MainService mainService;
 	
 	@Autowired
 	private String uploadPath;
@@ -46,6 +46,8 @@ public class MainController {
 			if(session.getAttribute("userId") == null) redirectUrl ="redirect:/login/loginPage.do?Status=SESSIONOUT";
 			// if("PRO".equals(session.getAttribute("level"))) redirectUrl = "main/proMainPage";
 		}
+		int userId = (int) (session.getAttribute("userId"));
+		model.addAttribute("userProfile", mainService.userProfile(userId));
 		model.addAttribute("majorList", majorVo);
 		return redirectUrl;
 	}

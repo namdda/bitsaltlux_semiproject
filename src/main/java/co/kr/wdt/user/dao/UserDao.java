@@ -38,4 +38,13 @@ public class UserDao extends CommonSqlDao2 {
 		return (int) selectOne(PREFIX + "maxNo");
 	}
 
+	public String selectUserProfileFullName(int no) {
+		return (String)selectOne(PREFIX + "selectUserProfileFullName", no);
+		//아니 이거 자체는 문제가 있는 듯? 저거인가? 나는 저 "no"가 뭔지 모른다 
+	}
+	
+	public void imageDelete(int no) {
+		delete(PREFIX +"imageDelete", no);
+	}
+
 }
