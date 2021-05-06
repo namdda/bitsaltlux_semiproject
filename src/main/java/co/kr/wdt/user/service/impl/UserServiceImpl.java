@@ -2,6 +2,7 @@ package co.kr.wdt.user.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.mindrot.jbcrypt.BCrypt;
 
 import co.kr.wdt.user.dao.UserDao;
 import co.kr.wdt.user.service.UserService;
@@ -32,6 +33,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void updateProc(UserVo userVo) {
+		String hashPassword = BCrypt.hashpw(userVo.getUserPw(), BCrypt.gensalt());
+		userVo.setUserPw(hashPassword);
 		userDao.updateProc(userVo);
 	}
 

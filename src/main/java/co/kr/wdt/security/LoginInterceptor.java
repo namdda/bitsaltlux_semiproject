@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -21,6 +22,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		
+		String password = (request.getParameter("userPw") != null) ? request.getParameter("userPw") : "";
 		String redirectUrl = "redirect:/login/loginPage.do?Status=PWNE";
 		UserVo userVo = new UserVo();
 		LoginVo loginVo = new LoginVo();
@@ -35,10 +37,10 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		}
 		
 		
-		userVo = loginService.loginProc(loginVo.getInputId());
+userVo = loginService.loginProc(loginVo.getInputId());
 		
 		if(userVo != null) {
-			if(userVo.getUserPw().equals(loginVo.getUserPw())) {
+			if(BCrypt.checkpw(password, userVo.getUserPw())) {
 				HttpSession session = request.getSession(true);
 				session.setAttribute("userNo", userVo.getNo());
 				session.setAttribute("userId", userVo.getInputId());
