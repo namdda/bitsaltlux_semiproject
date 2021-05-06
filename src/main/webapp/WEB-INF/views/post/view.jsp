@@ -26,8 +26,16 @@
 									<div class="title-area">
 										<h1 class="title-modern" style="color: white;">${postVo.title }</h1>		
 									</div>
-									<div class="col-md-12" style="display: inline; margin-top:20px;">
-										<h4 class="blog-post-meta">${postVo.author } / ${postVo.wDate } </h4>
+									<div class="col-md-12" style="margin-top:40px;">
+										<c:choose>
+											<c:when test="${postVo.author eq sessionScope.userNm}">
+												<h4 class="blog-post-meta" style="display: inline-block; ">${postVo.author } /</h4>
+											</c:when>
+											<c:otherwise>
+												<h4 class="blog-post-meta" style="display: inline-block; "><a onclick="sendMessage(${postVo.blogId})" style="color: white;" role="button">${postVo.author }</a> /</h4>	
+											</c:otherwise>
+										</c:choose>
+										<h4 class="blog-post-meta" style="display: inline-block; ">${postVo.wDate }</h4>
 									</div>
 								</div>
 							</div>
@@ -212,6 +220,15 @@
 		        location.href='reply/' + no + '/delete.do?result=true';
 		    }
 		}
+		
+		function sendMessage(id) {
+		    var chk = confirm("메세지를 보내시겠습니까?");
+		    if (chk) {
+		        location.href='/message/' + id + '/sendProc.do';
+		    }
+		}
+		
+
 	</script>
 </body>
 </html>

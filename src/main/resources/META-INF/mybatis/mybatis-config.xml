@@ -17,5 +17,6 @@
 		<typeAlias type="co.kr.wdt.post.vo.PostVo" alias="postvo" />
 		<typeAlias type="co.kr.wdt.comment.vo.CommentVo" alias="commentvo" />
 		<typeAlias type="co.kr.wdt.reply.vo.ReplyVo" alias="replyvo" />
+		<typeAlias type="co.kr.wdt.message.vo.MessageVo" alias="messagevo" />
 	</typeAliases>
 </configuration>
