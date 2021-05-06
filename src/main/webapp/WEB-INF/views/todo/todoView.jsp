@@ -29,6 +29,8 @@ button.left, .todo-area{
     margin-right: 10px;
 }
 </style>
+<c:set var="now" value="<%=new java.util.Date()%>" />
+<c:set var="nowdate"><fmt:formatDate value="${now}" pattern="yyyy-MM-dd" /></c:set> 
 </head>
 
 <body id="page-top">
@@ -90,7 +92,7 @@ button.left, .todo-area{
 								</c:otherwise>
 							</c:choose>
 							<!-- </a> -->
-							<a href="/todo/todoView.do" class=""><i class="lnr lnr-code"></i>
+							<a href="/todo/todoView.do" class=""><i class="lnr lnr-list"></i>
 								<span>TODO</span>
 							</a>
 						</li>
@@ -175,16 +177,25 @@ button.left, .todo-area{
 													<!--  조회 화면  -->
 													<tr class="viewTodo" >		
 														<td valign=middle>
-															<span class="imgClickAndChange" onclick="changeImage(${todovo.no})" style="display:block">
-																<c:choose>
-																	<c:when test="${todovo.issuccess eq 1}" >
-																		<img alt="" src="/assets/img/checked.png" />
-																	</c:when>
-																	<c:otherwise>
-																		<img alt="" src="/assets/img/unchecked.png"  />
-																	</c:otherwise>
-																</c:choose>      
-															</span>
+															<!-- checkbox 안뜨게끔 처리 -->
+															<c:choose>
+																<c:when test="${todovo.duedate < nowdate || todovo.startdate > nowdate}">
+																	
+																</c:when>
+																<c:otherwise>
+																	<span class="imgClickAndChange" onclick="changeImage(${todovo.no})" style="display:block">
+																		<c:choose>
+																			<c:when test="${todovo.issuccess eq 1}" >
+																				<img alt="" src="/assets/img/checked.png" />
+																			</c:when>
+																			<c:otherwise>
+																				<img alt="" src="/assets/img/unchecked.png"  />
+																			</c:otherwise>
+																		</c:choose>      
+																	</span>
+																</c:otherwise>
+															</c:choose>
+															
 														</td>
 														<td valign=middle>${todovo.title}</td>
 														<td valign=middle>${todovo.startdate}</td>

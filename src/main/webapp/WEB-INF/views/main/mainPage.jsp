@@ -289,7 +289,7 @@ function addZeros(num, digit) { // 자릿수 맞춰주기
 									</a>
 								</c:otherwise>
 							</c:choose>
-							<a href="/todo/todoView.do" class=""><i class="lnr lnr-code"></i>
+							<a href="/todo/todoView.do" class=""><i class="lnr lnr-list"></i>
 								<span>TODO</span>
 							</a>
 							<!-- </a> -->
