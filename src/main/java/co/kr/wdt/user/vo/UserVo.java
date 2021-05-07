@@ -14,6 +14,7 @@ public class UserVo implements Serializable {
 	private String userPw;
 	private String level;
 	private String subjects;
+	
 
 	public int getNo() {
 		return no;
@@ -78,7 +79,7 @@ public class UserVo implements Serializable {
 	public void setSubjects(String subjects) {
 		this.subjects = subjects;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "UserVo [no=" + no + ", inputName=" + inputName + ", inputSchool=" + inputSchool + ", inputId=" + inputId

@@ -14,9 +14,11 @@
 				</div>
 				<div id="navbar-menu">
 					<ul class="nav navbar-nav navbar-right">
-						<li class="dropdown">
+						<li>					
+							<form action="/blog/searchProc.do">						
+							<input class="form-control" type="text" name="keyword" placeholder="Search" aria-label="Search" style="margin-top:24px;">				
+							</form>
 						</li>
-						
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="/assets/img/user.png" class="img-circle" alt="Avatar" style="display: none;"/><span>${sessionScope.userNm }</span></a>
 							<ul class="dropdown-menu">
@@ -79,6 +81,22 @@
 							</ul>
 						</div></li>
 				</c:if>
+				<li>
+					<a href="/todo/todoView.do" class=""><i class="lnr lnr-list"></i>
+						<span>TODO</span>
+					</a>
+				</li>
+				<li>
+					<a href="#subPages" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i><span> 수강평가</span><i class="icon-submenu lnr lnr-chevron-left"></i></a>
+					<div id="subPages" class="collapse">
+						<ul class="nav">
+							<li><a href="/courseEvaluationMain/hotCourse.do">수강평가 메인</a></li>
+							<c:if test="${sessionScope.userLevel == 'PRO' }">
+							<li><a href="/courseEvaluationManagement/getCourseList.do">수강평가 과목 관리</a></li>
+							</c:if>
+						</ul>
+					</div>
+				</li>
 			</ul>
 		</nav>
 	</div>

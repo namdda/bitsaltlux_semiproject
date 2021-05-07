@@ -31,9 +31,9 @@
 			</bean>
 		</mvc:message-converters>
 		
-	   <!-- <mvc:argument-resolvers>
-		 	<bean class="co.kr.wdt.security.AuthUserHandlerMethodArgumentResolver"/>           
-	   </mvc:argument-resolvers> -->
+   <mvc:argument-resolvers>
+	 	<bean class="co.kr.wdt.security.AuthUserHandlerMethodArgumentResolver"/>           
+   </mvc:argument-resolvers> 
 	   
 	</mvc:annotation-driven>
 	

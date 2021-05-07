@@ -89,8 +89,8 @@ public class CourseEvaluationBoardController {
 		
 		courseEvaluationBoardService.write(param);
 		
-		if(courseEvaluationBoardVo.getCourseName() != null) {
-			redirectAttributes.addAttribute("movieName", courseEvaluationBoardVo.getCourseName());	
+		if(courseEvaluationBoardVo.getCourseIdx() != 0) {
+			redirectAttributes.addAttribute("courseIdx", courseEvaluationBoardVo.getCourseIdx());	
 		}
 		return "redirect:/courseEvaluationBoard/list.do";
 	}
@@ -108,8 +108,13 @@ public class CourseEvaluationBoardController {
 	// 게시판 글 update
 	@Auth
 	@RequestMapping(value="/update/{boardIdx}.do", method=RequestMethod.POST)
-	public String update(@AuthUser UserVo userVo, CourseEvaluationBoardVo courseEvaluationBoardVo, @PathVariable("boardIdx") int boardIdx) {
+	public String update(@AuthUser UserVo userVo, CourseEvaluationBoardVo courseEvaluationBoardVo, @PathVariable("boardIdx") int boardIdx, RedirectAttributes redirectAttributes) {
 		courseEvaluationBoardService.update(courseEvaluationBoardVo);
+		
+		if(courseEvaluationBoardVo.getCourseIdx() != 0) {
+			redirectAttributes.addAttribute("courseIdx", courseEvaluationBoardVo.getCourseIdx());	
+		}
+		
 		return "redirect:/courseEvaluationBoard/list.do";
 	}
 	
