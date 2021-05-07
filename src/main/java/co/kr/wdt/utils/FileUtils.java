@@ -27,6 +27,22 @@ public class FileUtils {
 	private static final int THUMB_HEIGHT = 150;
 	private String filePath = null;
 	
+	public void getFilepath() {
+		String path = this.getClass().getResource("").getPath().toString();
+		path = path.replace("/", "\\");
+		int point = path.indexOf("\\.metadata");
+		String path2 = path.substring(1, point);
+		
+		// ProjectName 구하기
+		String text = "\\wtpwebapps";
+		int point2 = path.indexOf(text);
+		String path3 = path.substring(point2 + text.length()+1, path.indexOf("\\WEB-INF"));
+		
+		
+		String projectInnerPath = "\\src\\main\\webapp\\resources\\upload\\";
+		filePath = path2 + File.separator + path3 + projectInnerPath;
+	}
+	
 	public void getFilepath(HttpServletRequest request) {
 		
 		// WorkSpack 경로 구하기
@@ -87,24 +103,6 @@ public class FileUtils {
 
 		return list; 
 	} 
-	
-
-	public void getFilepath() {
-		// WorkSpack 경로 구하기
-		String path = this.getClass().getResource("").getPath().toString();
-		int point = path.indexOf("\\.metadata");
-		String path2 = path.substring(1, point);
-		
-		// ProjectName 구하기
-		String text = "\\wtpwebapps";
-		int point2 = path.indexOf(text);
-		String path3 = path.substring(point2 + text.length()+1, path.length());
-		
-		// Project 내부 경로
-		String projectInnerPath = "\\src\\main\\webapp\\resources\\upload\\";
-		filePath = path2 + File.separator + path3 + projectInnerPath;
-	
-	}
 	
 
 	public List<String> uploadLogo(MultipartFile file) {

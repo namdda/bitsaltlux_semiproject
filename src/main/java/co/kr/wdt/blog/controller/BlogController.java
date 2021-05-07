@@ -103,9 +103,9 @@ public class BlogController {
 			blogVo.setOriginLogo(null);
 			blogVo.setThumbLogo(null);
 		} else {
-			blogVo = blogService.findMyBlog(id);
+			blogVo.setOriginLogo(blogService.findMyBlog(id).getOriginLogo());
 			
-			if(!blogVo.getOriginLogo().isEmpty() ) {
+			if(blogVo.getOriginLogo() != null ) {
 				fileUtils.blogDelete(blogVo);
 			}
 			
@@ -113,7 +113,7 @@ public class BlogController {
 			blogVo.setOriginLogo(list.get(0));
 			blogVo.setThumbLogo(list.get(1));
 		}
-		
+		System.out.println(blogVo);
 		blogService.update(blogVo);
 		return "redirect:/blog/{id}/mainPage.do";
 	}

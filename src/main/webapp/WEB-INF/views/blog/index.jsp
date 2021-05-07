@@ -29,11 +29,11 @@
 					<div class="col-xs-4 col-md-4" style="text-align: center">
 						<div class="thumbnail">
 							<c:choose>
-								<c:when test="${vo.thumbLogo ne null } ">
+								<c:when test="${vo.thumbLogo ne null }">
 									<img src="/resources/upload/${vo.thumbLogo }"/>
 								</c:when>
 								<c:otherwise>
-									<img src="https://i.imgur.com/mCHMpLT.png"/>
+									<img src="https://i.imgur.com/mCHMpLT.png" style="width:250px; height:150px;"/>
 								</c:otherwise>
 							</c:choose>
 							

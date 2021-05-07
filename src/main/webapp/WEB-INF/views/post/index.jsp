@@ -61,7 +61,7 @@
 					<div class="row" style="margin-top: 30px;">
 						<div class="col-md-4">
 							<c:if test="${sessionScope.userId eq blogVo.userId }">
-								<button class="btn btn-danger" onclick="blogDel(${sessionScope.userPw})">블로그 삭제</button>
+								<button class="btn btn-danger" onclick="blogDel()">블로그 삭제</button>
 							</c:if>
 						</div>
 						<div class="col-md-4">
@@ -112,11 +112,11 @@
 	<script src="/assets/new/js/jquery/jquery-3.6.0.js"></script>
 	<script src="/assets/new/js/bootstrap.bundle.min.js"></script>
 	<script type="text/javascript">
-		function blogDel(pw) {
+		function blogDel() {
 		    var chk = confirm("정말 삭제하시겠습니까?");
 		    if (chk) {
-		    	const check_pw = prompt("비밀번호를 입력해주세요.");
-		    	if(pw == check_pw){
+		    	const check_pw = prompt("'동의합니다'를 입력해주세요.");
+		    	if(check_pw == '동의합니다'){
 		    		location.href= 'delete.do?result=true';	
 		    	} else {
 		    		alert("블로그 삭제를 실패하였습니다.");	
