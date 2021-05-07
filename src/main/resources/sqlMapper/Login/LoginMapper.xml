@@ -3,7 +3,8 @@
 
 <mapper namespace="LoginMapper">
 	<select id="loginProc" parameterType="String" resultType="co.kr.wdt.user.vo.UserVo">
-		SELECT INPUT_NAME
+		SELECT NO
+			, INPUT_NAME
 			, INPUT_SCHOOL
 			, INPUT_ID
 			, INPUT_MAJOR

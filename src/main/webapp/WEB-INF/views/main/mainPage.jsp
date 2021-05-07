@@ -296,6 +296,7 @@ function addZeros(num, digit) { // 자릿수 맞춰주기
 							</a>
 							<!-- </a> -->
 						</li>
+						<c:import url='/WEB-INF/include/courseevaluationbar.jsp' />
 						<c:if test="${sessionScope.userLevel == 'PRO'}">
 							<li style="display: none;">
 								<a href="#subPages" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i><span> 과목</span><i class="icon-submenu lnr lnr-chevron-left"></i></a>

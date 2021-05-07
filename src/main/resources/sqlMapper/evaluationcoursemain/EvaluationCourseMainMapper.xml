@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="courseEvaluationMain">
+	<select id="top9" resultType="paramMap" >
+		<![CDATA[
+			SELECT
+				c.COURSE_IDX,
+				c.COURSE_NAME,
+				PARTICI_NUM,
+				STORED_FILE_NAME
+			FROM
+				course c
+				LEFT OUTER JOIN
+			    	course_file cf 
+			    ON c.COURSE_IDX = cf.COURSE_IDX
+			ORDER BY HIT_CNT DESC
+			LIMIT 9
+		]]>
+	</select>
+	
+
+	<select id="getSelectCategoryMovies" parameterType="String" resultType="paramMap" >
+		<![CDATA[
+			SELECT
+				c.COURSE_IDX,
+				c.COURSE_NAME,
+				PARTICI_NUM,
+				STORED_FILE_NAME
+			FROM
+				course c
+				LEFT OUTER JOIN
+			    	course_file cf
+			    ON c.COURSE_IDX = cf.COURSE_IDX
+			WHERE c.COURSE_CODE = #{courseCode}  
+			ORDER BY HIT_CNT DESC
+		]]>
+	</select>
+	
+	
+	<select id="getMovieCategoryList" resultType="paramMap" >
+		<![CDATA[
+			SELECT
+				COURSE_CODE,
+				COURSE_CATE_NAME
+			FROM
+				course_category
+			WHERE
+				COURSE_CODE_REF IS NOT NULL;
+		]]>
+	</select>
+	
+</mapper>
