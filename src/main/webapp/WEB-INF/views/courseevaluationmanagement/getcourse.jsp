@@ -54,7 +54,7 @@
 						<tr>
 							<td style="padding:20px">썸네일 이미지</td>
 							<td style="padding:20px">
-								<img src="/assets/upload/${courseVo.STORED_FILE_NAME}" style="width:300px; height:400px">
+								<img src="/resources/upload/${courseVo.STORED_FILE_NAME}" style="width:300px; height:400px">
 								</td>
 							</tr>	
 						</table>

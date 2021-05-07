@@ -48,7 +48,7 @@
 						  <div style="margin-left:100px; margin-bottom:50px;">
 							<div class="jb-image">
 								<a href="/courseEvaluationBoard/list.do?courseIdx=${list[0].COURSE_IDX}">
-								<img src="/assets/upload/${list[0].STORED_FILE_NAME}" alt="${list[0].COURSE_NAME }" style="width:70%">
+								<img src="/resources/upload/${list[0].STORED_FILE_NAME}" alt="${list[0].COURSE_NAME }" style="width:70%">
 								</a>
 							</div>
 							<div class="jb-text" style="width:70%">
@@ -64,7 +64,7 @@
 						<div class="jb-wrap">
 							<div class="jb-image">
 								<a href="/courseEvaluationBoard/list.do?courseIdx=${courseVo.COURSE_IDX}">
-								<img src="/assets/upload/${courseVo.STORED_FILE_NAME}" style="width:100%">
+								<img src="/resources/upload/${courseVo.STORED_FILE_NAME}" style="width:100%">
 								</a>
 							</div>
 							<div class="jb-text">

@@ -45,6 +45,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		
 		if(userVo != null) {
 			if(BCrypt.checkpw(password, userVo.getUserPw())) {
+				
 				HttpSession session = request.getSession(true);
 				session.setAttribute("userNo", userVo.getNo());
 				session.setAttribute("userId", userVo.getInputId());
@@ -60,6 +61,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 				return false;
 			}
 		} 
+		
 		
 		return false;
 	}

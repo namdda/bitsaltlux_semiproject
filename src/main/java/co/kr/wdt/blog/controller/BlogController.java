@@ -16,10 +16,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import co.kr.wdt.blog.service.BlogService;
 import co.kr.wdt.blog.vo.BlogVo;
-import co.kr.wdt.common.service.FileUploadService;
 import co.kr.wdt.common.vo.BlogPageVo;
 import co.kr.wdt.post.vo.PostVo;
 import co.kr.wdt.security.Auth;
+import co.kr.wdt.utils.FileUtils;
 
 @Controller
 @RequestMapping("/blog")
@@ -27,12 +27,8 @@ public class BlogController {
 
 	@Autowired
 	private BlogService blogService;
-	
 	@Autowired
-	private FileUploadService fileUploadService;
-	
-	@Resource(name = "uploadPath")
-	private String uploadPath;
+	private FileUtils fileUtils;
 	
 	@RequestMapping("/mainPage.do")
 	public String index(Model model, @RequestParam(value="page", required=false) String pageNum) {
@@ -80,7 +76,7 @@ public class BlogController {
 			blogVo.setOriginLogo(null);
 			blogVo.setThumbLogo(null);
 		} else {
-			List<String> path = fileUploadService.uploadLogo(file, uploadPath);
+			List<String> path = fileUtils.uploadLogo(file);
 			blogVo.setOriginLogo(path.get(0));
 			blogVo.setThumbLogo(path.get(1));
 		}
@@ -102,7 +98,7 @@ public class BlogController {
 	public String update(BlogVo blogVo, @PathVariable("id") int id, @RequestParam("file") MultipartFile file) {
 		if(file.isEmpty()) {
 			if(blogVo.getOriginLogo() != null ) {
-				fileUploadService.blogDelete(blogVo, uploadPath);
+				fileUtils.blogDelete(blogVo);
 			}
 			blogVo.setOriginLogo(null);
 			blogVo.setThumbLogo(null);
@@ -110,10 +106,10 @@ public class BlogController {
 			blogVo = blogService.findMyBlog(id);
 			
 			if(!blogVo.getOriginLogo().isEmpty() ) {
-				fileUploadService.blogDelete(blogVo, uploadPath);
+				fileUtils.blogDelete(blogVo);
 			}
 			
-			List<String> list = fileUploadService.uploadLogo(file, uploadPath);
+			List<String> list = fileUtils.uploadLogo(file);
 			blogVo.setOriginLogo(list.get(0));
 			blogVo.setThumbLogo(list.get(1));
 		}
@@ -127,7 +123,7 @@ public class BlogController {
 	public String delete(@PathVariable("id") int id, @RequestParam("result") String result) {
 		if(result.equals("true")) {
 			BlogVo blogVo = blogService.findMyBlog(id);
-			fileUploadService.blogDelete(blogVo, uploadPath);
+			fileUtils.blogDelete(blogVo);
 			blogService.delete(id);
 		}
 		return "redirect:/blog/{id}/blogMain.do";

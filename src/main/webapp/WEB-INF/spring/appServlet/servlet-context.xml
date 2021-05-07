@@ -56,11 +56,7 @@
 		<!-- defaultEncoding -->
 		<property name="defaultEncoding" value="utf-8" />
 	</bean>
-	
-    <!-- 파일업로드 bean -->
-	<bean id="uploadPath" class="java.lang.String">
-		<constructor-arg value="D:\bitsaltlux\bitsaltlux_semiproject\src\main\webapp\resources\upload"/>
-	</bean>
+
 	
 	<!-- 일반 파일 업로드 경로 -->
 	<mvc:resources mapping="/resources/**" location="/resources/" />

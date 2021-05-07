@@ -37,7 +37,7 @@
 									<c:forEach items="${list}" var="list">
 									<tr>
 										<td id='img'>
-											<img src="/assets/upload/${list.STORED_FILE_NAME}" style="width:300px; height:400px"> 
+											<img src="/resources/upload/${list.STORED_FILE_NAME}" style="width:300px; height:400px"> 
 										</td>
 										<td>
 											<a href="/courseEvaluationManagement/courseViewDetail/${list.COURSE_IDX}.do">${list.COURSE_NAME}</a>

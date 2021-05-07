@@ -2,8 +2,6 @@ package co.kr.wdt.post.controller;
 
 import java.util.List;
 
-import javax.annotation.Resource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,13 +16,13 @@ import co.kr.wdt.blog.service.BlogService;
 import co.kr.wdt.blog.vo.BlogVo;
 import co.kr.wdt.comment.service.CommentService;
 import co.kr.wdt.comment.vo.CommentVo;
-import co.kr.wdt.common.service.FileUploadService;
 import co.kr.wdt.common.vo.BlogPageVo;
 import co.kr.wdt.post.service.PostService;
 import co.kr.wdt.post.vo.PostVo;
 import co.kr.wdt.reply.service.ReplyService;
 import co.kr.wdt.reply.vo.ReplyVo;
 import co.kr.wdt.security.Auth;
+import co.kr.wdt.utils.FileUtils;
 
 @Controller
 @RequestMapping("/blog/{id}")
@@ -43,10 +41,8 @@ public class PostController {
 	private ReplyService replyService;
 	
 	@Autowired
-	private FileUploadService fileUploadService;
+	private FileUtils fileUtils;
 	
-	@Resource(name = "uploadPath")
-	private String uploadPath;
 	
 
 	@RequestMapping("/mainPage.do")
@@ -80,7 +76,7 @@ public class PostController {
 			postVo.setOriginFile(null);
 			postVo.setStoredFile(null);
 		} else {
-			List<String> path = fileUploadService.uploadFile(file, uploadPath);
+			List<String> path = fileUtils.uploadFile(file);
 			postVo.setOriginFile(path.get(0));
 			postVo.setStoredFile(path.get(1));
 		}
@@ -118,12 +114,12 @@ public class PostController {
 	public String postUpdate(PostVo postVo, @PathVariable("no") Long no, @RequestParam("file") MultipartFile file) {
 		if(file.isEmpty()) {
 			if(postVo.getOriginFile() != null ) {
-				fileUploadService.postDelete(postVo, uploadPath);
+				fileUtils.postDelete(postVo);
 			}
 			postVo.setOriginFile(null);
 			postVo.setStoredFile(null);
 		} else {
-			List<String> path = fileUploadService.uploadFile(file, uploadPath);
+			List<String> path = fileUtils.uploadFile(file);
 			postVo.setOriginFile(path.get(0));
 			postVo.setStoredFile(path.get(1));
 		}
