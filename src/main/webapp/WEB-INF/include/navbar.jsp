@@ -4,46 +4,38 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!-- NAVBAR -->
-<nav class="navbar navbar-default navbar-fixed-top">
-	<div class="brand">
-		<a href="/main/mainPage.do"><img src="/assets/img/zxc1.png"
-			class="img-responsive logo" /></a>
-	</div>
-	<div class="container-fluid">
-		<div class="navbar-btn">
-			<button type="button" class="btn-toggle-fullwidth">
-				<i class="lnr lnr-arrow-left-circle"></i>
-			</button>
-		</div>
-		<div id="navbar-menu">
-			<ul class="nav navbar-nav navbar-right">
-				<li>
-					<form action="/blog/searchProc.do">
-						<input class="form-control" type="text" name="keyword" placeholder="Search" aria-label="Search" style="margin-top:24px;">
-					</form>
-				</li>
-				<li class="dropdown"></li>
-				<li><a href="/login/logOut.do" class="dropdown-toggle"><span>logout</span></a>
-				</li>
-				<li class="dropdown"><a href="#" class="dropdown-toggle"
-					data-toggle="dropdown"><img src="/assets/img/user.png"
-						class="img-circle" alt="Avatar" style="display: none;" /><span>${sessionScope.userNm }</span></a>
-					<ul class="dropdown-menu">
-						<li><a href="#"><i class="lnr lnr-user"></i> <span>My
-									Profile</span></a></li>
-						<li><a href="#"><i class="lnr lnr-envelope"></i> <span>Message</span></a></li>
-						<li><a href="/blog/${sessionScope.userId }/blogMain.do"><i
-								class="lnr lnr-book"></i> <span>블로그 가기</span></a></li>
-						<li><a href="#"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>
-					</ul></li>
-				<!-- <li>
-					<a class="update-pro" href="https://www.themeineed.com/downloads/klorofil-pro-bootstrap-admin-dashboard-template/?utm_source=klorofil&utm_medium=template&utm_campaign=KlorofilPro" title="Upgrade to Pro" target="_blank"><i class="fa fa-rocket"></i> <span>UPGRADE TO PRO</span></a>
-				</li> -->
-			</ul>
-		</div>
-	</div>
-</nav>
-<!-- END NAVBAR -->
+		<nav class="navbar navbar-default navbar-fixed-top">
+			<div class="brand">
+				<a href="/main/mainPage.do"><img src="/assets/img/zxc1.png" class="img-responsive logo" /></a>
+			</div>
+			<div class="container-fluid">
+				<div class="navbar-btn">
+					<button type="button" class="btn-toggle-fullwidth"><i class="lnr lnr-arrow-left-circle"></i></button>
+				</div>
+				<div id="navbar-menu">
+					<ul class="nav navbar-nav navbar-right">
+						<li class="dropdown">
+						</li>
+						
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="/assets/img/user.png" class="img-circle" alt="Avatar" style="display: none;"/><span>${sessionScope.userNm }</span></a>
+							<ul class="dropdown-menu">
+
+								<li><a href="/user/userUpdate.do?inputId=${sessionScope.userId }" class="active"><i class="lnr lnr-user"></i> <span>회원 정보</span></a></li>
+								<li><a href="/message/${sessionScope.userId }/mainPage.do"><i class="lnr lnr-envelope"></i> <span>메세지</span></a></li>
+								<li><a href="/blog/${sessionScope.userId }/blogMain.do"><i class="lnr lnr-book"></i> <span>블로그 가기</span></a></li>
+								<li><a href="/login/logOut.do"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>
+								
+							</ul>
+						</li>
+						<!-- <li>
+							<a class="update-pro" href="https://www.themeineed.com/downloads/klorofil-pro-bootstrap-admin-dashboard-template/?utm_source=klorofil&utm_medium=template&utm_campaign=KlorofilPro" title="Upgrade to Pro" target="_blank"><i class="fa fa-rocket"></i> <span>UPGRADE TO PRO</span></a>
+						</li> -->
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<!-- END NAVBAR -->
 <!-- LEFT SIDEBAR -->
 <div id="sidebar-nav" class="sidebar">
 	<div class="sidebar-scroll">

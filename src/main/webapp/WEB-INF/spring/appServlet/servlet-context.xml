@@ -86,6 +86,13 @@
 			<mvc:mapping path="/login/logOut.do"/>
 			<bean class="co.kr.wdt.security.LogoutInterceptor"/>
 		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<mvc:exclude-mapping path="/assets/**"/>
+			<mvc:exclude-mapping path="/login/loginProc.do"/>
+			<mvc:exclude-mapping path="/login/logOut.do"/>
+			<bean class="co.kr.wdt.security.AuthInterceptor"/>
+		</mvc:interceptor>
 	</mvc:interceptors>
 
 	<context:annotation-config />

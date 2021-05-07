@@ -76,7 +76,7 @@ $(function(){
 		<!-- NAVBAR -->
 		<nav class="navbar navbar-default navbar-fixed-top">
 			<div class="brand">
-				<a href="../login/loginPage.do"><img src="/assets/img/logo-dark.png" alt="Klorofil Logo" class="img-responsive logo" /></a>
+				<a href="../login/loginPage.do"><img src="/assets/img/zxc1.png" class="img-responsive logo" /></a>
 			</div>
 			<div class="container-fluid"></div>
 		</nav>
